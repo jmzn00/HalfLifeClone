@@ -16,23 +16,20 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private Animator handAnimator;
     [SerializeField] private RuntimeAnimatorController baseHandController;
     private AnimatorOverrideController activeOverride;
+
     private void Awake()
     {
         playerCam = Camera.main;
 
-        GameServices.Input.Actions.Player.Attack.performed += ctx => attackPending = true;
-        GameServices.Input.Actions.Player.Attack.canceled += ctx => attackPending = false;
+        GameServices.Input.Actions.Player.Attack.performed += ctx => Attack(); ;
+        //GameServices.Input.Actions.Player.Attack.canceled += ctx => attackPending = false;
+        GameServices.Input.Actions.Player.WeaponScroll.performed += ctx => WeaponScroll((int)ctx.ReadValue<float>());
 
         ApplyWeapon(unlockedWeapons[0]);
-    }
-
-    private void Update()
+    }    
+    private void WeaponScroll(int value) 
     {
-        if (attackPending) 
-        {
-            attackPending = false;
-            Attack();
-        }
+        Debug.Log("Weapon Scroll: " + value);
     }
     private void ApplyWeapon(WeaponData data)
     {
@@ -45,14 +42,12 @@ public class WeaponController : MonoBehaviour
         }
         
         handAnimator.runtimeAnimatorController = set.overrideController;
-        EquipWeapon(data);
-        handAnimator.SetTrigger("Draw");
     }
     private void EquipWeapon(WeaponData data) 
     {
         if (data == null) return;
         currentWeapon = data;
-
+        
         if (weaponInstances.ContainsKey(currentWeapon)) 
         {
             foreach (var weapon in weaponInstances) 
@@ -67,7 +62,8 @@ public class WeaponController : MonoBehaviour
             weaponInstance.transform.localRotation = Quaternion.identity;
 
             weaponInstances.Add(currentWeapon, weaponInstance);
-        }            
+        }
+
         handAnimator.SetTrigger("Draw");
     }    
 

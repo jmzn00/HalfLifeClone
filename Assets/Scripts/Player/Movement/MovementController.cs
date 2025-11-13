@@ -111,7 +111,7 @@ public class MovementController : MonoBehaviour
     [SerializeField] private Transform cameraPivot;
     private void CameraFollow()
     {
-        cameraPivot.rotation = Quaternion.Euler(_pitch, _yaw, 0);
+        cameraPivot.rotation = Quaternion.Euler(0, _yaw, 0);
     }
     #endregion   
     private void Update()
@@ -119,8 +119,6 @@ public class MovementController : MonoBehaviour
         GetMovementInput();
         //GetMouseInput();
         GetLookInput();
-        
-
     }
     [SerializeField] private float StickDegPerSec = 240f;
     private void GetLookInput()
@@ -158,14 +156,14 @@ public class MovementController : MonoBehaviour
         {
             AirAccelerate();
             ApplyGravity();
-        }
-        CameraFollow();
+        }        
         _rb.MoveRotation(Quaternion.Euler(0, _yaw, 0));
 
         _rb.linearVelocity = _velocity;
         _isGrounded = false;
         groundNormal = Vector3.zero;
 
+        /*
         if(_currentPlatform != null) 
         {
             _currentPlatform.ConsumeDeltas(out Vector3 dPos, out Quaternion dRot);
@@ -173,6 +171,11 @@ public class MovementController : MonoBehaviour
             _rb.MovePosition(_rb.position + dPos);
             _rb.MoveRotation(_rb.rotation * dRot);
         }
+        */
+    }
+    private void LateUpdate()
+    {
+        cameraPivot.localRotation = Quaternion.Euler(_pitch, 0, 0);
     }
     public void Teleport(Vector3 pos)
     {
@@ -254,6 +257,7 @@ public class MovementController : MonoBehaviour
     {
         foreach (ContactPoint contact in collision.contacts)
         {
+            /*
             if(_currentPlatform == null) 
             {
                 MovingPlatform plat = contact.otherCollider.GetComponent<MovingPlatform>();
@@ -262,6 +266,7 @@ public class MovementController : MonoBehaviour
                     _currentPlatform = plat;
                 }
             }
+            */
             if (contact.normal.y > Mathf.Sin(slopeLimit * (Mathf.PI / 180) + Mathf.PI / 2f))
             {
                 groundNormal = contact.normal;
