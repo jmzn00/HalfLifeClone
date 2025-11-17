@@ -7,4 +7,7 @@ public class WeaponRuntime
     public GameObject weaponInstance;
     public WeaponView weaponView;
     public ParticleSystem muzzleVfxInstance;
+
+    public int ammoInClip;
+    public int ammoInReserve;
 }

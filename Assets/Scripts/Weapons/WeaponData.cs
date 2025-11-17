@@ -5,6 +5,10 @@ public enum WeaponType
     Projectile,
     Melee
 }
+public enum AmmoType 
+{
+    Light, Heavy
+}
 [CreateAssetMenu(menuName = "Weapons/Weapon")]
 public class WeaponData : ScriptableObject
 {
@@ -31,6 +35,7 @@ public class WeaponData : ScriptableObject
     public bool isAutomatic;    
     public float dropOffDistance;
     public int projectileAmount;
+    public AmmoType ammoType;
 
     [Header("Debuffs")]
     public int shotsBeforeDebuff;

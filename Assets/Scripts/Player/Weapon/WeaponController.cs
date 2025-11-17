@@ -1,20 +1,19 @@
-using NUnit.Framework;
+using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using UnityEngine;
+
+public delegate void AmmoChangedEvent(int ammoInMag, int ammoInReserve);
 
 public class WeaponController : MonoBehaviour
 {
     [SerializeField] private Transform weaponHoldPoint;
     [SerializeField] private List<WeaponData> unlockedWeapons = new List<WeaponData>();
-    private Dictionary<WeaponData, GameObject> weaponInstances = new Dictionary<WeaponData, GameObject>();
-
-    private WeaponData currentWeapon;
-    private GameObject currentWeaponInstance;
-    private WeaponView currentWeaponView;
-
-    private WeaponRuntime currentWeaponRuntime;
     private List<WeaponRuntime> weaponRuntimes = new List<WeaponRuntime>();
+
+    private WeaponData currentWeapon; 
+    private WeaponRuntime currentWeaponRuntime;
+
+    
 
     public bool attackPending = false;
     
@@ -28,6 +27,7 @@ public class WeaponController : MonoBehaviour
     private int consecutiveShots = 0;
     private float lastShotTime = -999f;
 
+    public static event AmmoChangedEvent OnAmmoChanged;
 
     private void Awake()
     {
@@ -37,12 +37,13 @@ public class WeaponController : MonoBehaviour
         GameServices.Input.Actions.Player.Attack.performed += ctx => attackPending = true;
         GameServices.Input.Actions.Player.Attack.canceled += ctx => attackPending = false;
         GameServices.Input.Actions.Player.WeaponScroll.performed += ctx => WeaponScroll((int)ctx.ReadValue<float>());                       
+        GameServices.Input.Actions.Player.Reload.performed += ctx => Reload();
     }
     private float timer = 0f;
 
     private bool CanFire() 
     {
-        if(!handAnimController.IsAnimationPlaying("Draw")) 
+        if(!handAnimController.IsAnimationPlaying("Draw") && currentWeaponRuntime.ammoInClip > 0) 
             return true;
         return false;
     }
@@ -68,6 +69,33 @@ public class WeaponController : MonoBehaviour
             timer = 0f;
         }
         timer += Time.deltaTime;
+    }    
+    private void Reload() 
+    {
+        int magazineSize = currentWeaponRuntime.weaponData.magazineSize;
+        int reserveAmmo = currentWeaponRuntime.ammoInReserve;
+
+        int currentClipAmmo = currentWeaponRuntime.ammoInClip;
+        int neededAmmo = magazineSize - currentClipAmmo;
+
+        
+    }
+    private void UpdateAmmo(WeaponRuntime weaponRuntime, int amount) 
+    {
+        weaponRuntime.ammoInClip += amount;
+        OnAmmoChanged?.Invoke(weaponRuntime.ammoInClip, weaponRuntime.ammoInReserve);
+    }
+    public void AddAmmo(AmmoType type, int amount) 
+    {           
+        for (int i  = 0; i < weaponRuntimes.Count; i++) 
+        {
+            if (weaponRuntimes[i].weaponData.ammoType == type && weaponRuntimes[i].weaponData.weaponType != WeaponType.Melee) 
+            {
+                weaponRuntimes[i].ammoInReserve += amount;
+                OnAmmoChanged?.Invoke(weaponRuntimes[i].ammoInClip, weaponRuntimes[i].ammoInReserve);
+                break;
+            }
+        }
     }
     private void WeaponScroll(int value) 
     {
@@ -131,10 +159,11 @@ public class WeaponController : MonoBehaviour
                 weaponData = data,
                 weaponInstance = weaponInstance,
                 weaponView = weaponView,
-                muzzleVfxInstance = vfxParticle
+                muzzleVfxInstance = vfxParticle,                
             };
 
             weaponRuntimes.Add(currentWeaponRuntime);
+            AddAmmo(data.ammoType, data.magazineSize * 3);
         }
         
         for (int i = 0; i < weaponRuntimes.Count; i++)
@@ -169,8 +198,8 @@ public class WeaponController : MonoBehaviour
     {
         if (coneAngDeg <= 0f) return baseDir;
 
-        float yaw = Random.Range(-coneAngDeg, coneAngDeg);
-        float pitch = Random.Range(-coneAngDeg, coneAngDeg); 
+        float yaw = UnityEngine.Random.Range(-coneAngDeg, coneAngDeg);
+        float pitch = UnityEngine.Random.Range(-coneAngDeg, coneAngDeg); 
 
         Quaternion rot = Quaternion.Euler(pitch, yaw, 0f);
         return rot * baseDir;
@@ -219,6 +248,7 @@ public class WeaponController : MonoBehaviour
             }
         }
         currentWeaponRuntime.muzzleVfxInstance.Play();
+        UpdateAmmo(currentWeaponRuntime, -1);
     }
     private void HandleMelee() 
     {

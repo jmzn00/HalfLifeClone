@@ -1,18 +1,19 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 [RequireComponent(typeof(Rigidbody))]
 public class MovementController : MonoBehaviour
 {
     [Header("User Settings")]
-    [SerializeField] private float mouseSensitivity = 1f;
-    [Space]
+    [SerializeField] private float mouseSensitivity = 0.5f;
+
     [Header("Settings")]
     [SerializeField] private float groundAcceleration = 100f;
     [SerializeField] private float groundLimit = 12f;
     [SerializeField] private float friction = 6f;
     [SerializeField] private float slopeLimit = 60f;
-    [Space]
+
     [Header("Jump")]
     [SerializeField] private bool additiveJump = true;
     [SerializeField] private bool autoJump = true;
@@ -20,22 +21,18 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float gravity = 16f;
     private bool jumpPending;
     private bool canJump = true;
-    [Space]
+
     [Header("AirMovement")]
     [SerializeField] private float airLimit = 1f;
     [SerializeField] private float airAcceleration = 100f;
-    [Header("Camera")]
-    [SerializeField] private Vector3 cameraOffset = new Vector3(0, 1.75f, 0);
-    [Space]
-    [SerializeField] private float thirdPersonCameraDistance = 4f;
-    [SerializeField] private float thirdPersonCameraHeight = 5f;
-    [SerializeField] private float thirdPersonCameraLookAtHeight = 3f;
+
+    [Header("Surf / Extra")]
+    [SerializeField] private float rampSlideLimit = 5f;
+    [SerializeField] private bool clampGroundSpeed = false;
+    [SerializeField] private bool disableBunnyHopping = false;
 
     [Header("Hands")]
     [SerializeField] private Transform handTransform;
-
-    private bool isThirdPersonCamera = false;
-    private bool overrideCamera = false;
 
     private Vector2 _moveInput;
     private Vector2 _lookInput;
@@ -51,18 +48,29 @@ public class MovementController : MonoBehaviour
     private Vector3 groundNormal;
     private bool _isGrounded;
 
-    private Vector3 _lastPlatformPosition;
 
     InputAction _lookAction;
     private float _yaw;
     private float _pitch;
+
+    [SerializeField] private Transform cameraPivot;
+
+    [SerializeField] private float StickDegPerSec = 240f;
+
     private void Awake()
     {
         SubscribeInputs();
     }
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+
+        _rb.constraints = RigidbodyConstraints.FreezeRotationX
+                        | RigidbodyConstraints.FreezeRotationY
+                        | RigidbodyConstraints.FreezeRotationZ;
+
+        _rb.useGravity = false;
 
         GameServices.Cam.SetFollowTarget(cameraPivot);
     }
@@ -74,20 +82,14 @@ public class MovementController : MonoBehaviour
         GameServices.Input.Actions.Player.Move.canceled += ctx => _moveInput = Vector2.zero;
 
         GameServices.Input.Actions.Player.Look.performed += ctx => _lookInput = ctx.ReadValue<Vector2>();
-        GameServices.Input.Actions.Player.Look.canceled += ctx => _lookInput = Vector3.zero;
+        GameServices.Input.Actions.Player.Look.canceled += ctx => _lookInput = Vector2.zero;
 
         _lookAction = GameServices.Input.Actions.Player.Look;
 
         GameServices.Input.Actions.Player.Jump.performed += ctx => jumpPending = true;
         GameServices.Input.Actions.Player.Jump.canceled += ctx => jumpPending = false;
-
-        //InputManager.Instance.Actions.Player.ToggleThirdPerson.canceled += ctx => isThirdPersonCamera = false;
-
-        //InputManager.Instance.Actions.Player.Sprint.performed += ctx => dashPending = true;
-
-        //GameServices.Input.Actions.Player.Crouch.performed += ctx => Crouch(true);
-        //GameServices.Input.Actions.Player.Crouch.canceled += ctx => Crouch(false);
     }
+
     private void GetMovementInput()
     {
         float x = _moveInput.x;
@@ -95,35 +97,14 @@ public class MovementController : MonoBehaviour
 
         _inputDir = transform.rotation * new Vector3(x, 0, z).normalized;
     }
-    private void GetMouseInput()
-    {
-        _inputRot.y += _lookInput.x * mouseSensitivity;
-        _inputRot.x -= _lookInput.y * mouseSensitivity;
-
-        if (_inputRot.x > 90f)
-            _inputRot.x = 90f;
-        if (_inputRot.x < -90f)
-            _inputRot.x = -90f;
-    }
     #endregion
-    #region Camera
-    public void SetCameraOverride(bool value)
-    {
-        overrideCamera = value;
-    }
-    [SerializeField] private Transform cameraPivot;
-    private void CameraFollow()
-    {
-        cameraPivot.rotation = Quaternion.Euler(0, _yaw, 0);
-    }
-    #endregion   
+
     private void Update()
     {
         GetMovementInput();
-        //GetMouseInput();
         GetLookInput();
     }
-    [SerializeField] private float StickDegPerSec = 240f;
+
     private void GetLookInput()
     {
         Vector2 look = _lookAction.ReadValue<Vector2>();
@@ -142,58 +123,55 @@ public class MovementController : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {                       
+    {
         _velocity = _rb.linearVelocity;
+
+        if (disableBunnyHopping && _isGrounded)
+        {
+            if (_velocity.magnitude > groundLimit)
+                _velocity = _velocity.normalized * groundLimit;
+        }
+
+        if (jumpPending && _isGrounded)
+        {
+            Jump();
+        }
+
+        if (rampSlideLimit >= 0f && _velocity.y > rampSlideLimit)
+            _isGrounded = false;
+
         if (_isGrounded)
         {
             _inputDir = Vector3.Cross(Vector3.Cross(groundNormal, _inputDir), groundNormal);
+
             GroundAccelerate();
             ApplyFriction();
 
-            if (jumpPending)
+            if (clampGroundSpeed)
             {
-                Jump();
+                if (_velocity.magnitude > groundLimit)
+                    _velocity = _velocity.normalized * groundLimit;
             }
         }
-        else if (!_isGrounded)
+        else
         {
-            AirAccelerate();
             ApplyGravity();
-        }        
-        _rb.MoveRotation(Quaternion.Euler(0, _yaw, 0));
+            AirAccelerate();
+        }
 
+        _rb.MoveRotation(Quaternion.Euler(0, _yaw, 0));
         _rb.linearVelocity = _velocity;
+
         _isGrounded = false;
         groundNormal = Vector3.zero;
-
-        /*
-        if(_currentPlatform != null) 
-        {
-            _currentPlatform.ConsumeDeltas(out Vector3 dPos, out Quaternion dRot);
-
-            _rb.MovePosition(_rb.position + dPos);
-            _rb.MoveRotation(_rb.rotation * dRot);
-        }
-        */
     }
+
     private void LateUpdate()
     {
         cameraPivot.localRotation = Quaternion.Euler(_pitch, 0, 0);
         handTransform.localRotation = Quaternion.Euler(_pitch, 0, 0);
-    }
-    public void Teleport(Vector3 pos)
-    {
-        StopAllCoroutines();
-        StartCoroutine(iTeleport(pos));
-    }
-    private IEnumerator iTeleport(Vector3 pos)
-    {
-        yield return new WaitForFixedUpdate();
-        _rb.linearVelocity = Vector3.zero;
-        _velocity = Vector3.zero;
-        transform.position = pos;
+    }    
 
-    }
     private void Jump()
     {
         if (!canJump) return;
@@ -209,6 +187,7 @@ public class MovementController : MonoBehaviour
 
         StartCoroutine(JumpTimer());
     }
+
     private IEnumerator JumpTimer()
     {
         canJump = false;
@@ -227,9 +206,10 @@ public class MovementController : MonoBehaviour
 
         if (accelSpeed > addSpeed)
             accelSpeed = addSpeed;
-        _velocity += accelSpeed * _inputDir;
 
+        _velocity += accelSpeed * _inputDir;
     }
+
     private void AirAccelerate()
     {
         Vector3 hVel = _velocity;
@@ -248,39 +228,26 @@ public class MovementController : MonoBehaviour
 
         _velocity += accelSpeed * _inputDir;
     }
+
     private void ApplyFriction()
     {
         _velocity *= Mathf.Clamp01(1 - Time.deltaTime * friction);
     }
+
     private void ApplyGravity()
     {
         _velocity.y -= gravity * Time.deltaTime;
     }
-    private MovingPlatform _currentPlatform;
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionStay(Collision other)
     {
-        foreach (ContactPoint contact in collision.contacts)
+        foreach (ContactPoint contact in other.contacts)
         {
-            /*
-            if(_currentPlatform == null) 
-            {
-                MovingPlatform plat = contact.otherCollider.GetComponent<MovingPlatform>();
-                if (plat)
-                {
-                    _currentPlatform = plat;
-                }
-            }
-            */
-            if (contact.normal.y > Mathf.Sin(slopeLimit * (Mathf.PI / 180) + Mathf.PI / 2f))
+            if (contact.normal.y > Mathf.Sin(slopeLimit * (Mathf.PI / 180f) + Mathf.PI / 2f))
             {
                 groundNormal = contact.normal;
                 _isGrounded = true;
                 return;
             }
         }
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        _currentPlatform = null;
-    }
+    }    
 }
