@@ -4,7 +4,8 @@ using UnityEngine;
 public class WeaponEffects : ScriptableObject
 {
     [Header("Sfx/Vfx Tags")]
-    public GameObject vfxPrefab;
+    public GameObject fireVfxPrefab;
+    public GameObject impactVfxPrefab;
     [Space]
     public AudioClip fireSfx;
     public AudioClip reloadSfx;

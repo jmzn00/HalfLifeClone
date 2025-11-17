@@ -11,6 +11,10 @@ public class WeaponController : MonoBehaviour
 
     private WeaponData currentWeapon;
     private GameObject currentWeaponInstance;
+    private WeaponView currentWeaponView;
+
+    private WeaponRuntime currentWeaponRuntime;
+    private List<WeaponRuntime> weaponRuntimes = new List<WeaponRuntime>();
 
     public bool attackPending = false;
     
@@ -81,37 +85,66 @@ public class WeaponController : MonoBehaviour
         handAnimController.ApplyOverride(data.handAnimationSet);
         EquipWeapon(data);
     }
-    private void EquipWeapon(WeaponData data) 
+    private void EquipWeapon(WeaponData data)
     {
         if (data == null) return;
         currentWeapon = data;
 
-        if (!weaponInstances.TryGetValue(data, out GameObject weaponInstance))
+        currentWeaponRuntime = null;
+        for (int i = 0; i < weaponRuntimes.Count; i++) // weapon exists
         {
-            weaponInstance = Instantiate(data.mesh, weaponHoldPoint);
-            
-            weaponInstance.transform.SetParent(weaponHoldPoint, false);
-            weaponInstance.transform.localPosition = Vector3.zero;
-            weaponInstance.transform.localRotation = Quaternion.identity;
-            
-            weaponInstances.Add(data, weaponInstance);
+            if (weaponRuntimes[i].weaponData == data)
+            {
+                currentWeaponRuntime = weaponRuntimes[i];
+                break;
+            }
         }
 
-        foreach (var kv in weaponInstances)
-        {            
-            if(kv.Key == data) 
+        if (currentWeaponRuntime == null) // weapon doesn't exist yet 
+        {
+            GameObject weaponInstance = Instantiate(data.mesh, weaponHoldPoint);
+            weaponInstance.transform.localPosition = Vector3.zero;
+            weaponInstance.transform.localRotation = Quaternion.identity;
+
+            WeaponView weaponView = weaponInstance.GetComponent<WeaponView>();
+
+            ParticleSystem vfxParticle = null;
+            if (data.weaponEffects != null && data.weaponEffects.fireVfxPrefab != null)
             {
-                kv.Value.SetActive(true);
-                currentWeaponInstance = kv.Value;
+                GameObject vfxInstance = Instantiate(data.weaponEffects.fireVfxPrefab);
+                vfxInstance.transform.SetParent(weaponView.MuzzlePoint, false);
+                vfxInstance.transform.localPosition = Vector3.zero;
+                vfxInstance.transform.localRotation = Quaternion.identity;
+                vfxParticle = vfxInstance.GetComponent<ParticleSystem>();
+
+                if (vfxParticle != null)
+                {
+                    var main = vfxParticle.main;
+                    main.simulationSpace = ParticleSystemSimulationSpace.World;
+
+                    vfxParticle.Stop();
+                }
             }
-            else                
+
+            currentWeaponRuntime = new WeaponRuntime
             {
-                kv.Value.SetActive(false);
-            }
+                weaponData = data,
+                weaponInstance = weaponInstance,
+                weaponView = weaponView,
+                muzzleVfxInstance = vfxParticle
+            };
+
+            weaponRuntimes.Add(currentWeaponRuntime);
+        }
+        
+        for (int i = 0; i < weaponRuntimes.Count; i++)
+        {
+            bool active = weaponRuntimes[i].weaponData == data;
+            weaponRuntimes[i].weaponInstance.SetActive(active);
         }
 
         handAnimController.SetTrigger("Draw");
-    }    
+    }
 
     private void Attack() 
     {
@@ -149,7 +182,7 @@ public class WeaponController : MonoBehaviour
     private void HandleHitscan() 
     {
         float now = Time.time;
-        if (now - lastShotTime <= currentWeapon.consequtiveWindow)        
+        if (now - lastShotTime <= currentWeaponRuntime.weaponData.consequtiveWindow)        
             consecutiveShots++;        
         else        
             consecutiveShots = 1;
@@ -157,8 +190,8 @@ public class WeaponController : MonoBehaviour
         lastShotTime = now;
 
         float activeSpread = 0f;
-        if (consecutiveShots >= currentWeapon.shotsBeforeDebuff) 
-            activeSpread = currentWeapon.debuffSpreadAngle;
+        if (consecutiveShots >= currentWeaponRuntime.weaponData.shotsBeforeDebuff) 
+            activeSpread = currentWeaponRuntime.weaponData.debuffSpreadAngle;
 
         Vector3 origin = playerCam.transform.position;
         Vector3 dir = playerCam.transform.forward;
@@ -180,11 +213,12 @@ public class WeaponController : MonoBehaviour
                     point = hit.point,
                     normal = hit.normal,
                     isMelee = false,
-                    baseDamage = currentWeapon.baseDamage,
+                    baseDamage = currentWeaponRuntime.weaponData.baseDamage,
                     hitbox = hitbox.hitboxType
                 });
             }
         }
+        currentWeaponRuntime.muzzleVfxInstance.Play();
     }
     private void HandleMelee() 
     {

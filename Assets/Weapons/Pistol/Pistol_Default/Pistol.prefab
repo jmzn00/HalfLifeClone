@@ -77,7 +77,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfcb86ed7e22976479294479e64338da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponView
-  muzzlePoint: {fileID: 0}
+  muzzlePoint: {fileID: 5620973695833944322}
+  shootVfx: {fileID: 0}
 --- !u!1 &2167896505393209462
 GameObject:
   m_ObjectHideFlags: 0

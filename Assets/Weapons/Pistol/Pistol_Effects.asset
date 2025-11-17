@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6afaaf55a657b1f42806489482c93613, type: 3}
   m_Name: Pistol_Effects
   m_EditorClassIdentifier: Assembly-CSharp::WeaponEffects
-  vfxPrefab: {fileID: 0}
+  fireVfxPrefab: {fileID: 2070504811250189636, guid: 13bd400f2dac7c94d9700b2a4290164e, type: 3}
+  impactVfxPrefab: {fileID: 0}
   fireSfx: {fileID: 0}
   reloadSfx: {fileID: 0}
   emptySfx: {fileID: 0}

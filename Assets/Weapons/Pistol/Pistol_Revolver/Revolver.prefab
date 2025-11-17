@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponView
   muzzlePoint: {fileID: 8144077006768125043}
+  shootVfx: {fileID: 0}
 --- !u!1001 &6152479543685648872
 PrefabInstance:
   m_ObjectHideFlags: 0
