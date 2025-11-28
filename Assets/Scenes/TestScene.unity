@@ -2055,7 +2055,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1697131799}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &961739754
 MonoBehaviour:
@@ -2694,6 +2694,7 @@ GameObject:
   - component: {fileID: 1697131801}
   - component: {fileID: 1697131802}
   - component: {fileID: 1697131803}
+  - component: {fileID: 1697131804}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2713,7 +2714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89597f0edd9f1f441be6159ae2046b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovementController
-  mouseSensitivity: 0.5
+  mouseSensitivity: 0.125
   groundAcceleration: 100
   groundLimit: 12
   friction: 6
@@ -2755,7 +2756,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!4 &1697131799
 Transform:
@@ -2775,6 +2776,7 @@ Transform:
   - {fileID: 5520682}
   - {fileID: 696426030108745537}
   - {fileID: 1549819088}
+  - {fileID: 961739753}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1697131800
@@ -2795,6 +2797,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 71f81cef911fc274fa45d0481c23cbbb, type: 2}
   - {fileID: 11400000, guid: 8cc79daca59857e4d868961e95f8ea1c, type: 2}
   attackPending: 0
+  playerAudioManager: {fileID: 1697131804}
 --- !u!95 &1697131801
 Animator:
   serializedVersion: 7
@@ -2844,6 +2847,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   ammoText: {fileID: 2043710524}
+--- !u!114 &1697131804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697131796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 639f3bef9f8ea1b469d3b7c606cbae0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAudioManager
+  weaponSfxAudioSource: {fileID: 945200203}
 --- !u!1 &1843738255
 GameObject:
   m_ObjectHideFlags: 0
@@ -3185,7 +3201,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895649812}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a4142337d1f065146b255cfecaae0d44, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4052,7 +4068,7 @@ Transform:
   m_GameObject: {fileID: 207697077583988219}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.403, z: 0}
+  m_LocalPosition: {x: 0, y: 1.528, z: 0}
   m_LocalScale: {x: 0.21334, y: 0.21334, z: 0.21334}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5722,7 +5738,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 961739753}
   - {fileID: 203844589}
   - {fileID: 82230577}
   - {fileID: 740510614}

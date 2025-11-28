@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -57,9 +58,15 @@ public class MovementController : MonoBehaviour
 
     [SerializeField] private float StickDegPerSec = 240f;
 
+    private Camera _camera; 
+
     private void Awake()
     {
         SubscribeInputs();
+        _camera = Camera.main;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Start()
@@ -75,7 +82,7 @@ public class MovementController : MonoBehaviour
 
         _rb.useGravity = false;
 
-        GameServices.Cam.SetFollowTarget(cameraPivot);
+        //GameServices.Cam.SetFollowTarget(cameraPivot);
     }
 
     #region Inputs
@@ -98,7 +105,7 @@ public class MovementController : MonoBehaviour
         float x = _moveInput.x;
         float z = _moveInput.y;
 
-        _inputDir = transform.rotation * new Vector3(x, 0, z).normalized;
+        _inputDir = _camera.transform.localRotation * new Vector3(x, 0, z).normalized;
     }
     #endregion
 
@@ -106,9 +113,8 @@ public class MovementController : MonoBehaviour
     {
         GetLookInput();
 
-        transform.rotation = Quaternion.Euler(0f, _yaw, 0f);
-        cameraPivot.localRotation = Quaternion.Euler(_pitch, 0, 0);
-        handTransform.localRotation = Quaternion.Euler(_pitch, 0, 0);
+        _camera.transform.localRotation = Quaternion.Euler(_pitch, _yaw, 0);
+        handTransform.localRotation = Quaternion.Euler(_pitch, _yaw, 0);
 
         GetMovementInput();
     }
