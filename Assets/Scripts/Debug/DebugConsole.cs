@@ -1,0 +1,146 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+
+public class DebugConsole : MonoBehaviour
+{
+    [Header("UI")]
+    [SerializeField] private GameObject consolePanel;
+    [SerializeField] private TMP_Text logText;
+    [SerializeField] private TMP_InputField inputField;
+
+    [Header("Refs")]
+    [SerializeField] private WeaponDatabase weaponDatabase;
+
+    bool consoleOpen = false;
+    private void Awake()
+    {
+        ToggleConsole(false);
+
+        GameServices.Input.Actions.Debug.ToggleConsole.performed += ctx =>
+        {
+            consoleOpen = !consoleOpen;
+            ToggleConsole(consoleOpen);
+        };
+        inputField.onSubmit.AddListener(ParseCommand);
+    }
+    
+    private void ToggleConsole(bool open) 
+    {
+        inputField.Select();
+        consolePanel.SetActive(open);
+        consoleOpen = consolePanel.activeInHierarchy;
+        GameServices.Input.TogglePlayerInput(consoleOpen);
+    }
+    private void LogMessage(string msg, Color? color = null) 
+    {
+        Color finalColor = color ?? Color.white;
+
+        string hexColor = ColorUtility.ToHtmlStringRGB(finalColor);
+        logText.text += $"\n<color=#{hexColor}>{msg}</color>";
+        inputField.text = "";
+    }
+    private void ParseCommand(string command)
+    {
+        if (string.IsNullOrEmpty(command))
+            LogMessage("Invalid", Color.red);
+        string[] parts = command.Split(' ');
+        string cmd = parts[0].Trim();
+        string[] args = parts.Length > 1 ? parts[1..] : new string[0];
+
+        if (cmd.ToLower().StartsWith("player")) 
+        {
+            HandlePlayerCommand(cmd, args);
+        }
+        inputField.Select();
+
+    }
+    #region PlayerCommand
+    private void HandlePlayerCommand(string cmd, string[] args)
+    {
+        if (string.IsNullOrEmpty(args[0]))
+        {
+            LogMessage("Arg[0] Invalid", Color.red);
+            return;
+        }
+        switch (args[0].ToLower())
+        {
+            case "weapon":
+                HandleWeaponCommand(args);
+                break;
+            case "ammo":
+                HandleAmmoCommand(args);
+                break;
+        }
+    }
+    private void HandleAmmoCommand(string[] args) 
+    {
+        if (string.IsNullOrEmpty(args[1])) 
+        {
+            LogMessage("missing ammo type", Color.red);
+            return;
+        }
+        if (string.IsNullOrEmpty(args[2]))
+        {
+            LogMessage("missing ammo amount", Color.red);
+            return;
+        }
+        int.TryParse(args[2], out int amount);
+
+        switch (args[1].ToLower()) 
+        {            
+            case "9mm":
+                GameServices.WeaponController.AddAmmo(AmmoType.A_9mm, amount);                
+                break;
+            case "357":
+                GameServices.WeaponController.AddAmmo(AmmoType.A_357, amount);
+                break;
+                
+                
+        }
+    }
+    private void HandleWeaponCommand(string[] args)
+    {
+
+        if (string.IsNullOrEmpty(args[1]))
+        {
+            LogMessage("Arg[1] Invalid", Color.red);
+            return;
+        }
+        if (string.IsNullOrEmpty(args[2]))
+        {
+            LogMessage("Arg[2] Invalid", Color.red);
+            return;
+        }
+
+        WeaponData weaponData = null;
+        for (int i = 0; i < weaponDatabase.AllWeapons.Count; i++)
+        {
+            if (weaponDatabase.AllWeapons[i].name.ToLower() == args[2].ToLower())
+            {
+                weaponData = weaponDatabase.AllWeapons[i];
+            }
+        }
+        if (weaponData == null)
+        {
+            LogMessage("Invalid Weapon", Color.yellow);
+            return;
+        }
+        switch (args[1].ToLower())
+        {
+            case "add":
+                GameServices.WeaponController.AddWeapon(weaponData);
+                LogMessage($"{weaponData.weaponName} added", Color.green);
+                break;
+            case "remove":
+
+                break;
+            default:
+                LogMessage("Invalid Arg[1]", Color.red);
+                break;
+        }
+    }
+    
+    #endregion    
+}

@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 355dd8f768d9f6a479ff5a65bedb7621, type: 3}
   m_Name: Crowbar
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
-  weaponName: Crowbar
-  weaponIcon: {fileID: 0}
   mesh: {fileID: 4821546566958381162, guid: 858dd39d1bbece34da2ce1fcd2884638, type: 3}
   weaponEffects: {fileID: 11400000, guid: d5f0b309677a36443a7c16a286551465, type: 2}
   weaponType: 2
+  isUnlocked: 0
+  weaponName: Crowbar
+  weaponIcon: {fileID: 21300000, guid: f3de3dd5656a2204f89d8f80a3109287, type: 3}
+  weaponColumn: 1
+  rowInColumn: 0
   handAnimationSet: {fileID: 11400000, guid: 23c488388749e8644a921c4708fba526, type: 2}
   equipAnim: {fileID: 0}
   reloadAnim: {fileID: 0}
@@ -29,7 +32,7 @@ MonoBehaviour:
   isAutomatic: 0
   dropOffDistance: 0
   projectileAmount: 0
-  ammoType: 0
+  ammoType: 2
   shotsBeforeDebuff: 0
   debuffSpreadAngle: 0
   consequtiveWindow: 0.4

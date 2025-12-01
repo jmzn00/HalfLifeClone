@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private Transform weaponHoldPoint;
     // list of all the weapons the player has
     [SerializeField] private List<WeaponData> unlockedWeapons = new List<WeaponData>();
+    [SerializeField] private WeaponDatabase weaponDatabase;
 
     // holds runtime data for spawned weapons like mesh, vfx, ammo ect.. see WeaponRuntime.cs
     private List<WeaponRuntime> weaponRuntimes = new List<WeaponRuntime>();
@@ -49,6 +51,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private PlayerAudioManager playerAudioManager;
 
     private Pool Pool;
+    [SerializeField] private float trailSpeed = 5f;
 
     private void Awake()
     {
@@ -68,6 +71,7 @@ public class WeaponController : MonoBehaviour
         GameServices.Input.Actions.Player.Reload.performed += ctx => Reload();
 
         Pool = GameServices.Pool;
+        GameServices.WeaponController = this;
     }
     
 
@@ -120,6 +124,21 @@ public class WeaponController : MonoBehaviour
         }
         timer += Time.deltaTime;
     }    
+    public void AddWeapon(WeaponData data) 
+    {
+        if (unlockedWeapons.Contains(data)) return;
+
+        unlockedWeapons.Add(data);
+        RebuildUnlockedWeapons();
+    }
+    private void RebuildUnlockedWeapons() 
+    {
+        unlockedWeapons
+            .OrderBy(w => w.weaponColumn)
+            .ThenBy(w => w.rowInColumn)
+            .ToList();
+
+    }
     private void Reload() 
     {
         // the amount of ammo needed to fill the clip
@@ -146,12 +165,13 @@ public class WeaponController : MonoBehaviour
         OnAmmoChanged?.Invoke(currentWeaponRuntime);
     }
     public void AddAmmo(AmmoType type, int amount) // To Improve
-    {           
+    {
         // add ammo by type, ie. Light, Heavy ammo
-        
+        if (type == AmmoType.Default) return;
+
         for (int i  = 0; i < weaponRuntimes.Count; i++) 
-        {
-            if (weaponRuntimes[i].weaponData.ammoType == type && weaponRuntimes[i].weaponData.weaponType != WeaponType.Melee) 
+        {            
+            if (weaponRuntimes[i].weaponData.ammoType == type) 
             {
                 weaponRuntimes[i].ammoInReserve += amount;
                 OnAmmoChanged?.Invoke(currentWeaponRuntime);
@@ -336,7 +356,7 @@ public class WeaponController : MonoBehaviour
             trailEnd = hit.point;
         }
 
-        Pool.SpawnTrail(currentWeaponRuntime.weaponView.MuzzlePoint.position, trailEnd);
+        Pool.SpawnTrail(currentWeaponRuntime.weaponView.MuzzlePoint.position, trailEnd, trailSpeed);
 
         // play the muzzle vfx
         currentWeaponRuntime.muzzleVfxInstance.Play();

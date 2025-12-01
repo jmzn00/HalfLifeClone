@@ -35,10 +35,10 @@ public class Pool : MonoBehaviour
         }
     }
     #region BulletTrail   
-    public void SpawnTrail(Vector3 start, Vector3 end)
+    public void SpawnTrail(Vector3 start, Vector3 end, float speed)
     {
         BulletTrail trail = trailPool.Count > 0 ? trailPool.Dequeue() : CreateNewTrail();
-        trail.Init(start, end, 5f);
+        trail.Init(start, end, speed);
     }
     public void DespawnTrail(BulletTrail trail)
     {

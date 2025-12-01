@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 355dd8f768d9f6a479ff5a65bedb7621, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
-  weaponName: Pistol
-  weaponIcon: {fileID: 0}
   mesh: {fileID: 1213391305711959720, guid: 8f5a7dcb6cf51874693d1022965cb5cf, type: 3}
   weaponEffects: {fileID: 11400000, guid: d61e46af9dbbc4046a17d68fcf6f3e20, type: 2}
   weaponType: 0
+  isUnlocked: 0
+  weaponName: Pistol
+  weaponIcon: {fileID: 21300000, guid: 7257d822871005543bec47f80bcc24ab, type: 3}
+  weaponColumn: 2
+  rowInColumn: 0
   handAnimationSet: {fileID: 11400000, guid: dc30209f2d3052b4caf03e5230619009, type: 2}
   equipAnim: {fileID: 0}
   reloadAnim: {fileID: 0}
@@ -29,6 +32,7 @@ MonoBehaviour:
   isAutomatic: 0
   dropOffDistance: 30
   projectileAmount: 0
+  ammoType: 0
   shotsBeforeDebuff: 6
   debuffSpreadAngle: 5
   consequtiveWindow: 0.4

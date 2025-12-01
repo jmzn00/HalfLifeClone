@@ -6,18 +6,34 @@ public enum WeaponType
     Melee
 }
 public enum AmmoType 
+{   
+    A_9mm,
+    A_357,
+    Default
+}
+public enum WeaponColumn 
 {
-    Light, Heavy
+    Melee = 1,
+    Pistols = 2,
+    Shotguns = 3,
+    Rifle = 4,
+    Explosives = 5
 }
 [CreateAssetMenu(menuName = "Weapons/Weapon")]
 public class WeaponData : ScriptableObject
 {
-    [Header("Description / Visuals")]
-    public string weaponName;
-    public Sprite weaponIcon;
+    [Header("Description / Visuals")]    
     public GameObject mesh;
     public WeaponEffects weaponEffects;
     public WeaponType weaponType;
+    public bool isUnlocked = false;
+    
+
+    [Header("UI")]
+    public string weaponName;
+    public Sprite weaponIcon;
+    public WeaponColumn weaponColumn;
+    public int rowInColumn;
 
     [Header("Animation")]
     // this is a set of hand animations for the weapon
