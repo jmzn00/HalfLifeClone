@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6afaaf55a657b1f42806489482c93613, type: 3}
-  m_Name: Default_Effects
+  m_Name: Effects_Revolver
   m_EditorClassIdentifier: Assembly-CSharp::WeaponEffects
   fireVfxPrefab: {fileID: 2070504811250189636, guid: 13bd400f2dac7c94d9700b2a4290164e, type: 3}
   impactVfxPrefab: {fileID: 0}
   trailRenderer: {fileID: 1099691788133021525, guid: 5e3b0655ea52a754fb61b81ee9d7c76d, type: 3}
-  fireSfx: {fileID: 8300000, guid: 8f97bdd94eec1a245a516bffc6504a26, type: 3}
-  reloadSfx: {fileID: 8300000, guid: 2a34e7cb6797bbf40a6eade0b6f74de8, type: 3}
+  fireSfx: {fileID: 8300000, guid: f380708b5d9035f44ae1acaf1d1f1b77, type: 3}
+  reloadSfx: {fileID: 0}
   emptySfx: {fileID: 0}
   equipSfx: {fileID: 0}

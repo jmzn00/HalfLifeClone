@@ -321,6 +321,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &273557454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 273557456}
+  - component: {fileID: 273557455}
+  m_Layer: 0
+  m_Name: Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &273557455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273557454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdc9f00134852624f8d08f4147c7486f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  poolSize: 10
+  bulletTrail: {fileID: 2522821183288958759, guid: 7b645f874e5c2f74cb47740f3ff36717, type: 3}
+--- !u!4 &273557456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273557454}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 7.22414, y: 17.77303, z: 47.68487}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &529680617
 GameObject:
   m_ObjectHideFlags: 0
@@ -2055,7 +2101,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1697131799}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &961739754
 MonoBehaviour:
@@ -2069,6 +2115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e111d7ce4eb8f458fa412750d05a83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  playerCamOffset: {x: 0, y: 1.75, z: 0}
 --- !u!1 &965797605
 GameObject:
   m_ObjectHideFlags: 0
@@ -2729,6 +2776,8 @@ MonoBehaviour:
   clampGroundSpeed: 0
   disableBunnyHopping: 0
   handTransform: {fileID: 696426030108745537}
+  camTiltAmount: 2
+  tiltSmoothSpeed: 10
   cameraPivot: {fileID: 5520682}
   StickDegPerSec: 240
 --- !u!54 &1697131798
@@ -2776,7 +2825,6 @@ Transform:
   - {fileID: 5520682}
   - {fileID: 696426030108745537}
   - {fileID: 1549819088}
-  - {fileID: 961739753}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1697131800
@@ -5738,7 +5786,9 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 961739753}
   - {fileID: 203844589}
+  - {fileID: 273557456}
   - {fileID: 82230577}
   - {fileID: 740510614}
   - {fileID: 900095641}

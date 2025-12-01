@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: Revolver
   weaponIcon: {fileID: 0}
   mesh: {fileID: 5205273766947270349, guid: 711ed614cefec6f4693726ad13900e41, type: 3}
-  weaponEffects: {fileID: 11400000, guid: d61e46af9dbbc4046a17d68fcf6f3e20, type: 2}
+  weaponEffects: {fileID: 11400000, guid: f16f58be8079e2f4693cf184102a965d, type: 2}
   weaponType: 0
   handAnimationSet: {fileID: 11400000, guid: dc30209f2d3052b4caf03e5230619009, type: 2}
   equipAnim: {fileID: 0}

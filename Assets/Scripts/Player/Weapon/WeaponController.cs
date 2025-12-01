@@ -48,6 +48,8 @@ public class WeaponController : MonoBehaviour
 
     [SerializeField] private PlayerAudioManager playerAudioManager;
 
+    private Pool Pool;
+
     private void Awake()
     {
         playerCam = Camera.main;
@@ -64,6 +66,8 @@ public class WeaponController : MonoBehaviour
         GameServices.Input.Actions.Player.Attack.canceled += ctx => attackPending = false;
         GameServices.Input.Actions.Player.WeaponScroll.performed += ctx => WeaponScroll((int)ctx.ReadValue<float>());
         GameServices.Input.Actions.Player.Reload.performed += ctx => Reload();
+
+        Pool = GameServices.Pool;
     }
     
 
@@ -71,7 +75,7 @@ public class WeaponController : MonoBehaviour
     {
         // cannot fire if reloading or drawing weapon
         if(isReloading || handAnimController.IsAnimationPlaying("Draw")) 
-        {            
+        {
             return false;
         }
         // cannot fire if no ammo in clip
@@ -121,9 +125,9 @@ public class WeaponController : MonoBehaviour
         // the amount of ammo needed to fill the clip
         int neededAmmo = currentWeaponRuntime.weaponData.magazineSize - currentWeaponRuntime.ammoInClip;
         // clip is full or no reserve ammo
-        if (neededAmmo <= 0 || currentWeaponRuntime.ammoInReserve <= 0) return; 
+        if (neededAmmo <= 0 || currentWeaponRuntime.ammoInReserve <= 0) return;
 
-        handAnimController.SetTrigger("Reload");
+        handAnimController.TriggerReload();
         isReloading = true;
 
         int ammoToLoad = Mathf.Clamp(neededAmmo, 1, currentWeaponRuntime.ammoInReserve);
@@ -137,7 +141,6 @@ public class WeaponController : MonoBehaviour
     }    
     public void ReloadFinished() 
     {
-        // this is called by an animation event to signal the reload is finished
         isReloading = false;
 
         OnAmmoChanged?.Invoke(currentWeaponRuntime);
@@ -158,6 +161,8 @@ public class WeaponController : MonoBehaviour
     }
     private void WeaponScroll(int value) 
     {
+        if (isReloading) return;
+
         // will scroll through unlocked weapons and equip them
         weaponIndex += value;
         if (weaponIndex < 0) weaponIndex = unlockedWeapons.Count - 1;
@@ -220,7 +225,7 @@ public class WeaponController : MonoBehaviour
 
                     vfxParticle.Stop();
                 }
-            }
+            }            
 
             // this holds runtime data for the weapon
             currentWeaponRuntime = new WeaponRuntime
@@ -228,7 +233,7 @@ public class WeaponController : MonoBehaviour
                 weaponData = data,
                 weaponInstance = weaponInstance,
                 weaponView = weaponView,
-                muzzleVfxInstance = vfxParticle,                
+                muzzleVfxInstance = vfxParticle,         
             };
 
             weaponRuntimes.Add(currentWeaponRuntime);
@@ -242,7 +247,7 @@ public class WeaponController : MonoBehaviour
             weaponRuntimes[i].weaponInstance.SetActive(active);
         }
         // set the animation controller to trigger Draw
-        handAnimController.SetTrigger("Draw");
+        handAnimController.TriggerDraw();
         // ammo UI
         OnAmmoChanged?.Invoke(currentWeaponRuntime);
     }
@@ -251,7 +256,7 @@ public class WeaponController : MonoBehaviour
     {
         if (currentWeapon == null) return;
 
-        handAnimController.SetTrigger("Attack");
+        handAnimController.PlayFire();
 
         // different functions for handling differ weapon types
         switch (currentWeapon.weaponType) 
@@ -309,12 +314,8 @@ public class WeaponController : MonoBehaviour
         // apply spread
         if (activeSpread > 0f) 
             dir = ApplyConeSpread(dir, activeSpread);
-
-
-        //Ray ray = playerCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        //Debug.Log("Active spread" + activeSpread);
-        Debug.DrawRay(origin, dir * 100f, Color.red, 10f);
-
+       Vector3 trailEnd = origin + dir * 100f;
+        //Debug.DrawRay(origin, dir * 100f, Color.red, 10f);
         if (Physics.Raycast(origin, dir, out RaycastHit hit))
         {
             // check if we hit a hitbox ie. enemy
@@ -331,9 +332,12 @@ public class WeaponController : MonoBehaviour
                     baseDamage = currentWeaponRuntime.weaponData.baseDamage,
                     hitbox = hitbox.hitboxType
                 });
-                Debug.Log("Hit " + hit.collider.name + " Damage: " + outcome.damageApplied);
             }
+            trailEnd = hit.point;
         }
+
+        Pool.SpawnTrail(currentWeaponRuntime.weaponView.MuzzlePoint.position, trailEnd);
+
         // play the muzzle vfx
         currentWeaponRuntime.muzzleVfxInstance.Play();
         // reduce ammo
@@ -341,9 +345,26 @@ public class WeaponController : MonoBehaviour
         // invoke the event for UI
         OnAmmoChanged?.Invoke(currentWeaponRuntime);
     }
-    private void HandleMelee() // implement
+    private void HandleMelee() // early implementation
     {
+        Vector3 origin = playerCam.transform.position;
+        Vector3 dir = playerCam.transform.forward;
         
+        if(Physics.SphereCast(origin, 0.25f, dir, out RaycastHit hit)) 
+        {
+            Hitbox hitbox = hit.collider.GetComponent<Hitbox>();
+            if (hitbox) 
+            {
+                HitOutcome outcome = hitbox.ForwardHit(new HitInfo
+                {
+                    point = hit.point,
+                    normal = hit.normal,
+                    isMelee = true,
+                    baseDamage = currentWeaponRuntime.weaponData.baseDamage,
+                    hitbox = hitbox.hitboxType
+                });
+            }
+        }
     }
 
 }

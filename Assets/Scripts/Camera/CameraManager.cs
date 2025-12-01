@@ -4,11 +4,16 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     private Transform followTarget = null;
+    private Camera cam;
+
+    [SerializeField] private Vector3 playerCamOffset;
 
     private void Awake()
     {
         if(GameServices.Cam != this)
             GameServices.Cam = this;
+
+        cam = Camera.main;
     }
     private void OnDisable()
     {
@@ -16,15 +21,16 @@ public class CameraManager : MonoBehaviour
             GameServices.Cam = null;
     }
 
-    public void SetFollowTarget(Transform target) 
+    MovementController movementController = null;
+    public void SetFpsCamera(MovementController mc) 
     {
-        followTarget = target;
-    }    
-    private void LateUpdate()
+        movementController = mc;
+    }
+    private void Update()
     {
-        if (followTarget == null) return;
+        if (!movementController) return;
 
-        transform.position = followTarget.position;
-        transform.rotation = followTarget.rotation;
-    }    
+        cam.transform.position = movementController.transform.position + playerCamOffset;
+        cam.transform.rotation = Quaternion.Euler(movementController.Pitch, movementController.Yaw, 0f);
+    }
 }

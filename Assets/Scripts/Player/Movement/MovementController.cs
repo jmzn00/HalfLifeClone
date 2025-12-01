@@ -35,6 +35,11 @@ public class MovementController : MonoBehaviour
     [Header("Hands")]
     [SerializeField] private Transform handTransform;
 
+    [Header("Camera")]
+    [SerializeField] private float camTiltAmount = 2f;
+    [SerializeField] private float tiltSmoothSpeed = 10f;
+    private float _currentTiltZ = 0f;
+
     private Vector2 _moveInput;
     private Vector2 _lookInput;
     public Vector2 LookInput => _lookInput;
@@ -53,6 +58,9 @@ public class MovementController : MonoBehaviour
     InputAction _lookAction;
     private float _yaw;
     private float _pitch;
+
+    public float Yaw => _yaw;
+    public float Pitch => _pitch;
 
     [SerializeField] private Transform cameraPivot;
 
@@ -82,7 +90,7 @@ public class MovementController : MonoBehaviour
 
         _rb.useGravity = false;
 
-        //GameServices.Cam.SetFollowTarget(cameraPivot);
+        //GameServices.Cam.SetFpsCamera(this);
     }
 
     #region Inputs
@@ -107,18 +115,6 @@ public class MovementController : MonoBehaviour
 
         _inputDir = _camera.transform.localRotation * new Vector3(x, 0, z).normalized;
     }
-    #endregion
-
-    private void Update()
-    {
-        GetLookInput();
-
-        _camera.transform.localRotation = Quaternion.Euler(_pitch, _yaw, 0);
-        handTransform.localRotation = Quaternion.Euler(_pitch, _yaw, 0);
-
-        GetMovementInput();
-    }
-
     private void GetLookInput()
     {
         Vector2 look = _lookAction.ReadValue<Vector2>();
@@ -134,6 +130,32 @@ public class MovementController : MonoBehaviour
             _yaw += look.x * StickDegPerSec * Time.deltaTime;
             _pitch = Mathf.Clamp(_pitch - look.y * StickDegPerSec * Time.deltaTime, -90f, 90f);
         }
+    }
+    #endregion
+
+    private void Update()
+    {
+        GetLookInput();
+
+        HandleCamera();
+
+        handTransform.localRotation = Quaternion.Euler(_pitch, _yaw, 0);
+
+        GetMovementInput();
+    }
+    
+    private void HandleCamera() 
+    {
+        float x = _pitch;
+        float y = _yaw;
+        float targetZ = _moveInput.x * -camTiltAmount;
+
+        _currentTiltZ = Mathf.Lerp(_currentTiltZ, targetZ, Time.deltaTime * tiltSmoothSpeed);
+
+        _camera.transform.localRotation = Quaternion.Euler(x, y, _currentTiltZ);
+        _camera.transform.position = transform.position + new Vector3(0, 1.75f, 0f);
+
+        
     }
 
     private void FixedUpdate()
