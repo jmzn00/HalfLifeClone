@@ -1082,6 +1082,7 @@ GameObject:
   - component: {fileID: 8507513032342632033}
   - component: {fileID: 2685878268931827469}
   - component: {fileID: 5868077905110370161}
+  - component: {fileID: 826640204388611622}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1247,6 +1248,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAudioManager
   weaponSfxAudioSource: {fileID: 1514122323223488111}
+--- !u!114 &826640204388611622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4232463359077943307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4cd4875779ee5478a26d1e8db37aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectableTarget
 --- !u!1 &4359005234325091239
 GameObject:
   m_ObjectHideFlags: 0
