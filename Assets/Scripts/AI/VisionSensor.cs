@@ -6,6 +6,10 @@ public class VisionSensor : MonoBehaviour
 {
     private EnemyAi linkedAi;
     private HashSet<DetectableTarget> currentlyVisibleTargets = new HashSet<DetectableTarget>();
+    Vector3 lastHitPoint;
+    bool lastHitWasTarget;
+
+    [SerializeField] private LayerMask DetectionMask;
 
     private void Awake()
     {
@@ -42,13 +46,64 @@ public class VisionSensor : MonoBehaviour
                 continue;
             }
 
-            if(Vector3.Dot(vectorToTarget.normalized, linkedAi.EyeLocation.forward) > linkedAi.CosVisionConeAngle) 
+            if(Vector3.Dot(vectorToTarget.normalized, linkedAi.EyeLocation.forward) < linkedAi.CosVisionConeAngle) 
             {
                 if(currentlyVisibleTargets.Contains(potentialTarget))
                     linkedAi.ReportLostSight(potentialTarget);
                 continue;
             }
+            RaycastHit hitInfo;
+            if(Physics.Raycast(linkedAi.EyeLocation.position, vectorToTarget.normalized, out hitInfo, linkedAi.VisionConeRange)) 
+            {
+                bool canSee = hitInfo.collider.transform.root.gameObject == potentialTarget.gameObject;
+
+                if (canSee)
+                {
+                    visibleThisFrame.Add(potentialTarget);
+
+                    if(sqrDistance < closestDistanceSqr) 
+                    {
+                        closestDistanceSqr = sqrDistance;
+                        closestTarget = potentialTarget;
+                        closestHitPoint = hitInfo.point;
+                    }
+                    else 
+                    {
+                        if (currentlyVisibleTargets.Contains(potentialTarget))
+                            linkedAi.ReportLostSight(potentialTarget);
+                    }
+                }
+                else 
+                {
+                    if (currentlyVisibleTargets.Contains(potentialTarget))
+                        linkedAi.ReportLostSight(potentialTarget);
+                }
+            }
+            if(closestTarget != null) 
+            {
+                linkedAi.ReportCanSee(closestTarget);
+                lastHitPoint = closestHitPoint;
+                lastHitWasTarget = true;                                
+            }
+            else 
+            {
+                lastHitWasTarget = false;
+            }
+            foreach (var prevTarget in currentlyVisibleTargets)
+            {
+                if (!visibleThisFrame.Contains(prevTarget))
+                    linkedAi.ReportLostSight(prevTarget);
+            }
+            currentlyVisibleTargets = visibleThisFrame;
         }
 
+    }
+    void OnDrawGizmos()
+    {
+        if (linkedAi == null || !linkedAi.enabled) return;
+
+        Gizmos.color = lastHitWasTarget ? Color.green : Color.red;
+        Gizmos.DrawLine(linkedAi.EyeLocation.position, lastHitPoint);
+        Gizmos.DrawWireSphere(lastHitPoint, 0.1f);
     }
 }
