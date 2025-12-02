@@ -1186,6 +1186,9 @@ MonoBehaviour:
   attackPending: 0
   playerAudioManager: {fileID: 5868077905110370161}
   trailSpeed: 5
+  DetectionLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!95 &5565275902124523069
 Animator:
   serializedVersion: 7

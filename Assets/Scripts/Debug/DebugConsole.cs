@@ -72,18 +72,25 @@ public class DebugConsole : MonoBehaviour
             case "ammo":
                 HandleAmmoCommand(args);
                 break;
+            case "teleport":
+                HandleWeaponCommand(args);
+                break;
         }
+    }
+    private void HandleTeleportCommand(string[] args) 
+    {
+        
     }
     private void HandleAmmoCommand(string[] args) 
     {
-        if (string.IsNullOrEmpty(args[1])) 
+        if(args.Length < 2) 
         {
-            LogMessage("missing ammo type", Color.red);
+            LogMessage("Missing Ammo Type", Color.red);
             return;
         }
-        if (string.IsNullOrEmpty(args[2]))
+        if(args.Length < 3) 
         {
-            LogMessage("missing ammo amount", Color.red);
+            LogMessage("Missing Ammo Amount", Color.red);
             return;
         }
         int.TryParse(args[2], out int amount);
@@ -95,6 +102,9 @@ public class DebugConsole : MonoBehaviour
                 break;
             case "357":
                 GameServices.WeaponController.AddAmmo(AmmoType.A_357, amount);
+                break;
+            default:
+                LogMessage($"Ammo Type: {args[1]} Is Invalid", Color.red);
                 break;
                 
                 

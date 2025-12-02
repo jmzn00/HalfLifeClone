@@ -1,3 +1,5 @@
+using System;
+using TMPro;
 using UnityEngine;
 
 public class Enemy_Teddy : EnemyAi
@@ -8,15 +10,31 @@ public class Enemy_Teddy : EnemyAi
     [SerializeField] private AiState idleState;
     [SerializeField] private AiState attackState;
     [SerializeField] private AiState latchState;
+    [SerializeField] private AiState deathState;
+
+    private NpcDamageable damageable;
+
+    [SerializeField] private TMP_Text stateText;
 
     public override void Awake()
     {
         base.Awake();
+        damageable = GetComponent<NpcDamageable>();
+        damageable.OnHealthChanged += HealthChanged;
 
-        ChangeState(idleState);
+        ChangeState(idleState);        
+    }
+    private void HealthChanged(float amt) 
+    {
+        if(amt <= 0) 
+        {
+            ChangeState(deathState);
+        }
     }
     private void Update()
     {
+        stateText.transform.forward = Camera.main.transform.forward;
+
         if (currentState != null)
             currentState.UpdateState(this);
         CommonUpdate();
@@ -36,6 +54,13 @@ public class Enemy_Teddy : EnemyAi
     }
     public override void ChangeState(AiState state)
     {
+        if(state == null) 
+        {
+            Debug.LogWarning("State Not Implemented");
+            return;
+        }
+        stateText.text = state.stateName;
         currentState = state;
-    }        
+    }
 }
+

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using UnityEngine;
 
@@ -52,6 +53,8 @@ public class WeaponController : MonoBehaviour
 
     private Pool Pool;
     [SerializeField] private float trailSpeed = 5f;
+
+    [SerializeField] private LayerMask DetectionLayer;
 
     private void Awake()
     {
@@ -181,7 +184,7 @@ public class WeaponController : MonoBehaviour
     }
     private void WeaponScroll(int value) 
     {
-        if (isReloading) return;
+        if (isReloading || unlockedWeapons.Count == 0) return;
 
         // will scroll through unlocked weapons and equip them
         weaponIndex += value;
@@ -312,6 +315,7 @@ public class WeaponController : MonoBehaviour
     {
         
     }
+    private DamageText damageText = null;
     private void HandleHitscan() 
     {
         // check how many consecutive shots in the window
@@ -355,8 +359,9 @@ public class WeaponController : MonoBehaviour
             }
             trailEnd = hit.point;
         }
-
+        
         Pool.SpawnTrail(currentWeaponRuntime.weaponView.MuzzlePoint.position, trailEnd, trailSpeed);
+        
 
         // play the muzzle vfx
         currentWeaponRuntime.muzzleVfxInstance.Play();
@@ -386,5 +391,4 @@ public class WeaponController : MonoBehaviour
             }
         }
     }
-
 }

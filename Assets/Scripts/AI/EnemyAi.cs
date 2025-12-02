@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-[RequireComponent(typeof(Rigidbody))]
+//[RequireComponent(typeof(Rigidbody))]
 public class EnemyAi : MonoBehaviour
 {
     [Header("Prefs")]
@@ -17,7 +17,7 @@ public class EnemyAi : MonoBehaviour
     public float CosVisionConeAngle { get; private set; } = 0f;
 
     public NavMeshAgent Agent { get; private set; }
-    public Rigidbody Rb { get; private set; }
+    //public Rigidbody Rb { get; private set; }
     public DetectableTarget CurrentTarget { get; private set; }
 
     public bool isAttacking;
@@ -33,7 +33,7 @@ public class EnemyAi : MonoBehaviour
     {
         CosVisionConeAngle = Mathf.Cos(visionConeAngle * Mathf.Deg2Rad);
         Agent = GetComponent<NavMeshAgent>();
-        Rb = GetComponent<Rigidbody>();
+        //Rb = GetComponent<Rigidbody>();
     }
     public virtual void ReportCanSee(DetectableTarget target) 
     {

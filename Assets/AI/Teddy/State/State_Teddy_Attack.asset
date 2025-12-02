@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2b31567257bd3a4b9d92f245dc5aced, type: 3}
-  m_Name: State_Teddy_Idle
+  m_Name: State_Teddy_Attack
   m_EditorClassIdentifier: Assembly-CSharp::AiState
-  stateName: Teddy Idle State
+  stateName: Attack
   actions:
-  - {fileID: 11400000, guid: 25cdb71d5a86f2f489926a273d180f6d, type: 2}
-  transitions: []
+  - {fileID: 11400000, guid: 0ffaa05fcc989cd4e84b3e522f21618f, type: 2}
+  transitions:
+  - {fileID: 11400000, guid: c74cbb23f427ab846882fce7cc1e8580, type: 2}

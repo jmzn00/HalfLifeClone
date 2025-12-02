@@ -9,4 +9,6 @@ public static class GameServices
     public static Pool Pool { get; internal set; }
     public static DetectableTargetManager DetectableTargetManager { get; internal set; }
 
+    public static GameObject PlayerObject { get; internal set; }
+
 }

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2b31567257bd3a4b9d92f245dc5aced, type: 3}
-  m_Name: State_Teddy_Attack
+  m_Name: State_Teddy_Latch
   m_EditorClassIdentifier: Assembly-CSharp::AiState
-  stateName: 
+  stateName: Latch
   actions:
-  - {fileID: 11400000, guid: 0ffaa05fcc989cd4e84b3e522f21618f, type: 2}
+  - {fileID: 11400000, guid: 468aea1abfc8a894a8ad96446e8c15ca, type: 2}
   transitions: []

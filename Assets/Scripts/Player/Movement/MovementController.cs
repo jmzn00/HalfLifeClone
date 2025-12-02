@@ -75,6 +75,15 @@ public class MovementController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+
+        if(GameServices.PlayerObject != gameObject)
+            GameServices.PlayerObject = gameObject;
+    }
+    private void OnDisable()
+    {
+        if(GameServices.PlayerObject == gameObject)
+            GameServices.PlayerObject = null;
     }
 
     private void Start()

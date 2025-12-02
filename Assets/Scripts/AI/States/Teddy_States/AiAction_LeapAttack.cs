@@ -12,6 +12,9 @@ public class AiAction_LeapAttack : AiAction
     [Header("Misc")]
     public LayerMask groundLayer;
 
+    [Header("Latch Settings")]
+    public float distanceForLatch = 0.5f;
+
     public override void Act(EnemyAi controller)
     {
         DetectableTarget target = controller.CurrentTarget;
