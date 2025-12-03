@@ -15,4 +15,5 @@ MonoBehaviour:
   stateName: Latch
   actions:
   - {fileID: 11400000, guid: 468aea1abfc8a894a8ad96446e8c15ca, type: 2}
-  transitions: []
+  transitions:
+  - {fileID: 11400000, guid: 31da673b9597ee843b5632bdd81d1a26, type: 2}

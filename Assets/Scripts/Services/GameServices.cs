@@ -10,5 +10,6 @@ public static class GameServices
     public static DetectableTargetManager DetectableTargetManager { get; internal set; }
 
     public static GameObject PlayerObject { get; internal set; }
+    public static PlayerHealth PlayerHealth { get; internal set; }
 
 }

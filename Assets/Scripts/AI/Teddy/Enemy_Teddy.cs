@@ -16,6 +16,9 @@ public class Enemy_Teddy : EnemyAi
 
     [SerializeField] private TMP_Text stateText;
 
+    [Header("Colliders")]
+    [SerializeField] private GameObject hitbox;
+
     public override void Awake()
     {
         base.Awake();
@@ -31,6 +34,10 @@ public class Enemy_Teddy : EnemyAi
             ChangeState(deathState);
         }
     }
+    private bool CanAttack() 
+    {
+        return !isAttacking && attackCooldownTimer <= 0f;
+    }
     private void Update()
     {
         stateText.transform.forward = Camera.main.transform.forward;
@@ -41,16 +48,19 @@ public class Enemy_Teddy : EnemyAi
     }
     public override void ReportCanSee(DetectableTarget target)
     {
-        base.ReportCanSee(target);
-        ChangeState(attackState);
+        if (CanAttack()) 
+        {
+            base.ReportCanSee(target);
+            ChangeState(attackState);
+        }        
     }
     public override void ReportLostSight(DetectableTarget target)
-    {
+    {      
         if (!isAttacking) 
         {
             base.ReportLostSight(target);
             ChangeState(idleState);
-        }        
+        }     
     }
     public override void ChangeState(AiState state)
     {
@@ -61,6 +71,10 @@ public class Enemy_Teddy : EnemyAi
         }
         stateText.text = state.stateName;
         currentState = state;
+    }
+    public override void ToggleColliders(bool value)
+    {
+        hitbox.SetActive(value);
     }
 }
 

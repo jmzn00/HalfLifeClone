@@ -10,10 +10,7 @@ public class AiAction_LeapAttack : AiAction
     public float cooldown = 2f;
 
     [Header("Misc")]
-    public LayerMask groundLayer;
-
-    [Header("Latch Settings")]
-    public float distanceForLatch = 0.5f;
+    public LayerMask groundLayer;    
 
     public override void Act(EnemyAi controller)
     {

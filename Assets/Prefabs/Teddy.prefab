@@ -350,6 +350,7 @@ MonoBehaviour:
   latchState: {fileID: 0}
   deathState: {fileID: 0}
   stateText: {fileID: 3966856122541692770}
+  hitbox: {fileID: 8352534876187192711}
 --- !u!195 &6853199490409110097
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using UnityEngine;
 
 public delegate void AmmoChangedEvent(WeaponRuntime wr);
+public delegate void WeaponChangedEvent(List<WeaponData> wl, WeaponData cw);
 
 public class WeaponController : MonoBehaviour
 {
@@ -45,6 +46,7 @@ public class WeaponController : MonoBehaviour
 
     // event for ammo changes ie. UI
     public static event AmmoChangedEvent OnAmmoChanged;
+    public static event WeaponChangedEvent OnWeaponChanged;
 
     // bool to chek if reloading ie. cannot shoot
     bool isReloading = false;
@@ -76,10 +78,18 @@ public class WeaponController : MonoBehaviour
         Pool = GameServices.Pool;
         GameServices.WeaponController = this;
     }
-    
+    private void OnDestroy()
+    {
+        GameServices.Input.Actions.Player.Attack.performed -= ctx => attackPending = true;
+        GameServices.Input.Actions.Player.Attack.canceled -= ctx => attackPending = false;
+        GameServices.Input.Actions.Player.WeaponScroll.performed -= ctx => WeaponScroll((int)ctx.ReadValue<float>());
+        GameServices.Input.Actions.Player.Reload.performed -= ctx => Reload();
+    }
+
 
     private bool CanFire() 
     {
+        if (currentWeaponRuntime == null) return false;
         // cannot fire if reloading or drawing weapon
         if(isReloading || handAnimController.IsAnimationPlaying("Draw")) 
         {
@@ -133,10 +143,12 @@ public class WeaponController : MonoBehaviour
 
         unlockedWeapons.Add(data);
         RebuildUnlockedWeapons();
+        BuildWeaponRuntime(data);
+        //OnWeaponChanged?.Invoke(unlockedWeapons, currentWeapon);
     }
     private void RebuildUnlockedWeapons() 
     {
-        unlockedWeapons
+        unlockedWeapons = unlockedWeapons
             .OrderBy(w => w.weaponColumn)
             .ThenBy(w => w.rowInColumn)
             .ToList();
@@ -192,7 +204,7 @@ public class WeaponController : MonoBehaviour
         else if (weaponIndex >= unlockedWeapons.Count) weaponIndex = 0;
 
         currentWeapon = unlockedWeapons[weaponIndex];
-
+        OnWeaponChanged?.Invoke(unlockedWeapons, currentWeapon);
         ApplyWeapon(currentWeapon);
     }
     private void ApplyWeapon(WeaponData data)
@@ -203,14 +215,10 @@ public class WeaponController : MonoBehaviour
         handAnimController.ApplyOverride(data.handAnimationSet);
         EquipWeapon(data);
     }
-    private void EquipWeapon(WeaponData data)
+    private void BuildWeaponRuntime(WeaponData data) 
     {
-        if (data == null) return;
-        currentWeapon = data;
-        currentWeaponRuntime = null;
-
         // weapon exists ie. mesh, vfx ect.. already spawned
-        for (int i = 0; i < weaponRuntimes.Count; i++) 
+        for (int i = 0; i < weaponRuntimes.Count; i++)
         {
             if (weaponRuntimes[i].weaponData == data)
             {
@@ -248,7 +256,7 @@ public class WeaponController : MonoBehaviour
 
                     vfxParticle.Stop();
                 }
-            }            
+            }
 
             // this holds runtime data for the weapon
             currentWeaponRuntime = new WeaponRuntime
@@ -256,13 +264,20 @@ public class WeaponController : MonoBehaviour
                 weaponData = data,
                 weaponInstance = weaponInstance,
                 weaponView = weaponView,
-                muzzleVfxInstance = vfxParticle,         
+                muzzleVfxInstance = vfxParticle,
             };
 
             weaponRuntimes.Add(currentWeaponRuntime);
             AddAmmo(data.ammoType, data.magazineSize * 3); // just for testing
         }
+    }
+    private void EquipWeapon(WeaponData data)
+    {
+        if (data == null) return;
+        currentWeapon = data;
+        currentWeaponRuntime = null;
 
+        BuildWeaponRuntime(data);
         // deactivate all other weapons
         for (int i = 0; i < weaponRuntimes.Count; i++)
         {

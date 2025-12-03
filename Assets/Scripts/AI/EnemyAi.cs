@@ -24,6 +24,8 @@ public class EnemyAi : MonoBehaviour
     public Vector3 attackVelocity;
     public float attackCooldownTimer;
     public float attackAirTime;
+
+    public bool isLatched; 
     protected virtual void CommonUpdate() 
     {
         if(attackCooldownTimer > 0f)
@@ -45,6 +47,10 @@ public class EnemyAi : MonoBehaviour
             CurrentTarget = null;
     }
     public virtual void ChangeState(AiState state) 
+    {
+    
+    }
+    public virtual void ToggleColliders(bool value) 
     {
     
     }
