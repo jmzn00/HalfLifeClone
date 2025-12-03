@@ -34,7 +34,7 @@ ModelImporter:
       name: Teddy.Idle
       takeName: Root|RootAction
       internalID: -1501162188112074435
-      firstFrame: 57
+      firstFrame: 54
       lastFrame: 182
       wrapMode: 0
       orientationOffsetY: 0
@@ -63,8 +63,8 @@ ModelImporter:
       name: Teddy.Walk
       takeName: Root|RootAction
       internalID: 5367541012646747803
-      firstFrame: 223
-      lastFrame: 265
+      firstFrame: 212
+      lastFrame: 256
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -92,15 +92,15 @@ ModelImporter:
       name: Teddy.Jump
       takeName: Root|RootAction
       internalID: 2208939189296242795
-      firstFrame: 284
-      lastFrame: 360
+      firstFrame: 286
+      lastFrame: 363
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -121,8 +121,8 @@ ModelImporter:
       name: Teddy.Attack
       takeName: Root|RootAction
       internalID: 3460454892161284321
-      firstFrame: 413
-      lastFrame: 467
+      firstFrame: 385
+      lastFrame: 457
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -131,6 +131,35 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Teddy.Killed
+      takeName: Root|RootAction
+      internalID: 2192704860171814778
+      firstFrame: 496
+      lastFrame: 519
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
