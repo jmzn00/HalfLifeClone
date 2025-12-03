@@ -63,6 +63,7 @@ public class AiAction_Latch : AiAction
             attackTimer += Time.deltaTime;
             return;
         }
+        c.SetAnimTrigger("Latch");
         EndLatch(c);
     }
     private void EndLatch(EnemyAi c) 

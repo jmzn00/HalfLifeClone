@@ -156,6 +156,7 @@ public class WeaponController : MonoBehaviour
     }
     private void Reload() 
     {
+        if (currentWeapon == null) return;
         // the amount of ammo needed to fill the clip
         int neededAmmo = currentWeaponRuntime.weaponData.magazineSize - currentWeaponRuntime.ammoInClip;
         // clip is full or no reserve ammo
@@ -330,7 +331,7 @@ public class WeaponController : MonoBehaviour
     {
         
     }
-    private DamageText damageText = null;
+    //private DamageText damageText = null;
     private void HandleHitscan() 
     {
         // check how many consecutive shots in the window

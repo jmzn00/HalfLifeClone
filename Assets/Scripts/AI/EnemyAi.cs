@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(AiAnimationContoller))]
+[RequireComponent(typeof(NpcDamageable))]
 //[RequireComponent(typeof(Rigidbody))]
 public class EnemyAi : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class EnemyAi : MonoBehaviour
 
     public NavMeshAgent Agent { get; private set; }
     //public Rigidbody Rb { get; private set; }
+    public AiAnimationContoller AnimContoller { get; private set; }
     public DetectableTarget CurrentTarget { get; private set; }
 
     public bool isAttacking;
@@ -26,6 +29,7 @@ public class EnemyAi : MonoBehaviour
     public float attackAirTime;
 
     public bool isLatched; 
+    public NpcDamageable Damageable { get; private set; }    
     protected virtual void CommonUpdate() 
     {
         if(attackCooldownTimer > 0f)
@@ -35,7 +39,13 @@ public class EnemyAi : MonoBehaviour
     {
         CosVisionConeAngle = Mathf.Cos(visionConeAngle * Mathf.Deg2Rad);
         Agent = GetComponent<NavMeshAgent>();
+        AnimContoller = GetComponent<AiAnimationContoller>();
+        Damageable = GetComponent<NpcDamageable>();
         //Rb = GetComponent<Rigidbody>();
+    }
+    public virtual void SetAnimTrigger(string t) 
+    {
+        AnimContoller.SetTrigger(t);
     }
     public virtual void ReportCanSee(DetectableTarget target) 
     {

@@ -9,8 +9,8 @@ public class DamageText : MonoBehaviour
 
     [SerializeField] private Gradient gradient;
 
-    [SerializeField] private float floatSpeed = 1f;
-    [SerializeField] private float yChangeBeforeDisable = 3f;
+    //[SerializeField] private float floatSpeed = 1f;
+    //[SerializeField] private float yChangeBeforeDisable = 3f;
 
     private Transform cam;
 

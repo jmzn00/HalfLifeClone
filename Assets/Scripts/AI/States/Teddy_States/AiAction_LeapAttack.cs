@@ -30,6 +30,7 @@ public class AiAction_LeapAttack : AiAction
             // Move toward player until in leap range
             if (horizDistance > attackRange)
             {
+                controller.SetAnimTrigger("Walk");
                 if (controller.Agent != null)
                     controller.Agent.SetDestination(target.transform.position);
                 return;
@@ -78,6 +79,7 @@ public class AiAction_LeapAttack : AiAction
 
     private void UpdateLeap(EnemyAi c)
     {
+        c.SetAnimTrigger("Latch");
         // Track time in air
         c.attackAirTime += Time.deltaTime;
 

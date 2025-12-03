@@ -1,9 +1,7 @@
-using NUnit.Framework;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class DebugConsole : MonoBehaviour
+public class DebugConsole : MonoBehaviour, IGameConsole
 {
     [Header("UI")]
     [SerializeField] private GameObject consolePanel;
@@ -13,19 +11,68 @@ public class DebugConsole : MonoBehaviour
     [Header("Refs")]
     [SerializeField] private WeaponDatabase weaponDatabase;
 
-    bool consoleOpen = false;
+    //bool consoleOpen = false;
+
+    private ConsoleCommandRegistry _registry;
+    private bool _consoleOpen;
     private void Awake()
     {
-        ToggleConsole(false);
+        _registry = new ConsoleCommandRegistry();
+        _registry.Register(new HelpCommand(_registry));
+        _registry.Register(new PlayerWeaponCommand(weaponDatabase));
+        _registry.Register(new PlayerAmmoCommand());
+
+        ToggleConsole(false);            
 
         GameServices.Input.Actions.Debug.ToggleConsole.performed += ctx =>
         {
-            consoleOpen = !consoleOpen;
-            ToggleConsole(consoleOpen);
+            _consoleOpen = !_consoleOpen;
+            ToggleConsole(_consoleOpen);
         };
-        inputField.onSubmit.AddListener(ParseCommand);
+        inputField.onSubmit.AddListener(OnSubmit);
+    }
+    private void OnDestroy()
+    {
+        inputField.onSubmit.RemoveListener(OnSubmit);
+        GameServices.Input.Actions.Debug.ToggleConsole.performed -= ctx =>
+        {
+            _consoleOpen = !_consoleOpen;
+            ToggleConsole(_consoleOpen);
+        };
+    }
+    public void Log(string message, ConsoleLogType type = ConsoleLogType.Info)
+    {
+        Color color = type switch
+        {
+            ConsoleLogType.Info => Color.white,
+            ConsoleLogType.Warning => Color.yellow,
+            ConsoleLogType.Error => Color.red,
+            _ => Color.white
+        };
+        string hexColor = ColorUtility.ToHtmlStringRGB(color);
+        logText.text += $"\n<color=#{hexColor}>[{type}] {message}</color>";
+    }
+    private void OnSubmit(string text) 
+    {
+        _registry.TryExecute(text, this);
+        inputField.text = string.Empty;
+        inputField.Select();
+        inputField.ActivateInputField();
     }
     
+    private void ToggleConsole(bool open) 
+    {
+        consolePanel.SetActive(open);
+        _consoleOpen = consolePanel.activeInHierarchy;
+
+        if (_consoleOpen) 
+        {
+            inputField.Select();
+            inputField.ActivateInputField();
+        }
+        GameServices.Input.TogglePlayerInput(_consoleOpen);
+    }
+    /*
     private void ToggleConsole(bool open) 
     {
         inputField.Select();
@@ -145,7 +192,7 @@ public class DebugConsole : MonoBehaviour
                 break;
             case "remove":
 
-                break;
+                break;            
             default:
                 LogMessage("Invalid Arg[1]", Color.red);
                 break;
@@ -153,4 +200,5 @@ public class DebugConsole : MonoBehaviour
     }
     
     #endregion    
+    */
 }

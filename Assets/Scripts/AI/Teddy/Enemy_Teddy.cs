@@ -6,11 +6,9 @@ public class Enemy_Teddy : EnemyAi
 {
     private AiState currentState;
 
-    [Header("Actions")]
+    [Header("States")]
     [SerializeField] private AiState idleState;
     [SerializeField] private AiState attackState;
-    [SerializeField] private AiState latchState;
-    [SerializeField] private AiState deathState;
 
     private NpcDamageable damageable;
 
@@ -23,16 +21,12 @@ public class Enemy_Teddy : EnemyAi
     {
         base.Awake();
         damageable = GetComponent<NpcDamageable>();
-        damageable.OnHealthChanged += HealthChanged;
 
         ChangeState(idleState);        
     }
-    private void HealthChanged(float amt) 
+    public override void SetAnimTrigger(string t)
     {
-        if(amt <= 0) 
-        {
-            ChangeState(deathState);
-        }
+        base.SetAnimTrigger(t);
     }
     private bool CanAttack() 
     {

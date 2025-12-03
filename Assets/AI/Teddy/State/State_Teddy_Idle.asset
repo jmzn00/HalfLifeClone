@@ -15,4 +15,5 @@ MonoBehaviour:
   stateName: Idle
   actions:
   - {fileID: 11400000, guid: 25cdb71d5a86f2f489926a273d180f6d, type: 2}
-  transitions: []
+  transitions:
+  - {fileID: 11400000, guid: 0cf1d6577bd5d37428cde64f37c1e432, type: 2}

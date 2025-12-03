@@ -3,7 +3,6 @@ using UnityEngine;
 [DefaultExecutionOrder(-99)]
 public class CameraManager : MonoBehaviour
 {
-    private Transform followTarget = null;
     private Camera cam;
 
     [SerializeField] private Vector3 playerCamOffset;

@@ -23,5 +23,6 @@ public class AiAction_WanderAroundHome : AiAction
                 agent.SetDestination(hit.position);
             }
         }
+        controller.SetAnimTrigger("Walk");
     }
 }
