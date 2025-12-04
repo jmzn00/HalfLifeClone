@@ -12,3 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21add4425ee819645a80c2c562314968, type: 3}
   m_Name: Action_Latch
   m_EditorClassIdentifier: Assembly-CSharp::AiAction_Latch
+  latchDuration: 4
+  latchLocalPosition: {x: 0, y: -0.65, z: 1}
+  latchLocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  dropRayDistance: 20
+  damageAmount: 10
+  attackAmount: 3
+  timeBetweenAttacks: 1

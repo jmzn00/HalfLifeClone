@@ -10,10 +10,7 @@ public class AiAction_LeapAttack : AiAction
     public float cooldown = 2f;
 
     [Header("Misc")]
-    public LayerMask groundLayer;
-
-    [Header("Latch Settings")]
-    public float distanceForLatch = 0.5f;
+    public LayerMask groundLayer;    
 
     public override void Act(EnemyAi controller)
     {
@@ -33,6 +30,7 @@ public class AiAction_LeapAttack : AiAction
             // Move toward player until in leap range
             if (horizDistance > attackRange)
             {
+                controller.SetAnimTrigger("Walk");
                 if (controller.Agent != null)
                     controller.Agent.SetDestination(target.transform.position);
                 return;
@@ -81,6 +79,7 @@ public class AiAction_LeapAttack : AiAction
 
     private void UpdateLeap(EnemyAi c)
     {
+        c.SetAnimTrigger("Latch");
         // Track time in air
         c.attackAirTime += Time.deltaTime;
 

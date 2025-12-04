@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class NpcDamageable : MonoBehaviour, IDamageabale
@@ -7,6 +6,7 @@ public class NpcDamageable : MonoBehaviour, IDamageabale
     [SerializeField] private Transform damageTextSpawnPoint;
     [SerializeField] private float maxHealth = 100f;
     public float Health { get; private set; }
+    public bool Dead;
 
     [Header("Multipliers")]
     [SerializeField] private float headMultiplier = 1.5f;
@@ -20,6 +20,16 @@ public class NpcDamageable : MonoBehaviour, IDamageabale
     private void Awake()
     {
         pool = GameServices.Pool;
+        
+    }
+    private void OnEnable()
+    {
+        Health = maxHealth;
+        Dead = false;
+    }
+    private void OnDisable()
+    {
+        
     }
     public HitOutcome ApplyHit(in HitInfo hitInfo) 
     {
@@ -38,8 +48,7 @@ public class NpcDamageable : MonoBehaviour, IDamageabale
             impactPoint = hitInfo.point,
             hitbox = hitInfo.hitbox,
             lethalDamage = lethal
-        };                
-        //Debug.Log($"{gameObject.name} hit for {result.damageApplied} hb: {result.hitbox}");
+        };                        
         HandleDamageText(result);
         return result;
         

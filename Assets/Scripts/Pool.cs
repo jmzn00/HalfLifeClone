@@ -18,9 +18,9 @@ public class PoolConfig
 [DefaultExecutionOrder(-99)]
 public class Pool : MonoBehaviour 
 {    
-    [SerializeField] private int poolSize = 10;
+    //[SerializeField] private int poolSize = 10;
     [SerializeField] private BulletTrail bulletTrail;
-    private Queue<BulletTrail> trailPool = new Queue<BulletTrail>();
+    //private Queue<BulletTrail> trailPool = new Queue<BulletTrail>();
 
     //[SerializeField] private DamageText damageText;
     //private Queue<DamageText> damageTextPool = new Queue<DamageText>();
