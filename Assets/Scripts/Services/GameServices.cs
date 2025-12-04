@@ -7,5 +7,9 @@ public static class GameServices
     public static InputManager Input { get; internal set; }
     public static CameraManager Cam { get; internal set; }
     public static Pool Pool { get; internal set; }
+    public static DetectableTargetManager DetectableTargetManager { get; internal set; }
+
+    public static GameObject PlayerObject { get; internal set; }
+    public static PlayerHealth PlayerHealth { get; internal set; }
 
 }
