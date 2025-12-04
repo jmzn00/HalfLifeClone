@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 [CreateAssetMenu(menuName = "Ai/Actions/Leap Attack")]
 public class AiAction_LeapAttack : AiAction
@@ -14,6 +15,12 @@ public class AiAction_LeapAttack : AiAction
 
     public override void Act(EnemyAi controller)
     {
+        if (controller.isAttacking) 
+        {
+            UpdateLeap(controller);
+            return;
+        }
+
         DetectableTarget target = controller.CurrentTarget;
         if (target == null) return;
 
@@ -129,8 +136,14 @@ public class AiAction_LeapAttack : AiAction
             c.attackVelocity = Vector3.zero;
             c.attackAirTime = 0f;
 
-            if (c.Agent != null)
-                c.Agent.enabled = true;
+            if(c.Agent != null) 
+            {
+                if(NavMesh.SamplePosition(c.transform.position, out NavMeshHit navHit, 1.0f, NavMesh.AllAreas)) 
+                {
+                    c.transform.position = navHit.position;
+                    c.Agent.enabled = true;
+                }
+            }
         }
     }
 

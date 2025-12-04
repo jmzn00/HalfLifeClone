@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2b31567257bd3a4b9d92f245dc5aced, type: 3}
-  m_Name: State_Teddy_Idle
+  m_Name: State_Teddy_Wander
   m_EditorClassIdentifier: Assembly-CSharp::AiState
-  stateName: Idle
+  stateName: Wander
   actions:
   - {fileID: 11400000, guid: 25cdb71d5a86f2f489926a273d180f6d, type: 2}
   transitions:
-  - {fileID: 11400000, guid: 0cf1d6577bd5d37428cde64f37c1e432, type: 2}
+  - {fileID: 11400000, guid: 12620eafcda128d43996767ccfb91a94, type: 2}

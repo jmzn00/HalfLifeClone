@@ -10,8 +10,6 @@ public class Enemy_Teddy : EnemyAi
     [SerializeField] private AiState idleState;
     [SerializeField] private AiState attackState;
 
-    private NpcDamageable damageable;
-
     [SerializeField] private TMP_Text stateText;
 
     [Header("Colliders")]
@@ -20,17 +18,7 @@ public class Enemy_Teddy : EnemyAi
     public override void Awake()
     {
         base.Awake();
-        damageable = GetComponent<NpcDamageable>();
-
         ChangeState(idleState);        
-    }
-    public override void SetAnimTrigger(string t)
-    {
-        base.SetAnimTrigger(t);
-    }
-    private bool CanAttack() 
-    {
-        return !isAttacking && attackCooldownTimer <= 0f;
     }
     private void Update()
     {
@@ -42,23 +30,20 @@ public class Enemy_Teddy : EnemyAi
     }
     public override void ReportCanSee(DetectableTarget target)
     {
-        if (CanAttack()) 
-        {
-            base.ReportCanSee(target);
-            ChangeState(attackState);
-        }        
+        if (Damageable.Dead)
+            return;
+
+        base.ReportCanSee(target);       
     }
     public override void ReportLostSight(DetectableTarget target)
-    {      
-        if (!isAttacking) 
-        {
-            base.ReportLostSight(target);
-            ChangeState(idleState);
-        }     
+    {
+        if (Damageable.Dead) 
+            return;
+        base.ReportLostSight(target);             
     }
     public override void ChangeState(AiState state)
     {
-        if(state == null) 
+        if (state == null) 
         {
             Debug.LogWarning("State Not Implemented");
             return;

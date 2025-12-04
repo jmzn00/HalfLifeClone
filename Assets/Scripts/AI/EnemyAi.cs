@@ -29,7 +29,11 @@ public class EnemyAi : MonoBehaviour
     public float attackAirTime;
 
     public bool isLatched; 
-    public NpcDamageable Damageable { get; private set; }    
+    public NpcDamageable Damageable { get; private set; }   
+    public virtual bool CanAttack() 
+    {
+        return attackCooldownTimer <= 0f && !isAttacking;
+    }
     protected virtual void CommonUpdate() 
     {
         if(attackCooldownTimer > 0f)
@@ -38,10 +42,10 @@ public class EnemyAi : MonoBehaviour
     public virtual void Awake()
     {
         CosVisionConeAngle = Mathf.Cos(visionConeAngle * Mathf.Deg2Rad);
+
         Agent = GetComponent<NavMeshAgent>();
         AnimContoller = GetComponent<AiAnimationContoller>();
         Damageable = GetComponent<NpcDamageable>();
-        //Rb = GetComponent<Rigidbody>();
     }
     public virtual void SetAnimTrigger(string t) 
     {

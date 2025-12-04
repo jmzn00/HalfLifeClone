@@ -123,7 +123,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cb35309929704a84e8aeb3e95c270b8d, type: 2}
+  - {fileID: 2100000, guid: 9d02ca628b9160c4d9c76d1acb94c7fb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -717,6 +717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NpcDamageable
   damageTextSpawnPoint: {fileID: 527518139709712033}
   maxHealth: 100
+  Dead: 0
   headMultiplier: 1.5
   bodyMultiplier: 1
   legMultiplier: 0.8

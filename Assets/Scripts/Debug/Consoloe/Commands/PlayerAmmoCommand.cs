@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAmmoCommand : IConsoleCommand
@@ -5,6 +7,15 @@ public class PlayerAmmoCommand : IConsoleCommand
     public string Name => "player.ammo";
     public string Description => "gives player ammo.";
     public string Usage => "player.ammo <type> <amount>";
+
+    public IEnumerable<string> GetSuggestions(string[] args)
+    {
+        if (args.Length == 1)
+        {
+            return new[] { "pistol", "revolver" };
+        }
+        return null;
+    }
 
     public void Execute(IGameConsole console, string[] args)
     {
@@ -22,11 +33,11 @@ public class PlayerAmmoCommand : IConsoleCommand
         switch (ammoType)
         {
             case "pistol":
-                GameServices.WeaponController.AddAmmo(AmmoType.A_9mm, amount);
+                GameServices.Player.Weapons.AddAmmo(AmmoType.A_9mm, amount);
                 console.Log($"Added {amount} Bullet ammo to player.");
                 break;
             case "revolver":
-                GameServices.WeaponController.AddAmmo(AmmoType.A_357, amount);
+                GameServices.Player.Weapons.AddAmmo(AmmoType.A_357, amount);
                 console.Log($"Added {amount} Shell ammo to player.");
                 break;
             default:

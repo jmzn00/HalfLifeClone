@@ -76,7 +76,6 @@ public class WeaponController : MonoBehaviour
         GameServices.Input.Actions.Player.Reload.performed += ctx => Reload();
 
         Pool = GameServices.Pool;
-        GameServices.WeaponController = this;
     }
     private void OnDestroy()
     {

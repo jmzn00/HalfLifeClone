@@ -18,6 +18,8 @@ public class VisionSensor : MonoBehaviour
 
     private void Update()
     {
+        if (linkedAi.Damageable.Dead) return;
+
         var visibleThisFrame = new HashSet<DetectableTarget>();
         DetectableTarget closestTarget = null;
         float closestDistanceSqr = float.MaxValue;
