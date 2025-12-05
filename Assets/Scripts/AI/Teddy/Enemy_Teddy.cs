@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Enemy_Teddy : EnemyAi
 {
-    private AiState currentState;
-
     [Header("States")]
     [SerializeField] private AiState idleState;
     [SerializeField] private AiState attackState;
@@ -32,8 +30,12 @@ public class Enemy_Teddy : EnemyAi
     {
         if (Damageable.Dead)
             return;
-
-        base.ReportCanSee(target);       
+        if (target.Type == DetectableType.AiMountable || target.Type == DetectableType.AiEnemy) 
+        {
+            if (target.LinkedAi.hasMountedTarget)
+                return;
+        }
+        base.ReportCanSee(target);          
     }
     public override void ReportLostSight(DetectableTarget target)
     {
@@ -43,13 +45,8 @@ public class Enemy_Teddy : EnemyAi
     }
     public override void ChangeState(AiState state)
     {
-        if (state == null) 
-        {
-            Debug.LogWarning("State Not Implemented");
-            return;
-        }
-        stateText.text = state.stateName;
-        currentState = state;
+        base.ChangeState(state);
+        stateText.text = currentState.stateName;
     }
     public override void ToggleColliders(bool value)
     {

@@ -15,26 +15,27 @@ public class AiAction_Death : AiAction
             UpdateDeath(c);
     }
     private void StartDeath(EnemyAi c) 
-    {
-        c.SetAnimTrigger("Death");
+    {       
         if (c.Agent.enabled) 
         {
             c.Agent.isStopped = true;
             c.Agent.enabled = false;
         }
-        
+        c.SetAnimTrigger("Death");
         c.ToggleColliders(false);
-        c.Damageable.Dead = true;  
+        c.Damageable.Dead = true;
+
+        Debug.Log("Enemy Dead");
     }
     private void UpdateDeath(EnemyAi c) 
-    {
+    {        
         RaycastHit hit;
         if (Physics.Raycast(
         c.transform.position,
         Vector3.down,
         out hit,
-        Mathf.Infinity,      // maxDistance
-        ~groundLayer         // layerMask
+        Mathf.Infinity,
+        ~groundLayer
     ))
         {
             groundPos = hit.point;

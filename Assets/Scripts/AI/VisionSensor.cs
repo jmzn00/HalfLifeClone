@@ -55,7 +55,7 @@ public class VisionSensor : MonoBehaviour
                 continue;
             }
             RaycastHit hitInfo;
-            if(Physics.Raycast(linkedAi.EyeLocation.position, vectorToTarget.normalized, out hitInfo, linkedAi.VisionConeRange)) 
+            if(Physics.Raycast(linkedAi.EyeLocation.position, vectorToTarget.normalized, out hitInfo, linkedAi.VisionConeRange, DetectionMask, QueryTriggerInteraction.Ignore)) 
             {
                 bool canSee = hitInfo.collider.transform.root.gameObject == potentialTarget.gameObject;
 

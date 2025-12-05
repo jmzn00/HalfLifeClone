@@ -674,7 +674,6 @@ GameObject:
   - component: {fileID: 5429825156576163182}
   - component: {fileID: 4794039722927924207}
   - component: {fileID: 6853199490409110097}
-  - component: {fileID: 6334999112192390176}
   m_Layer: 0
   m_Name: Teddy
   m_TagString: Untagged
@@ -736,7 +735,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VisionSensor
   DetectionMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 511
 --- !u!114 &5429825156576163182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -750,6 +749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   eyeLocation: {fileID: 4948862686074868360}
+  mountLocation: {fileID: 0}
   visionConeRange: 30
   visionConeAngle: 70
   isAttacking: 0
@@ -757,6 +757,8 @@ MonoBehaviour:
   attackCooldownTimer: 0
   attackAirTime: 0
   isLatched: 0
+  isMounted: 0
+  hasMountedTarget: 0
   idleState: {fileID: 11400000, guid: 6ef39b4b55f125542b4660bfc79546c2, type: 2}
   attackState: {fileID: 11400000, guid: c707251f4344a204f962b736e8322741, type: 2}
   stateText: {fileID: 3966856122541692770}
@@ -796,27 +798,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!65 &6334999112192390176
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1467825291753004841}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.27}
-  m_Center: {x: 0, y: 0.6, z: 0.24}
 --- !u!1 &1476121754495402960
 GameObject:
   m_ObjectHideFlags: 0

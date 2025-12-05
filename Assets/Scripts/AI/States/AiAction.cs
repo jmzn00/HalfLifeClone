@@ -1,10 +1,13 @@
 using System.Dynamic;
 using UnityEditor.Compilation;
+using UnityEditor.Media;
 using UnityEngine;
 
 public abstract class AiAction : ScriptableObject 
 {
-    public abstract void Act(EnemyAi controller);     
+    public abstract void Act(EnemyAi controller);   
+    public virtual void OnEnter(EnemyAi controller) { }
+    public virtual void OnExit(EnemyAi controller) { }
 }
 public abstract class AiTransition : ScriptableObject
 {

@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6b5791481bb4e341a11b69dff42935c, type: 3}
-  m_Name: DistanceLessThan
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.AI.States.Conditions.Condition_DistanceToTargetLessThan
-  distanceThreshold: 1
+  m_Script: {fileID: 11500000, guid: 59f009adb41736c498b3cd4d73110e61, type: 3}
+  m_Name: Action_GoToTarget
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.AI.States.Teddy_States.AiAction_GoToMount

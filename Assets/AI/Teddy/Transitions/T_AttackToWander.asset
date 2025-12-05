@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: T_AttackToWander
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.AI.States.Teddy_States.ConditionsToState
   conditions:
-  - {fileID: 11400000, guid: b00773e03eb57dd4ba42939217dd30d4, type: 2}
   - {fileID: 11400000, guid: 4672100852ebe314398a3ebd42ce40f0, type: 2}
+  - {fileID: 11400000, guid: b00773e03eb57dd4ba42939217dd30d4, type: 2}
   targetState: {fileID: 11400000, guid: 6ef39b4b55f125542b4660bfc79546c2, type: 2}

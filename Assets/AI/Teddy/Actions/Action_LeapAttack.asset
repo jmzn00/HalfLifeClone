@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbecc88e5549174f848dbf870af4f07, type: 3}
   m_Name: Action_LeapAttack
   m_EditorClassIdentifier: Assembly-CSharp::AiAction_LeapAttack
-  attackRange: 4
-  apexHeight: 2
-  maxHorizontalSpeed: 10
+  attackRange: 5
+  apexHeight: 1
+  maxHorizontalSpeed: 20
   cooldown: 0.5
   groundLayer:
     serializedVersion: 2

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,12 +10,14 @@ public class EnemyAi : MonoBehaviour
 {
     [Header("Prefs")]
     [SerializeField] private Transform eyeLocation;
+    [SerializeField] private Transform mountLocation;
 
     [SerializeField] private float visionConeRange = 30f;
     public float VisionConeRange => visionConeRange;
     [SerializeField] private float visionConeAngle = 70f;
     public float VisionConeAngle => visionConeAngle;
     public Transform EyeLocation => eyeLocation;
+    public Transform MountLocation => mountLocation;
 
     public float CosVisionConeAngle { get; private set; } = 0f;
 
@@ -28,8 +31,15 @@ public class EnemyAi : MonoBehaviour
     public float attackCooldownTimer;
     public float attackAirTime;
 
-    public bool isLatched; 
-    public NpcDamageable Damageable { get; private set; }   
+    public bool isLatched;
+    public bool isMounted;
+
+    // check if this ai has another ai mounted on it
+    public bool hasMountedTarget;
+    public NpcDamageable Damageable { get; private set; }
+    private DetectableTarget detectableTarget;
+
+    public event Action<bool> OnAiMountedChanged;
     public virtual bool CanAttack() 
     {
         return attackCooldownTimer <= 0f && !isAttacking;
@@ -46,6 +56,7 @@ public class EnemyAi : MonoBehaviour
         Agent = GetComponent<NavMeshAgent>();
         AnimContoller = GetComponent<AiAnimationContoller>();
         Damageable = GetComponent<NpcDamageable>();
+        detectableTarget = GetComponent<DetectableTarget>(); 
     }
     public virtual void SetAnimTrigger(string t) 
     {
@@ -60,12 +71,27 @@ public class EnemyAi : MonoBehaviour
         if(CurrentTarget == target)
             CurrentTarget = null;
     }
-    public virtual void ChangeState(AiState state) 
+    public AiState currentState { get; private set; }
+    public virtual void ChangeState(AiState newState) 
     {
-    
+        if(newState == null) 
+        {
+            Debug.LogWarning("State not Implemented");
+            return;
+        }
+        if (currentState != null)
+            currentState.OnExit(this);
+        newState.OnEnter(this);
+        currentState = newState;
+        
     }
     public virtual void ToggleColliders(bool value) 
     {
-    
+        
+    }    
+    public virtual void ToggleMounted(bool value) 
+    {   
+        OnAiMountedChanged?.Invoke(value);
+        hasMountedTarget = value;
     }
 }
