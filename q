@@ -1,0 +1,313 @@
+[33mcommit d8ba6ff3547d4df766fa0d31aac1d681b24cae77[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Mon Dec 8 04:03:01 2025 +0200
+
+    Test3
+
+[33mcommit 1449a0a21f673576336b03353e1b3b0040ed20c7[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Mon Dec 8 00:25:35 2025 +0200
+
+    Test
+
+[33mcommit e34caa439a954baadd7b7b2b81c73fd9b8173e43[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Mon Dec 8 00:22:45 2025 +0200
+
+    test
+
+[33mcommit 7f3c5ddfbdc5a1c4959f3f1f4f2844f9a992b796[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Fri Dec 5 18:10:17 2025 +0200
+
+    Ai state stuff
+    
+    - Transitions will now support AND OR not just AND
+    - Improved Teddy states and added mounting logic to another Ai
+    - Made conditions more generic
+
+[33mcommit 82c3074367117b826447f9f2ca494fa7dbe737fc[m
+Author: ElliWho <elliojasuu@gmail.com>
+Date:   Fri Dec 5 11:50:05 2025 +0200
+
+    First Modle of DuckZombie
+
+[33mcommit 57f711999a860d6b7a65c55bc3baec5417f67a3b[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Thu Dec 4 19:50:03 2025 +0200
+
+    AI transition changes
+    
+    Rather than making a new transition script for each transition case all transitions will follow the new AiTransitionCondition path to determine if the transition to the next state is allowed.
+
+[33mcommit 84e7cd9e8a0434e6d4faebe194903ba2ab5debd0[m
+Author: ElliWho <elliojasuu@gmail.com>
+Date:   Thu Dec 4 14:20:57 2025 +0200
+
+    Change scene name
+
+[33mcommit 7789f3be514c4dfce44ce678bb7fc1230346a5e7[m
+Merge: 62de6ec 0b1c55a
+Author: ElliWho <elliojasuu@gmail.com>
+Date:   Thu Dec 4 14:18:44 2025 +0200
+
+    Merge branch 'main' of https://github.com/jmzn00/HalfLifeClone
+
+[33mcommit 62de6ec0fd3abe704433db6beecc16f4563b533e[m
+Author: ElliWho <elliojasuu@gmail.com>
+Date:   Thu Dec 4 14:18:31 2025 +0200
+
+    Update on Teddy Model
+
+[33mcommit 0b1c55a3e5aff41308db20400233b443514fa515[m
+Merge: 8b2a90a eece028
+Author: jonklerfromtheaslume <ville-sakari.laitinen@laajasalonopisto.fi>
+Date:   Thu Dec 4 14:13:50 2025 +0200
+
+    Merge branch 'main' of https://github.com/jmzn00/HalfLifeClone
+
+[33mcommit 8b2a90a62fe79c2d1a47dbbf1571d2db5a550a42[m
+Author: jonklerfromtheaslume <ville-sakari.laitinen@laajasalonopisto.fi>
+Date:   Thu Dec 4 14:13:47 2025 +0200
+
+    new fairy wand model
+
+[33mcommit eece028162fd70aa78408af4ef64c17f877f2397[m
+Merge: 0865da0 c5ef748
+Author: ElliWho <elliojasuu@gmail.com>
+Date:   Thu Dec 4 10:48:25 2025 +0200
+
+    Merge branch 'main' of https://github.com/jmzn00/HalfLifeClone
+
+[33mcommit 0865da0eed6d9000392329c12f2863750e21bb0a[m
+Author: ElliWho <elliojasuu@gmail.com>
+Date:   Thu Dec 4 10:48:18 2025 +0200
+
+    Texture Teddy Update
+
+[33mcommit c5ef748e2374821935583ecbc8b3c565b57c6b31[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Wed Dec 3 22:56:10 2025 +0200
+
+    Console Rework
+    
+    Complete Rework of the console
+    - Type help in console to see all commands and their usage
+
+[33mcommit 1d5beba6e1fddc4f76460fbc712cb0e727d70ed3[m
+Merge: 893c9e8 6174f4c
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Wed Dec 3 19:07:38 2025 +0200
+
+    Merge branch 'main' of https://github.com/jmzn00/HalfLifeClone
+
+[33mcommit 893c9e87082ba44c805bd2a04eba15b8123f2128[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Wed Dec 3 19:06:57 2025 +0200
+
+    AiStates + WeaponUi
+    
+    Added ai AiStates and Transitions:
+     - State_Latch
+     - Transition_StateToIdle
+     - Transtition_LeapToLatch
+    
+    - WeaponUI
+
+[33mcommit 6174f4c22f76f2e89ce1217ec0bd42185f605c3b[m
+Author: ElliWho <elliojasuu@gmail.com>
+Date:   Wed Dec 3 14:03:18 2025 +0200
+
+    Teddy death animation added
+
+[33mcommit 442608d5ec5e15d9e68abf6127a1d6644f4515ae[m
+Author: ElliWho <elliojasuu@gmail.com>
+Date:   Wed Dec 3 12:46:58 2025 +0200
+
+    Teddy update
+
+[33mcommit 0febe3a655206fa2c8640d87e58f80255ea017c7[m
+Author: ElliWho <elliojasuu@gmail.com>
+Date:   Wed Dec 3 11:48:51 2025 +0200
+
+    Animation Fix on Teddy
+
+[33mcommit 929cc5b0ecfca6a89a51543c4edbd2690bccf248[m
+Author: ElliWho <elliojasuu@gmail.com>
+Date:   Wed Dec 3 11:25:10 2025 +0200
+
+    Nalle Animatio
+
+[33mcommit b9ec0adc62a4773173fa905925733f261826ba61[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Wed Dec 3 01:45:35 2025 +0200
+
+    AiStuff + HitText
+
+[33mcommit 88ffb55dfb9ae41ca4366111f2a13118758c98b9[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Tue Dec 2 18:33:20 2025 +0200
+
+    Ai Stuff
+
+[33mcommit 4e84b26b395bdc4f17bea8fdd22e36fc88fc289e[m
+Merge: 3953ada 350a608
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Tue Dec 2 14:55:11 2025 +0200
+
+    Merge branch 'main' of https://github.com/jmzn00/HalfLifeClone
+
+[33mcommit 3953ada1a1d610eb2959ef3ca1ba55fdc177fd73[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Tue Dec 2 14:54:49 2025 +0200
+
+    VisionSensor + EnemyAi
+
+[33mcommit 350a608d8f2c5ca8181b08a95e301440d6b3ae2e[m
+Author: ElliWho <elliojasuu@gmail.com>
+Date:   Tue Dec 2 14:19:28 2025 +0200
+
+    Nalle Texture
+
+[33mcommit f806cd55b30bb93e007353f7aa53c2ff0b84cb81[m
+Author: ElliWho <elliojasuu@gmail.com>
+Date:   Tue Dec 2 14:18:14 2025 +0200
+
+    Nalle
+
+[33mcommit 1640b5c49d8a225b0455f037caacd57465e52657[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Tue Dec 2 13:40:23 2025 +0200
+
+    prefab
+
+[33mcommit 7aef668bb2e40cf3a202be0f0b7fe958c7bbd2f8[m
+Author: jonklerfromtheaslume <ville-sakari.laitinen@laajasalonopisto.fi>
+Date:   Tue Dec 2 13:19:01 2025 +0200
+
+    added weapon models
+
+[33mcommit 89f83aad42073ded7801ac3e00dea07547c41f65[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Tue Dec 2 00:24:18 2025 +0200
+
+    Player Commands
+
+[33mcommit ca06cb401d477a28db1c536fbf8d27f20e9cc14c[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Mon Dec 1 18:45:40 2025 +0200
+
+    BulletTrails + Object Pool
+
+[33mcommit 701dff550850a130461bdce0b39ec79d6ccb861e[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Fri Nov 28 02:50:49 2025 +0200
+
+    Camera Jitter Fix
+    
+    quick cam jitter fix
+    
+    // make new cameraManager
+
+[33mcommit 7cf2cde045980f7fb3dd40a348609af69e1b4818[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Tue Nov 25 14:49:44 2025 +0200
+
+    Early player audio implementation
+
+[33mcommit e0b8602fe2350609867bd64271fcee5cb485b3e1[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Tue Nov 18 17:47:26 2025 +0200
+
+    WeaponSystem Docs
+    
+    Added comments to document how the weapon system works
+
+[33mcommit e36578a33071e29c68d2749f9798e4dc96a205e7[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Tue Nov 18 02:52:29 2025 +0200
+
+    HandAnimation stuff
+
+[33mcommit ffc2acbf8c1d5dc10cb847c122a6aa1c0ef74901[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Mon Nov 17 15:02:35 2025 +0200
+
+    MoreWeaponUpdates
+
+[33mcommit a4b8b9b0b8481e062eee1f8eed98bfd782d1d06e[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Mon Nov 17 13:02:02 2025 +0200
+
+    WeaponUpdates
+    
+    + WeaponRuntime
+    + WeaponVfx
+
+[33mcommit 1afd476221cfd32e40990461ab5a7445a3597416[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Thu Nov 13 22:00:05 2025 +0200
+
+    AnimationTHings
+
+[33mcommit 653778880dc014fc99ef3be08454b2710f7fca81[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Thu Nov 13 02:30:44 2025 +0200
+
+    +
+
+[33mcommit 211c7fa73c3145e9b50c778aa5acd53909e53171[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Thu Nov 13 02:20:58 2025 +0200
+
+    WeaponsUpdate
+    
+    + Second test weapon
+    + WeaponScroll
+
+[33mcommit aab22353c1e3aac3059e758bb71d3c602e13e193[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Thu Nov 13 02:00:48 2025 +0200
+
+    PlayerCameraFix
+    
+    fixed jitter on player camera when rotating
+
+[33mcommit a0f2128fac0a85d3b5b13f5fe33bb75049102bf1[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Wed Nov 12 21:15:28 2025 +0200
+
+    WeaponsSystem
+    
+    Added the foundation for the weapons system with the animation system for weapons and hands
+
+[33mcommit 2ef4c1e1f47d5833440533b3d9987307d06ed2b5[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Wed Nov 12 14:55:07 2025 +0200
+
+    RiggedHands
+    
+    added rigged hands for the player and a couple of test animations
+
+[33mcommit 92f71d592f1eed07bfc24767a80cb664c48a2c9f[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Wed Nov 12 10:43:52 2025 +0200
+
+    V.1.1
+    
+    TRAIN
+
+[33mcommit 43985724ce7f53f1e584304ea570cd5dbd54d067[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Tue Nov 11 14:11:25 2025 +0200
+
+    V.1.0
+    
+    + PlayerMovement
+    + Damageable
+
+[33mcommit bfc533c2124d36a84c0d3b2204a995a90b5792fd[m
+Author: jmzn00 <mansikkajaakko13@gmail.com>
+Date:   Tue Nov 11 11:43:06 2025 +0200
+
+    Initial commit
