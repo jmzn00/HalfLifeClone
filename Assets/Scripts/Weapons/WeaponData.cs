@@ -9,6 +9,7 @@ public enum AmmoType
 {   
     A_9mm,
     A_357,
+    A_45,
     Default
 }
 public enum WeaponColumn 
