@@ -19,6 +19,7 @@ public struct HitOutcome
     public HitboxType hitbox;
     public float damageApplied;
     public Vector3 impactPoint;
+    public bool lethalDamage;
 
     public string sfxTag;
     public string vfxTag;

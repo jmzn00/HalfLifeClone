@@ -1,31 +1,181 @@
-using NUnit.Framework;
-using System.Collections.Generic;
+﻿using System.Linq;
 using TMPro;
 using UnityEngine;
 
-public class DebugConsole : MonoBehaviour
+public class DebugConsole : MonoBehaviour, IGameConsole
 {
     [Header("UI")]
     [SerializeField] private GameObject consolePanel;
     [SerializeField] private TMP_Text logText;
+    [SerializeField] private TMP_Text suggestionText;
     [SerializeField] private TMP_InputField inputField;
 
     [Header("Refs")]
     [SerializeField] private WeaponDatabase weaponDatabase;
 
-    bool consoleOpen = false;
+    //bool consoleOpen = false;
+
+    private ConsoleCommandRegistry _registry;
+    private bool _consoleOpen;
     private void Awake()
     {
+        _registry = new ConsoleCommandRegistry();
+        _registry.Register(new HelpCommand(_registry));
+        _registry.Register(new PlayerWeaponCommand(weaponDatabase));
+        _registry.Register(new PlayerAmmoCommand());
+
         ToggleConsole(false);
 
         GameServices.Input.Actions.Debug.ToggleConsole.performed += ctx =>
         {
-            consoleOpen = !consoleOpen;
-            ToggleConsole(consoleOpen);
+            _consoleOpen = !_consoleOpen;
+            ToggleConsole(_consoleOpen);
         };
-        inputField.onSubmit.AddListener(ParseCommand);
+        GameServices.Input.Actions.Debug.AutoComplete.performed += ctx => HandleAutocomplete();
+        inputField.onSubmit.AddListener(OnSubmit);
+    }
+    private void OnDestroy()
+    {
+        inputField.onSubmit.RemoveListener(OnSubmit);
+        
+        GameServices.Input.Actions.Debug.ToggleConsole.performed -= ctx =>
+        {
+            _consoleOpen = !_consoleOpen;
+            ToggleConsole(_consoleOpen);
+        };
+        GameServices.Input.Actions.Debug.AutoComplete.performed -= ctx => HandleAutocomplete();
+    }
+    public void Log(string message, ConsoleLogType type = ConsoleLogType.Info)
+    {
+        Color color = type switch
+        {
+            ConsoleLogType.Info => Color.white,
+            ConsoleLogType.Warning => Color.yellow,
+            ConsoleLogType.Error => Color.red,
+            _ => Color.white
+        };
+        string hexColor = ColorUtility.ToHtmlStringRGB(color);
+        logText.text += $"\n<color=#{hexColor}>[{type}] {message}</color>";
+    }
+    private void OnSubmit(string text) 
+    {
+        _registry.TryExecute(text, this);
+        inputField.text = string.Empty;
+        inputField.Select();
+        inputField.ActivateInputField();
     }
     
+    private void ToggleConsole(bool open) 
+    {
+        consolePanel.SetActive(open);
+        _consoleOpen = consolePanel.activeInHierarchy;
+
+        if (_consoleOpen) 
+        {
+            inputField.Select();
+            inputField.ActivateInputField();
+        }
+        GameServices.Input.TogglePlayerInput(_consoleOpen);
+    }
+    private void HandleAutocomplete() 
+    {
+        string text = inputField.text;
+        if (string.IsNullOrWhiteSpace(text))
+            return;
+        string[] parts = text.Split(' ', System.StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length == 0)
+            return;
+
+        string cmdToken = parts[0];
+
+        if(parts.Length == 1) 
+        {
+            var matches = _registry.FindByPrefix(cmdToken).ToList();
+
+            if(matches.Count == 0) 
+            {                
+                return;
+            }
+
+            if(matches.Count == 1) 
+            {
+                inputField.text = matches[0].Name + " ";
+                inputField.caretPosition = inputField.text.Length;
+                inputField.selectionAnchorPosition = inputField.caretPosition;
+                inputField.selectionFocusPosition = inputField.caretPosition;
+                inputField.ActivateInputField();
+            }
+            else 
+            {
+                Log("Commands: " + string.Join(", ", matches.Select(m => m.Name)));
+            }
+            return;
+        }
+
+        var cmd = _registry.GetExact(cmdToken);
+        if(cmd == null) 
+        {
+            Log($"Unknown command '{cmdToken}'", ConsoleLogType.Error);
+            return;
+        }
+        string[] args = parts.Skip(1).ToArray();
+
+        var rawSuggestions = cmd.GetSuggestions(args).ToList();
+        if (rawSuggestions.Count == 0)
+            return;
+
+        string lastArg = args[^1];
+        var matchesForLast = rawSuggestions.
+            Where(s => s.StartsWith
+            (lastArg, System.StringComparison.OrdinalIgnoreCase)).
+            ToList();
+        
+        if (matchesForLast.Count == 0)
+        {
+            Log("Options:");
+            foreach (var s in rawSuggestions)
+            {
+                string full = BindFullSuggestion(cmdToken, args, s);
+                Log(full);
+            }
+            return;
+        }
+
+        if (matchesForLast.Count == 1)
+        {
+            string completed = matchesForLast[0];
+            string newInput = BindFullSuggestion(cmdToken, args, completed);
+
+            inputField.text = newInput + " ";
+            inputField.caretPosition = inputField.text.Length;
+            inputField.selectionAnchorPosition = inputField.caretPosition;
+            inputField.selectionFocusPosition = inputField.caretPosition;
+            inputField.ActivateInputField();
+            return;
+        }
+
+        
+        Log("Options:");
+        foreach (var s in matchesForLast)
+        {
+            string full = BindFullSuggestion(cmdToken, args, s);
+            Log(full);
+        }
+
+    }
+    private string BindFullSuggestion(string cmdName, string[] args, string lastReplacement) 
+    {
+        if (args.Length <= 1)
+            return $"{cmdName} {lastReplacement}";
+
+        var beforeLast = args.Take(args.Length - 1);
+        return cmdName + " " + string.Join(" ", beforeLast) + " " + lastReplacement;
+    } 
+    private void LogInputField(string s) 
+    {
+        suggestionText.text = s;
+    }
+    /*
     private void ToggleConsole(bool open) 
     {
         inputField.Select();
@@ -72,18 +222,25 @@ public class DebugConsole : MonoBehaviour
             case "ammo":
                 HandleAmmoCommand(args);
                 break;
+            case "teleport":
+    
+                break;
         }
+    }
+    private void HandleTeleportCommand(string[] args) 
+    {
+        
     }
     private void HandleAmmoCommand(string[] args) 
     {
-        if (string.IsNullOrEmpty(args[1])) 
+        if(args.Length < 2) 
         {
-            LogMessage("missing ammo type", Color.red);
+            LogMessage("Missing Ammo Type", Color.red);
             return;
         }
-        if (string.IsNullOrEmpty(args[2]))
+        if(args.Length < 3) 
         {
-            LogMessage("missing ammo amount", Color.red);
+            LogMessage("Missing Ammo Amount", Color.red);
             return;
         }
         int.TryParse(args[2], out int amount);
@@ -95,6 +252,9 @@ public class DebugConsole : MonoBehaviour
                 break;
             case "357":
                 GameServices.WeaponController.AddAmmo(AmmoType.A_357, amount);
+                break;
+            default:
+                LogMessage($"Ammo Type: {args[1]} Is Invalid", Color.red);
                 break;
                 
                 
@@ -135,7 +295,7 @@ public class DebugConsole : MonoBehaviour
                 break;
             case "remove":
 
-                break;
+                break;            
             default:
                 LogMessage("Invalid Arg[1]", Color.red);
                 break;
@@ -143,4 +303,5 @@ public class DebugConsole : MonoBehaviour
     }
     
     #endregion    
+    */
 }

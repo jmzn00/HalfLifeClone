@@ -113,7 +113,17 @@ public class MovementController : MonoBehaviour
         float x = _moveInput.x;
         float z = _moveInput.y;
 
-        _inputDir = _camera.transform.localRotation * new Vector3(x, 0, z).normalized;
+        Vector3 camForward = _camera.transform.forward;
+        Vector3 camRight = _camera.transform.right;
+
+        camForward.y = 0;
+        camRight.y = 0;
+
+        camForward.Normalize();
+        camRight.Normalize();
+
+        _inputDir = (camForward * z + camRight * x).normalized;
+        //_inputDir = _camera.transform.localRotation * new Vector3(x, 0, z).normalized;
     }
     private void GetLookInput()
     {
@@ -123,12 +133,12 @@ public class MovementController : MonoBehaviour
         if (isMouse)
         {
             _yaw += look.x * mouseSensitivity;
-            _pitch = Mathf.Clamp(_pitch - look.y * mouseSensitivity, -90f, 90f);
+            _pitch = Mathf.Clamp(_pitch - look.y * mouseSensitivity, -89f, 89f);
         }
         else
         {
             _yaw += look.x * StickDegPerSec * Time.deltaTime;
-            _pitch = Mathf.Clamp(_pitch - look.y * StickDegPerSec * Time.deltaTime, -90f, 90f);
+            _pitch = Mathf.Clamp(_pitch - look.y * StickDegPerSec * Time.deltaTime, -89f, 89f);
         }
     }
     #endregion
@@ -139,7 +149,7 @@ public class MovementController : MonoBehaviour
 
         HandleCamera();
 
-        handTransform.localRotation = Quaternion.Euler(_pitch, _yaw, 0);
+        handTransform.localRotation = Quaternion.Euler(_pitch, _yaw, 0);    
 
         GetMovementInput();
     }
