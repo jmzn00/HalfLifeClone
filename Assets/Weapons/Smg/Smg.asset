@@ -32,7 +32,7 @@ MonoBehaviour:
   isAutomatic: 1
   dropOffDistance: 0
   projectileAmount: 0
-  ammoType: 0
+  ammoType: 2
   shotsBeforeDebuff: 0
-  debuffSpreadAngle: 0
+  debuffSpreadAngle: 2.5
   consequtiveWindow: 0.4

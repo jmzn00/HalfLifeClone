@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 355dd8f768d9f6a479ff5a65bedb7621, type: 3}
   m_Name: Crowbar
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
-  mesh: {fileID: 4821546566958381162, guid: 858dd39d1bbece34da2ce1fcd2884638, type: 3}
+  mesh: {fileID: 7325192879480869465, guid: 9bdd927b79a651e41adb16b186517e41, type: 3}
   weaponEffects: {fileID: 11400000, guid: d5f0b309677a36443a7c16a286551465, type: 2}
   weaponType: 2
   isUnlocked: 0
