@@ -28,7 +28,7 @@ MonoBehaviour:
   baseDamage: 13
   fireRate: 0.1
   magazineSize: 30
-  maxAmmoCapacity: 120
+  maxAmmoCapacity: 240
   isAutomatic: 1
   dropOffDistance: 0
   projectileAmount: 0
