@@ -40,6 +40,11 @@ public class PlayerAmmoCommand : IConsoleCommand
                 GameServices.Player.Weapons.AddAmmo(AmmoType.A_357, amount);
                 console.Log($"Added {amount} Shell ammo to player.");
                 break;
+            case "smg":
+                GameServices.Player.Weapons.AddAmmo(AmmoType.A_45, amount);
+                console.Log($"Added {amount} Smg ammo to player.");
+                break;
+                
             default:
                 console.Log($"Unknown ammo type '{ammoType}'. Valid types are: bullet, shell, energy.", ConsoleLogType.Error);
                 break;
