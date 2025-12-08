@@ -88,6 +88,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &3834634450284728960
 GameObject:
@@ -177,6 +178,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &4821546566958381162
 GameObject:
@@ -213,8 +215,89 @@ Transform:
 --- !u!1 &5400897712234834970
 GameObject:
   m_ObjectHideFlags: 0
+<<<<<<< HEAD
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
+=======
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6139651605951548151}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 0a09087855e5fe041ae3a29b72d3e8ef, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.34593
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a09087855e5fe041ae3a29b72d3e8ef, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.34593
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a09087855e5fe041ae3a29b72d3e8ef, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.34593
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a09087855e5fe041ae3a29b72d3e8ef, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0010725
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a09087855e5fe041ae3a29b72d3e8ef, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.109
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a09087855e5fe041ae3a29b72d3e8ef, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0031004
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a09087855e5fe041ae3a29b72d3e8ef, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a09087855e5fe041ae3a29b72d3e8ef, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a09087855e5fe041ae3a29b72d3e8ef, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.70710677
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a09087855e5fe041ae3a29b72d3e8ef, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a09087855e5fe041ae3a29b72d3e8ef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a09087855e5fe041ae3a29b72d3e8ef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a09087855e5fe041ae3a29b72d3e8ef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0a09087855e5fe041ae3a29b72d3e8ef, type: 3}
+      propertyPath: m_Name
+      value: fairywand-new
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0a09087855e5fe041ae3a29b72d3e8ef, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336182266008515235, guid: 0a09087855e5fe041ae3a29b72d3e8ef, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 26f82d98fc5cc2041a297a42660f9b1d, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0a09087855e5fe041ae3a29b72d3e8ef, type: 3}
+--- !u!4 &7135621209118153536 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0a09087855e5fe041ae3a29b72d3e8ef, type: 3}
+  m_PrefabInstance: {fileID: 7245281158186302635}
+>>>>>>> 94cfc14 (new fairywand model + added nerfgun)
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
@@ -298,6 +381,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &7443873630158260028
 GameObject:
@@ -365,7 +449,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: df00a660a3baa464a8ebd62a897652c8, type: 3}
+  - {fileID: -876546973899608171, guid: 0a09087855e5fe041ae3a29b72d3e8ef, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -387,6 +471,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &7515664462989967866
 GameObject:
