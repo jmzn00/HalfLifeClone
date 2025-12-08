@@ -15,5 +15,6 @@ public static class GameServices
     public static Pool Pool { get; internal set; }
     public static DetectableTargetManager DetectableTargetManager { get; internal set; }
     public static Player Player { get; internal set; }
+    public static HitScript HitScript { get; internal set; }
 
     }
