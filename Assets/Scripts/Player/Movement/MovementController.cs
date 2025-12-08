@@ -149,7 +149,7 @@ public class MovementController : MonoBehaviour
 
         HandleCamera();
 
-        handTransform.localRotation = Quaternion.Euler(_pitch, _yaw, 0);
+        handTransform.localRotation = Quaternion.Euler(_pitch, _yaw, 0);    
 
         GetMovementInput();
     }
