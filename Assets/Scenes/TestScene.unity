@@ -2122,6 +2122,77 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 2758639c229ade646814c74cff719841, type: 3}
+--- !u!1 &823957603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 823957604}
+  - component: {fileID: 823957605}
+  m_Layer: 0
+  m_Name: HitScript
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &823957604
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823957603}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.4402, y: 0.73972, z: 2.48823}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &823957605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823957603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aea377f54b1c9427bb742653542758b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitScript
+  hitDuration: 1
+  hitRadiusMax: 0.3
+  hitCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.018749237
+      value: 0.99523926
+      inSlope: -1.029813
+      outSlope: -1.029813
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9874878
+      value: -0.002380371
+      inSlope: -1.029813
+      outSlope: -1.029813
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maxHits: 20
 --- !u!1 &832556642
 GameObject:
   m_ObjectHideFlags: 0
@@ -6098,6 +6169,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4232463359077943307, guid: 5c547165147d29b4292f6ac877e68d8a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5995016954923515377, guid: 5c547165147d29b4292f6ac877e68d8a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6189,3 +6264,4 @@ SceneRoots:
   - {fileID: 777931185}
   - {fileID: 741522476}
   - {fileID: 3342850494953525795}
+  - {fileID: 823957604}

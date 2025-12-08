@@ -371,6 +371,7 @@ public class WeaponController : MonoBehaviour
                     baseDamage = currentWeaponRuntime.weaponData.baseDamage,
                     hitbox = hitbox.hitboxType
                 });
+                GameServices.HitScript.Shoot(hit.point);
             }
             trailEnd = hit.point;
         }
