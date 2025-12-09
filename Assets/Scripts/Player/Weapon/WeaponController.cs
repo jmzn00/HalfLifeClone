@@ -130,12 +130,28 @@ public class WeaponController : MonoBehaviour
                     Attack();
                     attackPending = false;
                 }
-            }  
-            // reset the timer after an attack 
-            timer = 0f;
+            }
+            else 
+            {
+                playerAudioManager.PlayClip(SoundType.Weapon, currentWeapon.weaponEffects.emptySfx);
+            }
+                // reset the timer after an attack 
+                timer = 0f;
         }
         timer += Time.deltaTime;
     }    
+    public bool TryAddWeapon(WeaponData data) 
+    {
+        if (unlockedWeapons.Contains(data)) 
+        {
+            return false;
+        }
+        unlockedWeapons.Add(data);        
+        RebuildUnlockedWeapons();
+        BuildWeaponRuntime(data);
+        EquipWeaponAtIndex(unlockedWeapons.IndexOf(data));
+        return true;
+    }
     public void AddWeapon(WeaponData data) 
     {
         if (unlockedWeapons.Contains(data)) return;
@@ -194,6 +210,17 @@ public class WeaponController : MonoBehaviour
                 break;
             }
         }
+    }
+    private void EquipWeaponAtIndex(int index) 
+    {
+        if (isReloading || unlockedWeapons.Count == 0) return;
+
+        WeaponData weapon = unlockedWeapons[index];
+        if (weapon == null) return;
+
+        currentWeapon = weapon;
+        OnWeaponChanged?.Invoke(unlockedWeapons, currentWeapon);
+        ApplyWeapon(currentWeapon);
     }
     private void WeaponScroll(int value) 
     {
@@ -286,6 +313,7 @@ public class WeaponController : MonoBehaviour
             bool active = weaponRuntimes[i].weaponData == data;
             weaponRuntimes[i].weaponInstance.SetActive(active);
         }
+        playerAudioManager.PlayClip(SoundType.Weapon, currentWeapon.weaponEffects.equipSfx);
         // set the animation controller to trigger Draw
         handAnimController.TriggerDraw();
         // ammo UI
@@ -406,6 +434,7 @@ public class WeaponController : MonoBehaviour
                     baseDamage = currentWeaponRuntime.weaponData.baseDamage,
                     hitbox = hitbox.hitboxType
                 });
+                playerAudioManager.PlayClip(SoundType.Weapon, currentWeapon.weaponEffects.impactSfx);
             }
         }
     }

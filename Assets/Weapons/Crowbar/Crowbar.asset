@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Crowbar
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   mesh: {fileID: 7325192879480869465, guid: 9bdd927b79a651e41adb16b186517e41, type: 3}
+  worldModel: {fileID: 7376689793954574217, guid: bffb9dafa3d47904aa3038c53572754f, type: 3}
   weaponEffects: {fileID: 11400000, guid: d5f0b309677a36443a7c16a286551465, type: 2}
   weaponType: 2
   isUnlocked: 0

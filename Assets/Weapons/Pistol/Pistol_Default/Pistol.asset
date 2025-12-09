@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   mesh: {fileID: 1213391305711959720, guid: 8f5a7dcb6cf51874693d1022965cb5cf, type: 3}
-  weaponEffects: {fileID: 11400000, guid: d61e46af9dbbc4046a17d68fcf6f3e20, type: 2}
+  worldModel: {fileID: 1837477166179603591, guid: ece75e9fb664cea4a942f27e50acade9, type: 3}
+  weaponEffects: {fileID: 11400000, guid: 4e315e6b1f4025241bf8a14a09c6b051, type: 2}
   weaponType: 0
   isUnlocked: 0
   weaponName: Pistol
