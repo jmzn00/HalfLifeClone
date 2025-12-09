@@ -10,8 +10,7 @@ namespace Assets.Scripts.AI.States.Teddy_States
         public AiState targetState;
 
         public override AiState Check(EnemyAi controller)
-        {
-            Debug.Log($"Checking ConditionsToState {targetState.stateName} {ConditionsMet(controller)}");
+        {           
             if (ConditionsMet(controller))
             {
                 return targetState;
