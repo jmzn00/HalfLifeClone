@@ -32,10 +32,10 @@ ModelImporter:
     clipAnimations:
     - serializedVersion: 16
       name: Teddy.Idle
-      takeName: Root|RootAction
+      takeName: TeddyBones|RootAction
       internalID: -1501162188112074435
-      firstFrame: 54
-      lastFrame: 182
+      firstFrame: 96
+      lastFrame: 194
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -61,10 +61,10 @@ ModelImporter:
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: Teddy.Walk
-      takeName: Root|RootAction
+      takeName: TeddyBones|RootAction
       internalID: 5367541012646747803
-      firstFrame: 212
-      lastFrame: 256
+      firstFrame: 222
+      lastFrame: 261
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -90,17 +90,17 @@ ModelImporter:
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: Teddy.Jump
-      takeName: Root|RootAction
+      takeName: TeddyBones|RootAction
       internalID: 2208939189296242795
       firstFrame: 286
-      lastFrame: 363
+      lastFrame: 374
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -119,10 +119,10 @@ ModelImporter:
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: Teddy.Attack
-      takeName: Root|RootAction
+      takeName: TeddyBones|RootAction
       internalID: 3460454892161284321
-      firstFrame: 385
-      lastFrame: 457
+      firstFrame: 423
+      lastFrame: 478
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -148,10 +148,10 @@ ModelImporter:
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: Teddy.Killed
-      takeName: Root|RootAction
+      takeName: TeddyBones|RootAction
       internalID: 2192704860171814778
-      firstFrame: 496
-      lastFrame: 519
+      firstFrame: 481
+      lastFrame: 524
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -177,10 +177,10 @@ ModelImporter:
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: Teddy.IdleOnDuck
-      takeName: Root|RootAction
+      takeName: TeddyBones|RootAction
       internalID: 4512601439923273340
-      firstFrame: 575
-      lastFrame: 677
+      firstFrame: 577
+      lastFrame: 658
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -206,10 +206,39 @@ ModelImporter:
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: Teddy.WalkOnDuck
-      takeName: Root|RootAction
+      takeName: TeddyBones|RootAction
       internalID: -8913031136258854914
-      firstFrame: 705
-      lastFrame: 753
+      firstFrame: 692
+      lastFrame: 740
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Teddy.AttackOnDuck
+      takeName: TeddyBones|RootAction
+      internalID: 5101013811252414765
+      firstFrame: 746
+      lastFrame: 773
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
