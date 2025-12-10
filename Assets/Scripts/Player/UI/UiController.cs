@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UiController : MonoBehaviour
 {
@@ -12,17 +13,26 @@ public class UiController : MonoBehaviour
     [SerializeField] private WeaponColumnUi[] columns;
     [SerializeField] private WeaponSlotUi weaponSlotPrefab;
 
+    [Header("HealthUi")]
+    [SerializeField] private Slider healthSlider;
+
     private readonly Dictionary<WeaponData, WeaponSlotUi> slots = new();
 
     private void Awake()
     {
         WeaponController.OnAmmoChanged += UpdateAmmoDisplay;
         WeaponController.OnWeaponChanged += RebuildWeaponUi;
+        PlayerHealth.OnHealthChanged += UpdateHealth;
     }
     private void OnDestroy()
     {
         WeaponController.OnAmmoChanged -= UpdateAmmoDisplay;
         WeaponController.OnWeaponChanged -= RebuildWeaponUi;
+        PlayerHealth.OnHealthChanged -= UpdateHealth;
+    }
+    private void UpdateHealth(float value) 
+    {
+        healthSlider.value = value;
     }
     private void RebuildWeaponUi(List<WeaponData> wl, WeaponData c) 
     {

@@ -31,11 +31,11 @@ public class VisionSensor : MonoBehaviour
         {
             DetectableTarget potentialTarget = detectableTargets[i];
             if (potentialTarget == gameObject) 
-            {
+            {                
                 continue;
             }
 
-            Vector3 targetPos = potentialTarget.transform.position + Vector3.up * 1.5f;
+            Vector3 targetPos = potentialTarget.transform.position + Vector3.up;
             Vector3 vectorToTarget = targetPos - linkedAi.EyeLocation.position;
             float sqrDistance = vectorToTarget.sqrMagnitude;
 
@@ -57,7 +57,8 @@ public class VisionSensor : MonoBehaviour
             RaycastHit hitInfo;
             if(Physics.Raycast(linkedAi.EyeLocation.position, vectorToTarget.normalized, out hitInfo, linkedAi.VisionConeRange, DetectionMask, QueryTriggerInteraction.Ignore)) 
             {
-                bool canSee = hitInfo.collider.transform.root.gameObject == potentialTarget.gameObject;
+                DetectableTarget hitTarget = hitInfo.collider.GetComponentInParent<DetectableTarget>();
+                bool canSee = hitTarget == potentialTarget;
 
                 if (canSee)
                 {

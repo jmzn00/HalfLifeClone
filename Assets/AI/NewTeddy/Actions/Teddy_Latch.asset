@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21add4425ee819645a80c2c562314968, type: 3}
+  m_Name: Teddy_Latch
+  m_EditorClassIdentifier: Assembly-CSharp::AiAction_Latch
+  latchDuration: 3
+  latchLocalPosition: {x: 0, y: -0.7, z: 1}
+  latchLocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  cooldownAfterLatch: 2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 8
+  dropRayDistance: 20
+  damageAmount: 10
+  attackAmount: 3
+  timeBetweenAttacks: 0.5
+  latchSound: {fileID: 8300000, guid: ac619cb14f74b954c98b853877bbb74f, type: 3}

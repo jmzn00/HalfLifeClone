@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AiState
   stateName: Wander
   actions:
-  - {fileID: 11400000, guid: 25cdb71d5a86f2f489926a273d180f6d, type: 2}
-  transitions: []
+  - {fileID: 11400000, guid: c4650d3297ea926419cd2dfb97fe8102, type: 2}
+  transitions:
+  - {fileID: 11400000, guid: 1230ea377f29306439867f710dda4ba5, type: 2}

@@ -22,7 +22,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -315,7 +315,217 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: TeddyGrab_Animation.1(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Teddy
+      parentName: TeddyGrab_Animation.1(Clone)
+      position: {x: -0, y: 1.0039696, z: 0.045079816}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: TeddyBones
+      parentName: TeddyGrab_Animation.1(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Root
+      parentName: TeddyBones
+      position: {x: 2.0618056e-19, y: -0.0003035754, z: -0.0054360526}
+      rotation: {x: 0.99998826, y: 5.7843214e-10, z: -0.00000011920792, w: -0.004852261}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Foot.Control.L
+      parentName: Root
+      position: {x: -0.0027435296, y: -0.0012861917, z: 0.00040412077}
+      rotation: {x: 0.006660555, y: 0.7036634, z: 0.00659672, w: 0.71047163}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Foot.L
+      parentName: Foot.Control.L
+      position: {x: 0.0006077561, y: 0.0012473146, z: -0.000043633303}
+      rotation: {x: 0.00071434135, y: -0.00000012049989, z: 0.074183285, w: 0.9972444}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Foot.L_end
+      parentName: Foot.L
+      position: {x: -0, y: 0.0015697024, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: IK.Knee.L
+      parentName: Foot.Control.L
+      position: {x: 0.0018303418, y: 0.0030399053, z: 0.000058262947}
+      rotation: {x: -0.028977565, y: -0.0016039249, z: -0.008402915, w: 0.9995435}
+      scale: {x: 1, y: 1, z: 1}
+    - name: IK.Knee.L_end
+      parentName: IK.Knee.L
+      position: {x: -0, y: 0.0014361346, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Ik.Ankle.L
+      parentName: Foot.Control.L
+      position: {x: 0.0006077561, y: 0.0012473146, z: -0.000043633303}
+      rotation: {x: -0.000082285325, y: -0.00080153084, z: 0.9965882, w: -0.08253135}
+      scale: {x: 0.9999935, y: 0.99999994, z: 1}
+    - name: Ik.Ankle.L_end
+      parentName: Ik.Ankle.L
+      position: {x: -0, y: 0.001483621, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hips
+      parentName: Root
+      position: {x: -0.0000000010746207, y: -0.000043742395, z: -0.004507286}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Pelvis
+      parentName: Hips
+      position: {x: -2.2067181e-10, y: -0.0003125721, z: -0.0009255647}
+      rotation: {x: -0.67360383, y: -1.9063076e-14, z: 0.00000016059967, w: 0.73909265}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: Sternum
+      parentName: Pelvis
+      position: {x: 8.224033e-18, y: 0.0031763255, z: 3.4494095e-11}
+      rotation: {x: 0.009206923, y: 3.5533845e-15, z: -0.0000000021951019, w: 0.9999576}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head
+      parentName: Sternum
+      position: {x: 8.881784e-18, y: 0.0031082977, z: 3.7252902e-11}
+      rotation: {x: -0.046900205, y: 3.67251e-15, z: 0.00000001118188, w: 0.9988996}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: Ear.L
+      parentName: Head
+      position: {x: -0.0038871947, y: 0.007143279, z: 0.000229205}
+      rotation: {x: 0.011936292, y: -0.02210186, z: 0.38766485, w: 0.9214581}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Ear.001.L
+      parentName: Ear.L
+      position: {x: -9.965151e-10, y: 0.0015076511, z: -1.11758706e-10}
+      rotation: {x: 0.028878996, y: 0.0009861032, z: 0.011382522, w: 0.9995176}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Ear.001.L_end
+      parentName: Ear.001.L
+      position: {x: -0, y: 0.0021723548, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Ear.R
+      parentName: Head
+      position: {x: 0.0038871947, y: 0.007143279, z: 0.00022920321}
+      rotation: {x: 0.011936197, y: 0.022102086, z: -0.38766488, w: 0.92145807}
+      scale: {x: 0.99999994, y: 0.9999999, z: 1}
+    - name: Ear.001.R
+      parentName: Ear.R
+      position: {x: 9.965151e-10, y: 0.0015076511, z: -5.5879353e-11}
+      rotation: {x: 0.028878998, y: -0.0009861009, z: -0.0113825, w: 0.9995176}
+      scale: {x: 0.99999994, y: 1.0000002, z: 1}
+    - name: Ear.001.R_end
+      parentName: Ear.001.R
+      position: {x: -0, y: 0.0021723548, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Clavicle.L
+      parentName: Sternum
+      position: {x: -0.0015321715, y: 0.0003020923, z: 0.002295526}
+      rotation: {x: -0.30972502, y: 0.5234444, z: -0.56863266, w: -0.55383503}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: Humerus.L
+      parentName: Clavicle.L
+      position: {x: -1.11758706e-10, y: 0.0032780613, z: 1.862645e-10}
+      rotation: {x: 0.13170363, y: -0.019785345, z: -0.12388758, w: 0.9833182}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Ulna.L
+      parentName: Humerus.L
+      position: {x: 7.916242e-11, y: 0.0032922225, z: -2.3283063e-11}
+      rotation: {x: 0.019483056, y: -0.000199018, z: 0.008356621, w: 0.9997753}
+      scale: {x: 1, y: 1.0000001, z: 1.0000002}
+    - name: Ulna.L_end
+      parentName: Ulna.L
+      position: {x: -0, y: 0.0040435023, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Clavicle.R
+      parentName: Sternum
+      position: {x: 0.0015321727, y: 0.0003020923, z: 0.0022955253}
+      rotation: {x: 0.30972475, y: 0.5234445, z: -0.56863284, w: 0.553835}
+      scale: {x: 1, y: 1.0000001, z: 0.99999994}
+    - name: Humerus.R
+      parentName: Clavicle.R
+      position: {x: 1.11758706e-10, y: 0.003278061, z: 2.6077032e-10}
+      rotation: {x: 0.13170338, y: 0.019785253, z: 0.12388754, w: 0.9833182}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1}
+    - name: Ulna.R
+      parentName: Humerus.R
+      position: {x: -1.0710209e-10, y: 0.0032922213, z: 2.7939677e-11}
+      rotation: {x: 0.019452538, y: 0.00019349526, z: -0.008244195, w: 0.9997768}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Ulna.R_end
+      parentName: Ulna.R
+      position: {x: -0, y: 0.0039823605, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Femur.L
+      parentName: Hips
+      position: {x: -0.002463033, y: -0.0000892824, z: 0.00008060325}
+      rotation: {x: 0.4321779, y: 0.5146059, z: 0.47095445, w: 0.5714936}
+      scale: {x: 1.0000001, y: 0.99999976, z: 0.99999994}
+    - name: Fibula.L
+      parentName: Femur.L
+      position: {x: 6.0535965e-11, y: 0.003077819, z: 1.3795215e-10}
+      rotation: {x: 0.038276542, y: -0.005384533, z: 0.26555002, w: 0.9633219}
+      scale: {x: 1.0000002, y: 1.0000002, z: 0.9999999}
+    - name: Fibula.L_end
+      parentName: Fibula.L
+      position: {x: -0, y: 0.0013163469, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Femur.R
+      parentName: Hips
+      position: {x: 0.002463033, y: -0.00008928244, z: 0.00008060215}
+      rotation: {x: 0.4321779, y: -0.5146059, z: -0.4709545, w: 0.5714937}
+      scale: {x: 1.0000001, y: 0.99999994, z: 1.0000001}
+    - name: Fibula.R
+      parentName: Femur.R
+      position: {x: -5.3551046e-11, y: 0.0030778195, z: 1.2048985e-10}
+      rotation: {x: 0.038276546, y: 0.0053845327, z: -0.26555037, w: 0.96332186}
+      scale: {x: 1.0000004, y: 0.99999994, z: 1}
+    - name: Fibula.R_end
+      parentName: Fibula.R
+      position: {x: -0, y: 0.0013163469, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Foot.Control.R
+      parentName: Root
+      position: {x: 0.0027435296, y: -0.0012861916, z: 0.0004041195}
+      rotation: {x: 0.006660566, y: -0.70366323, z: -0.0065967315, w: 0.7104718}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Foot.R
+      parentName: Foot.Control.R
+      position: {x: -0.0006077561, y: 0.0012473145, z: -0.00004363331}
+      rotation: {x: 0.00071433693, y: 0.00000012057662, z: -0.074183285, w: 0.9972444}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Foot.R_end
+      parentName: Foot.R
+      position: {x: -0, y: 0.0015697024, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: IK.Knee.R
+      parentName: Foot.Control.R
+      position: {x: -0.0018303418, y: 0.0030399056, z: 0.00005826293}
+      rotation: {x: -0.028977571, y: 0.0016039249, z: 0.008402915, w: 0.9995435}
+      scale: {x: 1, y: 1, z: 1}
+    - name: IK.Knee.R_end
+      parentName: IK.Knee.R
+      position: {x: -0, y: 0.0014361346, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Ik.Ankle.R
+      parentName: Foot.Control.R
+      position: {x: -0.0006077561, y: 0.0012473145, z: -0.00004363331}
+      rotation: {x: 0.000082284896, y: -0.00080152607, z: 0.9965882, w: 0.08253135}
+      scale: {x: 0.9999935, y: 0.99999994, z: 1}
+    - name: Ik.Ankle.R_end
+      parentName: Ik.Ankle.R
+      position: {x: -0, y: 0.001483621, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -326,13 +536,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

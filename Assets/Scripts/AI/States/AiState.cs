@@ -17,7 +17,7 @@ public class AiState : ScriptableObject
     {
         foreach(var a in actions) 
         {
-            a?.OnEnter(controller);
+            a?.OnExit(controller);
         }
     }
     public void UpdateState(EnemyAi controller) 
@@ -29,6 +29,8 @@ public class AiState : ScriptableObject
 
         foreach (var t in transitions) 
         {
+            if (t == null) continue;
+
             var next = t.Check(controller);
             if(next != null && next != this) 
             {

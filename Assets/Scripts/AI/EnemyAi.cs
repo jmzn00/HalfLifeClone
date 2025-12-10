@@ -40,14 +40,44 @@ public class EnemyAi : MonoBehaviour
     private DetectableTarget detectableTarget;
 
     public event Action<bool> OnAiMountedChanged;
+
+    [SerializeField] private bool lockTarget = false;
+    [SerializeField] private AiState defualtState;
+
+    public bool Activated { get; private set; }
+
+    [HideInInspector] public float ClipTimer;
+    [HideInInspector] public float NextDelay;
+
+    public virtual void SetActivated(bool v) 
+    {
+        Activated = v;
+    }
+    public virtual void SetTargetLock(bool value) 
+    {
+        lockTarget = value;
+    }
     public virtual bool CanAttack() 
     {
-        return attackCooldownTimer <= 0f && !isAttacking;
+        return attackCooldownTimer <= 0f || !isAttacking;
+    }
+    public virtual void Update()
+    {        
+        if(currentState != null)
+            currentState.UpdateState(this);
+        CommonUpdate();
     }
     protected virtual void CommonUpdate() 
     {
-        if(attackCooldownTimer > 0f)
+        if(attackCooldownTimer > 0f) 
+        {
             attackCooldownTimer -= Time.deltaTime;
+            isAttacking = true;
+        }
+        else 
+        {
+            isAttacking = false;
+        }
     }
     public virtual void Awake()
     {
@@ -57,6 +87,8 @@ public class EnemyAi : MonoBehaviour
         AnimContoller = GetComponent<AiAnimationContoller>();
         Damageable = GetComponent<NpcDamageable>();
         detectableTarget = GetComponent<DetectableTarget>(); 
+
+        ChangeState(defualtState);
     }
     public virtual void SetAnimTrigger(string t) 
     {
@@ -68,6 +100,9 @@ public class EnemyAi : MonoBehaviour
     }
     public virtual void ReportLostSight(DetectableTarget target) 
     {
+        if (lockTarget && CurrentTarget)
+            return;
+
         if(CurrentTarget == target)
             CurrentTarget = null;
     }
@@ -93,5 +128,6 @@ public class EnemyAi : MonoBehaviour
     {   
         OnAiMountedChanged?.Invoke(value);
         hasMountedTarget = value;
+        Debug.Log("ToggleMounted" + value);
     }
 }

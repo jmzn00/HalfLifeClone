@@ -5,14 +5,23 @@ public class AiAction_Death : AiAction
 {
     public LayerMask groundLayer;
     Vector3 groundPos;
-    public override void Act(EnemyAi c)
+    public AudioClip deathClip;
+    public override void OnEnter(EnemyAi controller)
     {
-        if (!c.Damageable.Dead) 
-        {
-            StartDeath(c);
-        }
-        else
-            UpdateDeath(c);
+        StartDeath(controller);
+
+        var request = new AudioRequest
+            (
+            deathClip,
+            5,
+            controller.transform.position,
+            1f
+            );
+        GameServices.AudioManager.SendRequest( request );
+    }
+    public override void Act(EnemyAi c)
+    {                
+        UpdateDeath(c);
     }
     private void StartDeath(EnemyAi c) 
     {       
@@ -24,8 +33,6 @@ public class AiAction_Death : AiAction
         c.SetAnimTrigger("Death");
         c.ToggleColliders(false);
         c.Damageable.Dead = true;
-
-        Debug.Log("Enemy Dead");
     }
     private void UpdateDeath(EnemyAi c) 
     {        

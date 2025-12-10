@@ -33,6 +33,7 @@ public class NpcDamageable : MonoBehaviour, IDamageabale
     }
     public HitOutcome ApplyHit(in HitInfo hitInfo) 
     {
+        Debug.Log(gameObject.name + " Hit " + hitInfo.baseDamage);
         float damage = CalculateDamage(hitInfo);
         Health -= damage;
         Health = Mathf.Clamp(Health, 0, maxHealth);

@@ -133,7 +133,7 @@ public class WeaponController : MonoBehaviour
             }
             else 
             {
-                playerAudioManager.PlayClip(SoundType.Weapon, currentWeapon.weaponEffects.emptySfx);
+                playerAudioManager.PlayClip(currentWeapon.weaponEffects.emptySfx);
             }
                 // reset the timer after an attack 
                 timer = 0f;
@@ -187,7 +187,7 @@ public class WeaponController : MonoBehaviour
 
         AudioClip reloadClip = currentWeaponRuntime.weaponData.weaponEffects.reloadSfx;
         if (reloadClip != null)
-            playerAudioManager.PlayClip(SoundType.Weapon, reloadClip);
+            playerAudioManager.PlayClip(reloadClip);
     }    
     public void ReloadFinished() 
     {
@@ -265,8 +265,8 @@ public class WeaponController : MonoBehaviour
 
             // will hold referenceces to positions on the weapon mesh, e.g. muzzle point 
             WeaponView weaponView = weaponInstance.GetComponent<WeaponView>();
-            Debug.LogError("weaponView is null on: " + data.weaponName);
-
+            if(weaponView == null)
+                Debug.LogError("No WeaponView component found on weapon mesh: " + data.weaponName);
 
             // spawn the Vfx
             ParticleSystem vfxParticle = null;
@@ -313,7 +313,7 @@ public class WeaponController : MonoBehaviour
             bool active = weaponRuntimes[i].weaponData == data;
             weaponRuntimes[i].weaponInstance.SetActive(active);
         }
-        playerAudioManager.PlayClip(SoundType.Weapon, currentWeapon.weaponEffects.equipSfx);
+        playerAudioManager.PlayClip(currentWeapon.weaponEffects.equipSfx);
         // set the animation controller to trigger Draw
         handAnimController.TriggerDraw();
         // ammo UI
@@ -342,7 +342,7 @@ public class WeaponController : MonoBehaviour
 
         AudioClip attackClip = currentWeapon.weaponEffects.fireSfx;
         if (attackClip != null)
-            playerAudioManager.PlayClip(SoundType.Weapon, attackClip);
+            playerAudioManager.PlayClip(attackClip);
     }
 
     // this is for weapon inaccuracy / spread
@@ -386,7 +386,7 @@ public class WeaponController : MonoBehaviour
        Vector3 trailEnd = origin + dir * 100f;
         //Debug.DrawRay(origin, dir * 100f, Color.red, 10f);
         if (Physics.Raycast(origin, dir, out RaycastHit hit))
-        {
+        {            
             // check if we hit a hitbox ie. enemy
             Hitbox hitbox = hit.collider.GetComponent<Hitbox>();
             if (hitbox)
@@ -434,7 +434,7 @@ public class WeaponController : MonoBehaviour
                     baseDamage = currentWeaponRuntime.weaponData.baseDamage,
                     hitbox = hitbox.hitboxType
                 });
-                playerAudioManager.PlayClip(SoundType.Weapon, currentWeapon.weaponEffects.impactSfx);
+                playerAudioManager.PlayClip(currentWeapon.weaponEffects.impactSfx);
             }
         }
     }

@@ -1,3 +1,4 @@
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.AI;
 [CreateAssetMenu(menuName = "Ai/Actions/Latch")]
@@ -16,52 +17,57 @@ public class AiAction_Latch : AiAction
     [Header("Attack Settings")]
     public float damageAmount = 10f;
     public int attackAmount = 3;
+    public float timeBetweenAttacks = 0.5f;
 
-    private float timeBetweenAttacks;
-    private int attacksPerformed = 0;
+    private float latchTimer;
     private float attackTimer = 0f;
+    private int attacksPerformed = 0;
 
-    
+    public AudioClip latchSound;
 
-    private float latchTimer = 0f;
+    public override void OnEnter(EnemyAi controller)
+    {
+        StartLatch(controller);
+        controller.isLatched = true;
 
+        var request = new AudioRequest
+            (
+                latchSound,
+                5,
+                controller.transform.position,
+                1f
+            );
+        GameServices.AudioManager.SendRequest(request);
+    }
     public override void Act(EnemyAi controller)
     {        
-        if (controller.transform.parent == null && !controller.isLatched)
-        {
-            StartLatch(controller);
-        }
-        else
-        {
-            UpdateLatch(controller);
-        }
+        UpdateLatch(controller);
+    }
+    
+    public override void OnExit(EnemyAi controller)
+    {
+        base.OnExit(controller);        
     }
 
     private void StartLatch(EnemyAi c)
     {
-        c.isLatched = true;
-        c.isAttacking = true;
-
+        c.ToggleColliders(false);
         c.transform.SetParent(Camera.main.transform);
         c.transform.localPosition = latchLocalPosition;
         c.transform.localRotation = latchLocalRotation;
-        c.ToggleColliders(false);
-        
-        
 
-        timeBetweenAttacks = latchDuration / attackAmount;
+        if(c.Agent != null)
+            c.Agent.enabled = false;
+        c.SetAnimTrigger("Attack");
+        attackTimer = timeBetweenAttacks + 1f;
         latchTimer = latchDuration;
         attacksPerformed = 0;
-        attackTimer = 0f;
 
-        c.SetAnimTrigger("Latch");
-
-        if (c.Agent != null)
-            c.Agent.enabled = false;
+        c.isAttacking = true;
     }
 
     private void UpdateLatch(EnemyAi c)
-    {
+    {   
         attackTimer += Time.deltaTime;
         if (attackTimer >= timeBetweenAttacks && attacksPerformed < attackAmount)
         {
@@ -96,9 +102,7 @@ public class AiAction_Latch : AiAction
         }
 
         c.attackCooldownTimer = cooldownAfterLatch;
-
         c.isAttacking = false;
-        c.isLatched = false;
     }
 
 }

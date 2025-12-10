@@ -9,20 +9,17 @@ public class AiAction_LeapAttack : AiAction
     public float apexHeight = 2f;
     public float maxHorizontalSpeed = 10f;
     public float cooldown = 2f;
+    public bool lockTarget = false;
 
     [Header("Misc")]
-    public LayerMask groundLayer;    
+    public LayerMask groundLayer;
 
-    public override void Act(EnemyAi controller)
+    public override void OnEnter(EnemyAi controller)
     {
-        if (controller.isAttacking) 
-        {
-            UpdateLeap(controller);
-            return;
-        }
+        base.OnEnter(controller);
 
+        controller.SetTargetLock(lockTarget);
         DetectableTarget target = controller.CurrentTarget;
-        if (target == null) return;
 
         Vector3 startPos = controller.transform.position;
         Vector3 targetPos = target.transform.position + target.transform.forward;
@@ -32,26 +29,16 @@ public class AiAction_LeapAttack : AiAction
         toTargetXZ.y = 0f;
         float horizDistance = toTargetXZ.magnitude;
 
-        if (!controller.isAttacking)
-        {
-            // Move toward player until in leap range
-            if (horizDistance > attackRange)
-            {
-                controller.SetAnimTrigger("Walk");
-                if (controller.Agent != null)
-                    controller.Agent.SetDestination(target.transform.position);
-                return;
-            }
+        StartLeap(controller, startPos, targetPos, toTargetXZ, horizDistance);
+    }
+    public override void OnExit(EnemyAi c)
+    {
+        base.OnExit(c);
+    }
 
-            if (controller.attackCooldownTimer > 0f)
-                return;
-
-            StartLeap(controller, startPos, targetPos, toTargetXZ, horizDistance);
-        }
-        else
-        {
-            UpdateLeap(controller);
-        }
+    public override void Act(EnemyAi controller)
+    {
+        UpdateLeap(controller);
     }
 
     private void StartLeap(EnemyAi c, Vector3 startPos, Vector3 targetPos, Vector3 toTargetXZ, float horizDistance)
@@ -86,7 +73,7 @@ public class AiAction_LeapAttack : AiAction
 
     private void UpdateLeap(EnemyAi c)
     {
-        c.SetAnimTrigger("Latch");
+        c.SetAnimTrigger("Attack");
         // Track time in air
         c.attackAirTime += Time.deltaTime;
 
@@ -142,6 +129,7 @@ public class AiAction_LeapAttack : AiAction
                 {
                     c.transform.position = navHit.position;
                     c.Agent.enabled = true;
+                    Debug.Log("LeapFinished");
                 }
             }
         }
