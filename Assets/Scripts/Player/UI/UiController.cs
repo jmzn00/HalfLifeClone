@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
 using TMPro;
@@ -15,6 +16,10 @@ public class UiController : MonoBehaviour
 
     [Header("HealthUi")]
     [SerializeField] private Slider healthSlider;
+
+    [Header("Message Ui")]
+    [SerializeField] private TMP_Text messageText;
+    [SerializeField] private float messageDuration;    
 
     private readonly Dictionary<WeaponData, WeaponSlotUi> slots = new();
 
@@ -98,5 +103,16 @@ public class UiController : MonoBehaviour
             ammoText.gameObject.SetActive(true);
             ammoText.text = $"{wr.ammoInClip} / {wr.ammoInReserve}";
         }        
+    }
+    public void SendUiMessage(string msg) 
+    {
+        StartCoroutine(IMessage(msg));
+    }
+    IEnumerator IMessage(string msg) 
+    {
+        messageText.text = msg;
+        yield return new WaitForSeconds(messageDuration);
+        messageText.text = "";
+
     }
 }

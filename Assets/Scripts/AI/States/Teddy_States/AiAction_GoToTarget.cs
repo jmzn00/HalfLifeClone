@@ -7,6 +7,7 @@ namespace Assets.Scripts.AI.States.Teddy_States
     {
 
         public AiAudio audio;
+        public bool lockTarget;
         public override void OnEnter(EnemyAi controller)
         {
             if(audio != null) 
@@ -21,8 +22,12 @@ namespace Assets.Scripts.AI.States.Teddy_States
         {
             controller.SetAnimTrigger("Walk");
 
-            if (controller.CurrentTarget)
+            if (controller.CurrentTarget) 
+            {
                 controller.Agent.SetDestination(controller.CurrentTarget.transform.position);
+                controller.SetTargetLock(true);
+            }
+            
             if(audio)
                 audio.UpdateAudio(controller);            
         }

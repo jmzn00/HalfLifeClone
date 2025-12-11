@@ -5,6 +5,8 @@ using UnityEngine;
 public class Enemy_Duck : EnemyAi
 {
     [SerializeField] private TMP_Text stateText;
+
+    [SerializeField] private Collider[] colliders;
     public override void Awake()
     {
         base.Awake();
@@ -12,14 +14,19 @@ public class Enemy_Duck : EnemyAi
     public override void Update()
     {
         base.Update();
-        stateText.transform.forward = Camera.main.transform.forward;
+        stateText.transform.forward = Camera.main.transform.forward;        
     }
 
     public override void ChangeState(AiState newState)
     {
         base.ChangeState(newState);
         stateText.text = newState.stateName;
-        Debug.Log("duck state " + newState.stateName);
+    }
+    public override void ToggleColliders(bool value)
+    {
+        base.ToggleColliders(value);
+        foreach (Collider collider in colliders)
+            collider.enabled = value;
     }
 
 }

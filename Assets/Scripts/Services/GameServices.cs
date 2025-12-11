@@ -4,6 +4,8 @@ public struct Player
     public PlayerHealth Health;
     public WeaponController Weapons;
     public DetectableTarget DetectableTarget;
+    public PlayerInventory Inventory;
+    public UiController UiController;
 
 }
 
@@ -17,5 +19,6 @@ public static class GameServices
     public static Player Player { get; internal set; }
     public static HitScript HitScript { get; internal set; }
     public static AudioManager AudioManager { get; internal set; }
+    public static GameManager GameManager { get; internal set; }
 
 }

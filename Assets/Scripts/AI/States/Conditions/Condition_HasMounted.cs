@@ -7,9 +7,8 @@ namespace Assets.Scripts.AI.States.Conditions
     public class Condition_HasMounted : AiTransitionCondition
     {
         public override bool CheckCondition(EnemyAi controller)
-        {
-            return controller.hasMountedTarget;
-            
+        {            
+            return controller.hasMountedTarget;            
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Assets.Scripts.AI.States.Conditions
     public class Condition_HasCurrentTarget : AiTransitionCondition
     {
         public override bool CheckCondition(EnemyAi controller)
-        {
+        {            
             return controller.CurrentTarget != null;
         }
     }

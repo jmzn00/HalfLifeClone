@@ -18,7 +18,7 @@ public class VisionSensor : MonoBehaviour
 
     private void Update()
     {
-        if (linkedAi.Damageable.Dead) return;
+        if (linkedAi.Damageable.Dead || !linkedAi.Activated) return;
 
         var visibleThisFrame = new HashSet<DetectableTarget>();
         DetectableTarget closestTarget = null;

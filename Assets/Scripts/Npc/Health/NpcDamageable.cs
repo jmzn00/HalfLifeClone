@@ -15,25 +15,18 @@ public class NpcDamageable : MonoBehaviour, IDamageabale
     [SerializeField] private float armMultiplier = 0.8f;
 
     public Action<float> OnHealthChanged;
-
-    private Pool pool;    
+    private Pool pool;
     private void Awake()
     {
-        pool = GameServices.Pool;
-        
+        pool = GameServices.Pool;        
     }
     private void OnEnable()
     {
         Health = maxHealth;
         Dead = false;
-    }
-    private void OnDisable()
-    {
-        
-    }
+    }    
     public HitOutcome ApplyHit(in HitInfo hitInfo) 
     {
-        Debug.Log(gameObject.name + " Hit " + hitInfo.baseDamage);
         float damage = CalculateDamage(hitInfo);
         Health -= damage;
         Health = Mathf.Clamp(Health, 0, maxHealth);

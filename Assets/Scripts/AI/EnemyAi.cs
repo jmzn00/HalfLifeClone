@@ -6,7 +6,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(AiAnimationContoller))]
 [RequireComponent(typeof(NpcDamageable))]
 //[RequireComponent(typeof(Rigidbody))]
-public class EnemyAi : MonoBehaviour
+public class EnemyAi : MonoBehaviour, IActivatable
 {
     [Header("Prefs")]
     [SerializeField] private Transform eyeLocation;
@@ -41,7 +41,7 @@ public class EnemyAi : MonoBehaviour
 
     public event Action<bool> OnAiMountedChanged;
 
-    [SerializeField] private bool lockTarget = false;
+    private bool lockTarget = false;
     [SerializeField] private AiState defualtState;
 
     public bool Activated { get; private set; }
@@ -49,13 +49,27 @@ public class EnemyAi : MonoBehaviour
     [HideInInspector] public float ClipTimer;
     [HideInInspector] public float NextDelay;
 
-    public virtual void SetActivated(bool v) 
+    [SerializeField] private bool activateOnAwake = false;
+
+    public void Activate() 
     {
-        Activated = v;
+        Activated = true;
     }
+    public void Deactivate() 
+    {
+        Activated = false;
+    }
+    public void Toggle() 
+    {
+        
+    }    
     public virtual void SetTargetLock(bool value) 
     {
         lockTarget = value;
+    }
+    public virtual void SetTarget(DetectableTarget target) 
+    {
+        CurrentTarget = target;
     }
     public virtual bool CanAttack() 
     {
@@ -63,8 +77,11 @@ public class EnemyAi : MonoBehaviour
     }
     public virtual void Update()
     {        
-        if(currentState != null)
+        if(currentState != null && Activated) 
+        {
             currentState.UpdateState(this);
+        }
+        
         CommonUpdate();
     }
     protected virtual void CommonUpdate() 
@@ -89,6 +106,9 @@ public class EnemyAi : MonoBehaviour
         detectableTarget = GetComponent<DetectableTarget>(); 
 
         ChangeState(defualtState);
+
+        if (activateOnAwake)
+            Activate();
     }
     public virtual void SetAnimTrigger(string t) 
     {
@@ -96,6 +116,9 @@ public class EnemyAi : MonoBehaviour
     }
     public virtual void ReportCanSee(DetectableTarget target) 
     {
+        if (lockTarget)
+            return;
+
         CurrentTarget = target;
     }
     public virtual void ReportLostSight(DetectableTarget target) 
@@ -128,6 +151,5 @@ public class EnemyAi : MonoBehaviour
     {   
         OnAiMountedChanged?.Invoke(value);
         hasMountedTarget = value;
-        Debug.Log("ToggleMounted" + value);
     }
 }

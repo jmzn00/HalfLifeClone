@@ -9,6 +9,8 @@ public class WeaponPickup : MonoBehaviour
 
     private GameObject weaponInstance;
     private Vector3 startPos;
+
+    private BoxCollider col;
     private void Awake()
     {
         if (weapon == null) return;
@@ -44,7 +46,12 @@ public class WeaponPickup : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
+        if (col == null)
+        {
+            col = GetComponent<BoxCollider>();
+        }
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(transform.position + new Vector3(0f,0.5f,0f), transform.localScale * 2);
+        Gizmos.DrawCube(col.center, col.size);
+        
     }
 }

@@ -18,12 +18,23 @@ public class PlayerHealth : MonoBehaviour, IDamageabale
     private void Start()
     {
         HealthChanged(maxHealth);
+    }    
+    public bool TryHeal(float amt) 
+    {
+        if(currentHealth >= maxHealth)
+            return false;
+
+        HealthChanged(amt);
+        return true;
     }
     private void HealthChanged(float value) 
     {
         currentHealth += value;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
         OnHealthChanged?.Invoke(currentHealth);
+
+        if(currentHealth <= 0f)
+            GameServices.GameManager.RestartGame();
     }
 
     private void Update()

@@ -7,7 +7,7 @@ public class PlayerAudioManager : MonoBehaviour
 
     public void PlayClip(AudioClip clip) 
     {
-                weaponSfxAudioSource.PlayOneShot(clip);
-        
+        if(clip)
+            weaponSfxAudioSource.PlayOneShot(clip);        
     }
 }
