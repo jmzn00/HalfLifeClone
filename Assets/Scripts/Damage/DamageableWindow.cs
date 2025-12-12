@@ -3,10 +3,13 @@ using UnityEngine;
 public class DamageableWindow : MonoBehaviour, IDamageabale
 {
     [SerializeField] private float maxHealth = 50f;
+    [SerializeField] private FractureGlass fractureGlass;
     private float currentHealth;
+    private BoxCollider col;
     private void Awake()
     {
         pool = GameServices.Pool;
+        col = GetComponent<BoxCollider>();
     }
 
     private void OnEnable()
@@ -30,7 +33,8 @@ public class DamageableWindow : MonoBehaviour, IDamageabale
         currentHealth += value;
         if(currentHealth <= 0) 
         {
-            gameObject.SetActive(false);
+            fractureGlass?.Fracture();
+            col.isTrigger = true;
         }
     }
     [SerializeField] private Transform damageTextSpawnPoint;

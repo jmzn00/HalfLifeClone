@@ -5,7 +5,16 @@ public class HealthPack : MonoBehaviour
 {
     [SerializeField] private float healAmount = 15f;
     [SerializeField] private bool destroyOnConsume = true;
+    [SerializeField] private GameObject visualMesh;
+    [SerializeField] private Transform visualSpawnPoint;
     private BoxCollider col;
+
+    private void Awake()
+    {
+        var go = Instantiate(visualMesh, visualSpawnPoint);
+        go.transform.localPosition = Vector3.zero;
+        go.transform.localRotation = Quaternion.identity;
+    }
 
     private void OnTriggerEnter(Collider other)
     {

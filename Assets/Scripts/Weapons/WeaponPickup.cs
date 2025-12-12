@@ -47,11 +47,12 @@ public class WeaponPickup : MonoBehaviour
     private void OnDrawGizmos()
     {
         if (col == null)
-        {
             col = GetComponent<BoxCollider>();
-        }
-        Gizmos.color = Color.yellow;
+
+        Gizmos.matrix = transform.localToWorldMatrix;
+        Gizmos.color = Color.green;
         Gizmos.DrawCube(col.center, col.size);
-        
+        Gizmos.matrix = Matrix4x4.identity;
+
     }
 }

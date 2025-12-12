@@ -20,5 +20,6 @@ public static class GameServices
     public static HitScript HitScript { get; internal set; }
     public static AudioManager AudioManager { get; internal set; }
     public static GameManager GameManager { get; internal set; }
+    public static SpawnManager SpawnManager { get; internal set; }
 
 }

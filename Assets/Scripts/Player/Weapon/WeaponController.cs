@@ -421,7 +421,7 @@ public class WeaponController : MonoBehaviour
         Vector3 origin = playerCam.transform.position;
         Vector3 dir = playerCam.transform.forward;
         
-        if(Physics.SphereCast(origin, 0.25f, dir, out RaycastHit hit)) 
+        if(Physics.SphereCast(origin, 0.25f, dir, out RaycastHit hit, 6f)) 
         {
             Hitbox hitbox = hit.collider.GetComponent<Hitbox>();
             if (hitbox) 

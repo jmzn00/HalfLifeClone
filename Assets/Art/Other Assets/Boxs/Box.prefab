@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9077500858535620132}
+  - component: {fileID: 4154671704378030969}
   m_Layer: 0
   m_Name: Box
   m_TagString: Untagged
@@ -30,8 +31,33 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8987671382112218813}
+  - {fileID: 414696909934040485}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4154671704378030969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39965972338257163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d7e4bb45fb15a48aba90c99c852e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  maxHealth: 25
+  lootTable:
+  - name: HealthPack
+    prefab: {fileID: 7493089040824208030, guid: 0ba3ba4ff6866e14bb86b99bb4dc13f5, type: 3}
+    weight: 0.3
+  - name: EnemyTeddy
+    prefab: {fileID: 2738772784281232471, guid: 8a15429adbbc3084584dd236aa84f274, type: 3}
+    weight: 0.6
+  - name: EmptyItem
+    prefab: {fileID: 7647995843422578031, guid: 7eb766c6b11c2bc4696d1ddea39cb045, type: 3}
+    weight: 0.5
+  lootSpawnPoint: {fileID: 414696909934040485}
 --- !u!1 &5104149158204789305
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,6 +70,7 @@ GameObject:
   - component: {fileID: 3613356174082232876}
   - component: {fileID: 7731575927937565509}
   - component: {fileID: 2464329737796264630}
+  - component: {fileID: 5232157756078055189}
   m_Layer: 0
   m_Name: Box
   m_TagString: Untagged
@@ -144,3 +171,49 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.02, y: 0.031498984, z: 0.02}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5232157756078055189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5104149158204789305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73238c4cef40b784bab55a11ea6d9e34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hitbox
+  hitboxType: 1
+  meleeImmune: 0
+  hitImmune: 0
+--- !u!1 &8559351783250286839
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 414696909934040485}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &414696909934040485
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8559351783250286839}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9077500858535620132}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

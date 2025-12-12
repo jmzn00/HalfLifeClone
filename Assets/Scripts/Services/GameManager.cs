@@ -3,9 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
-{
-    [SerializeField] SceneAsset gameScene;
-
+{   
     private void Awake()
     {
         if (GameServices.GameManager != this)
@@ -19,6 +17,6 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame() 
     {
-        SceneManager.LoadScene(gameScene.name);
+        SceneManager.LoadScene(0);
     }
 }

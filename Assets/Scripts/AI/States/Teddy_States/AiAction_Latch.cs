@@ -1,4 +1,3 @@
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.AI;
 [CreateAssetMenu(menuName = "Ai/Actions/Latch")]
