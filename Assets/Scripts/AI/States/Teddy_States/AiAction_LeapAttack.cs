@@ -103,7 +103,6 @@ public class AiAction_LeapAttack : AiAction
         Vector3 enemyPos = c.transform.position + enemyOffset;
         Vector3 targetPos = c.CurrentTarget.transform.position + targetOffset;
         float distanceToTarget = Vector3.Distance(enemyPos, targetPos);
-        Debug.Log("Dist" + distanceToTarget);
         if(!c.leapHasHit && distanceToTarget <= attackDistance)
         {
             c.leapHasHit = true;

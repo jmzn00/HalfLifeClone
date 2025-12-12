@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7933198124636544414}
   m_Layer: 2
-  m_Name: GameObject
+  m_Name: MeshSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 7822034837090631310}
   - component: {fileID: 1716108106815891893}
   m_Layer: 2
-  m_Name: KeyPickup
+  m_Name: ItemPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,7 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7664a2a8635f1374e8520a41527b0111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KeyPickup
-  keyId: 0
   meshSpawnPoint: {fileID: 7933198124636544414}
-  keyMesh: {fileID: 3874798687770068871, guid: a1648482d42851340b0961f999414488, type: 3}
   destroyOnPickup: 1
+  itemDef: {fileID: 11400000, guid: 7d3867e326ad81e4bb886367491b065f, type: 2}

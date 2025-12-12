@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ActivatableDoor : MonoBehaviour, IActivatable
 {
     [SerializeField] private Animator doorAnimator;
-    [SerializeField] private KeyId keyNeeded;
+    [SerializeField] private NavMeshObstacle NavMeshObstacle;
 
     private bool isOpen = false;
 
@@ -13,21 +14,19 @@ public class ActivatableDoor : MonoBehaviour, IActivatable
     }
     public void Activate() 
     {
-        if (GameServices.Player.Inventory.HasKey(keyNeeded)) 
+        if (!isOpen) 
         {
-            if (!isOpen) 
-            {
-                doorAnimator.SetTrigger("Open");
-                isOpen = true;
-            }            
-        }
-        
+            doorAnimator.SetTrigger("Open");
+            NavMeshObstacle.enabled = false;
+            isOpen = true;
+        }                           
     }
     public void Deactivate() 
     {
         if (isOpen) 
         {
             doorAnimator.SetTrigger("Close");
+            NavMeshObstacle.enabled = true;
             isOpen = false;
         }       
     }

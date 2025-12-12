@@ -353,6 +353,7 @@ Transform:
   - {fileID: 254868707413849746}
   - {fileID: 2678029437286210379}
   - {fileID: 5319155255813169471}
+  - {fileID: 2844570685111658245}
   m_Father: {fileID: 7405817748145330702}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1871733515810078638
@@ -1248,6 +1249,8 @@ GameObject:
   - component: {fileID: 4337247154728582954}
   - component: {fileID: 5383136260950939363}
   - component: {fileID: 5526410141222484327}
+  - component: {fileID: 5656649542494441456}
+  - component: {fileID: 4050036722802399803}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -1475,6 +1478,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a989c5246d46a294aa0f274c1b86d701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!114 &5656649542494441456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4232463359077943307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d0b513fb226e3e4f92afb7fa195c85a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  spawnPoint: {fileID: 2844570685111658245}
+--- !u!114 &4050036722802399803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4232463359077943307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd14d8c0ccbb6b742b974bfb711ea6a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  interactionDistance: 3
 --- !u!1 &4359005234325091239
 GameObject:
   m_ObjectHideFlags: 0
@@ -2311,6 +2340,37 @@ Transform:
   - {fileID: 4877861156543211603}
   m_Father: {fileID: 707782404057011780}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7099620801659438468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2844570685111658245}
+  m_Layer: 7
+  m_Name: ItemHolster
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2844570685111658245
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7099620801659438468}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.0000029504295}
+  m_LocalPosition: {x: -2.2686791, y: -0.514, z: 3.848}
+  m_LocalScale: {x: 4.6873536, y: 4.6873536, z: 4.6873536}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7524101177710329769}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!1 &7149811455170155753
 GameObject:
   m_ObjectHideFlags: 0
