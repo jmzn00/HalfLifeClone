@@ -49,8 +49,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   doorAnimator: {fileID: 2487564818073605599}
-  unlockDoorModule: {fileID: 11400000, guid: 72c5942fe843ed2459e69a664ee65201, type: 2}
   NavMeshObstacle: {fileID: 4177763941512598756}
+  activateOnAwake: 0
 --- !u!95 &2487564818073605599
 Animator:
   serializedVersion: 7
@@ -765,7 +765,19 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 4d72e4568b36edb4e898fd77494402d6, type: 2}
     - target: {fileID: 3033662957540806805, guid: 7322fef43e4ce14488ef052dbd7d091f, type: 3}
+      propertyPath: activatableObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3033662957540806805, guid: 7322fef43e4ce14488ef052dbd7d091f, type: 3}
       propertyPath: 'activatableObjects.Array.data[0]'
+      value: 
+      objectReference: {fileID: 534233961890542966}
+    - target: {fileID: 3033662957540806805, guid: 7322fef43e4ce14488ef052dbd7d091f, type: 3}
+      propertyPath: activatableObjects.Array.data[0].activate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3033662957540806805, guid: 7322fef43e4ce14488ef052dbd7d091f, type: 3}
+      propertyPath: activatableObjects.Array.data[0].activatableObject
       value: 
       objectReference: {fileID: 534233961890542966}
     - target: {fileID: 4059753313742680318, guid: 7322fef43e4ce14488ef052dbd7d091f, type: 3}

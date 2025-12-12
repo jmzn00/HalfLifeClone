@@ -16,6 +16,9 @@ public class NpcDamageable : MonoBehaviour, IDamageabale
 
     public Action<float> OnHealthChanged;
     private Pool pool;
+
+    [SerializeField] private bool permaAgroOnAttack = false;
+    [SerializeField] private EnemyAi enemyAi;
     private void Awake()
     {
         pool = GameServices.Pool;        
@@ -27,6 +30,11 @@ public class NpcDamageable : MonoBehaviour, IDamageabale
     }    
     public HitOutcome ApplyHit(in HitInfo hitInfo) 
     {
+        if (enemyAi && permaAgroOnAttack) 
+        {
+            enemyAi.SetTargetLock(true);
+            enemyAi.SetTarget(GameServices.Player.DetectableTarget);
+        }
         float damage = CalculateDamage(hitInfo);
         Health -= damage;
         Health = Mathf.Clamp(Health, 0, maxHealth);

@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 public class PlayerInventory : MonoBehaviour
@@ -15,7 +16,7 @@ public class PlayerInventory : MonoBehaviour
 
     public bool TryAddItem(ItemDefinition def) 
     {
-        if (def == null) return false;
+        if (def == null) return false;        
 
         int current = GetCount(def);
         if (def.maxStack > 0 && current >= def.maxStack) return false;
@@ -27,6 +28,15 @@ public class PlayerInventory : MonoBehaviour
             durability = 0,
             instanceGuid = System.Guid.NewGuid().ToString()
         };
+
+        if (inst.def.consimeOnPickup) 
+        {
+            return inst.TryUse(new UseContext
+            {
+                user = gameObject,
+                target = gameObject
+            });            
+        }
 
         items.Add(inst);
         OnItemChanged?.Invoke(def, GetCount(def));

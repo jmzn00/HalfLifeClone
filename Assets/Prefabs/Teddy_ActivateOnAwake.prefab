@@ -694,6 +694,8 @@ MonoBehaviour:
   bodyMultiplier: 1
   legMultiplier: 0.8
   armMultiplier: 0.8
+  permaAgroOnAttack: 0
+  enemyAi: {fileID: 570586983460108573}
 --- !u!114 &4646804527493444231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -735,6 +737,7 @@ MonoBehaviour:
   defualtState: {fileID: 11400000, guid: abdfb6d87a7565a4db1e39032341c9ba, type: 2}
   ClipTimer: 0
   NextDelay: 0
+  leapHasHit: 0
   activateOnAwake: 1
   stateText: {fileID: 3811491418868454328}
   hitbox: {fileID: 3543121070938949216}
@@ -761,7 +764,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.46
-  m_Speed: 2
+  m_Speed: 4
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 60

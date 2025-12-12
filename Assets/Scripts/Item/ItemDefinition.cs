@@ -48,6 +48,7 @@ public class ItemDefinition : ScriptableObject
     public Sprite icon;
     public ItemCategory category;
     public int maxStack = 1;
+    public bool consimeOnPickup = false;
 
     public ItemModule[] modules;    
 }

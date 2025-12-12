@@ -50,7 +50,7 @@ public class ItemPickup : MonoBehaviour
             col = GetComponent<BoxCollider>();
 
         Gizmos.matrix = transform.localToWorldMatrix;
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.blue;
         Gizmos.DrawCube(col.center, col.size);
         Gizmos.matrix = Matrix4x4.identity;
 

@@ -26,9 +26,9 @@ MonoBehaviour:
   reloadAnim: {fileID: 0}
   fireAnim: {fileID: 0}
   emptyAnim: {fileID: 0}
-  baseDamage: 7
+  baseDamage: 13
   fireRate: 0.1
-  magazineSize: 12
+  magazineSize: 16
   maxAmmoCapacity: 96
   isAutomatic: 0
   dropOffDistance: 30

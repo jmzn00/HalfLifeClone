@@ -204,7 +204,6 @@ public class WeaponController : MonoBehaviour
         {            
             if (weaponRuntimes[i].weaponData.ammoType == type) 
             {
-                Debug.Log("Added Ammo: " + amount + " To " + weaponRuntimes[i].weaponData.weaponName);
                 weaponRuntimes[i].ammoInReserve += amount;
                 OnAmmoChanged?.Invoke(currentWeaponRuntime);
                 break;

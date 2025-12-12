@@ -8,7 +8,6 @@ namespace Assets.Scripts.AI.States.Conditions
     {
         public override bool CheckCondition(EnemyAi controller)
         {
-            Debug.Log("Has Valid Path" + NavChecks.HasValidPath(controller.transform.position, controller.CurrentTarget.transform.position));
             if(controller.CurrentTarget == null)
                 return false;
             return NavChecks.HasValidPath(controller.transform.position, controller.CurrentTarget.transform.position);

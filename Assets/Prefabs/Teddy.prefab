@@ -641,6 +641,8 @@ MonoBehaviour:
   bodyMultiplier: 1
   legMultiplier: 0.8
   armMultiplier: 0.8
+  permaAgroOnAttack: 1
+  enemyAi: {fileID: 2531102086592081153}
 --- !u!114 &110064291045642738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,8 +681,11 @@ MonoBehaviour:
   isLatched: 0
   isMounted: 0
   hasMountedTarget: 0
-  lockTarget: 0
   defualtState: {fileID: 11400000, guid: 8d3a60223b396ba4bb1c259f24a86766, type: 2}
+  ClipTimer: 0
+  NextDelay: 0
+  leapHasHit: 0
+  activateOnAwake: 0
   stateText: {fileID: 4120146340830475053}
   hitbox: {fileID: 1486026090281491064}
 --- !u!114 &4619458254107161022
