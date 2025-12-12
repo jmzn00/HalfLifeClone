@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.AI;
 
 [CreateAssetMenu(menuName = "Ai/Actions/Leap Attack")]
@@ -10,6 +11,14 @@ public class AiAction_LeapAttack : AiAction
     public float maxHorizontalSpeed = 10f;
     public float cooldown = 2f;
     public bool lockTarget = false;
+    
+    [Header("Damage")]
+    public float attackDamage = 10f;
+    public float attackDistance = 1f;
+
+    [Header("Target Settings")]
+    [SerializeField] private Vector3 targetOffset = new Vector3(0f, 1.75f, 0f);
+    [SerializeField] private Vector3 enemyOffset = new Vector3(0f, 1f, 0f);
 
     [Header("Misc")]
     public LayerMask groundLayer;
@@ -69,6 +78,8 @@ public class AiAction_LeapAttack : AiAction
 
         if (dirXZ.sqrMagnitude > 0.0001f)
             c.transform.forward = dirXZ;
+
+        c.leapHasHit = false;
     }
 
     private void UpdateLeap(EnemyAi c)
@@ -88,6 +99,19 @@ public class AiAction_LeapAttack : AiAction
         Vector3 flatVel = new Vector3(c.attackVelocity.x, 0f, c.attackVelocity.z);
         if (flatVel.sqrMagnitude > 0.001f)
             c.transform.forward = flatVel.normalized;
+
+        Vector3 enemyPos = c.transform.position + enemyOffset;
+        Vector3 targetPos = c.CurrentTarget.transform.position + targetOffset;
+        float distanceToTarget = Vector3.Distance(enemyPos, targetPos);
+        Debug.Log("Dist" + distanceToTarget);
+        if(!c.leapHasHit && distanceToTarget <= attackDistance)
+        {
+            c.leapHasHit = true;
+            GameServices.Player.Health.ApplyHit(new HitInfo
+            {
+                baseDamage = attackDamage
+            });
+        }
 
         // -------- LANDING LOGIC --------
 
@@ -125,13 +149,19 @@ public class AiAction_LeapAttack : AiAction
 
             if(c.Agent != null) 
             {
+                c.Agent.enabled = true;
+
                 if(NavMesh.SamplePosition(c.transform.position, out NavMeshHit navHit, 1.0f, NavMesh.AllAreas)) 
                 {
-                    c.transform.position = navHit.position;
-                    c.Agent.enabled = true;
-                    Debug.Log("LeapFinished");
+                    c.Agent.Warp(navHit.position);
+                }
+                else
+                {
+                    c.Agent.Warp(c.transform.position);
                 }
             }
+            Debug.Log("LeapFinished");
+            return;
         }
     }
 

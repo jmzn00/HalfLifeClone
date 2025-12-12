@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbecc88e5549174f848dbf870af4f07, type: 3}
   m_Name: Teddy_LeapAttack
   m_EditorClassIdentifier: Assembly-CSharp::AiAction_LeapAttack
-  attackRange: 4
+  attackRange: 5
   apexHeight: 2
-  maxHorizontalSpeed: 10
+  maxHorizontalSpeed: 15
   cooldown: 2
   lockTarget: 1
+  attackDamage: 10
+  attackDistance: 2
+  targetOffset: {x: 0, y: 1.75, z: 0}
+  enemyOffset: {x: 0, y: 1, z: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8

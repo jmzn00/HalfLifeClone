@@ -48,6 +48,8 @@ public class EnemyAi : MonoBehaviour, IActivatable
 
     [HideInInspector] public float ClipTimer;
     [HideInInspector] public float NextDelay;
+    [HideInInspector] public bool leapHasHit;
+
 
     [SerializeField] private bool activateOnAwake = false;
 
