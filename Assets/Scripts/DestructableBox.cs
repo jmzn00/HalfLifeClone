@@ -14,10 +14,36 @@ public class DestructableBox : MonoBehaviour,  IDamageabale
     private float currentHealth;
     [SerializeField] private List<LootEntry> lootTable = new();
     [SerializeField] private Transform lootSpawnPoint;
+    private FractureMesh fractureMesh;
 
+    [SerializeField] private GameObject intactObject;
+    [SerializeField] private Transform[] cells;
+    private List<Rigidbody> _rb = new();
+
+    bool hasDied;
+
+    private void Awake()
+    {
+        fractureMesh = GetComponent<FractureMesh>();
+
+        foreach (var cell in cells)
+        {
+            if (!cell) continue;
+
+            var rb = cell.GetComponent<Rigidbody>();
+            if (!rb) rb = cell.gameObject.AddComponent<Rigidbody>();
+
+            rb.isKinematic = true;          // keep frozen until break
+            rb.interpolation = RigidbodyInterpolation.Interpolate;
+            rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+
+            _rb.Add(rb);
+        }        
+    }
     private void OnEnable()
     {
         currentHealth = maxHealth;
+        hasDied = false;
     }
 
     public HitOutcome ApplyHit(in HitInfo info) 
@@ -26,18 +52,22 @@ public class DestructableBox : MonoBehaviour,  IDamageabale
         {
             damageApplied = info.baseDamage
         };
-        HealthChanged(-result.damageApplied);
+        HealthChanged(info);
         return result;                    
     }
-    private void HealthChanged(float value) 
+    private void HealthChanged(in HitInfo info) 
     {
-        currentHealth += value;
+        currentHealth -= info.baseDamage;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
         if(currentHealth <= 0f) 
-        {           
-            DestroyBox();
-            SpawnLoot();
+        {
+            DestroyBox(info.point);
+            if (!hasDied) 
+            {
+                SpawnLoot();
+            }
+            hasDied = true;
         }
     }
     private void SpawnLoot() 
@@ -78,8 +108,30 @@ public class DestructableBox : MonoBehaviour,  IDamageabale
             }
         }
     }
-    private void DestroyBox() 
+    public float explosionForce = 5f;
+    public float explosionRadius = 3f;
+    public float upwardsModifier = 1f;
+    public float randomSphereRadius = 0.5f;
+    private void DestroyBox(Vector3 pos) 
     {
-        gameObject.SetActive(false);
+        if(intactObject)
+            intactObject.SetActive(false);
+        if (_rb.Count <= 0) return;
+
+        Vector3 origin = pos + Random.insideUnitSphere * randomSphereRadius;
+
+        foreach (var entry in _rb) 
+        {
+            entry.isKinematic = false;
+            entry.AddExplosionForce
+                (
+                    explosionForce,
+                    origin,
+                    explosionRadius,
+                    upwardsModifier,
+                    ForceMode.Impulse
+                );
+        }
+        
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 public class DamageableWindow : MonoBehaviour, IDamageabale
 {
     [SerializeField] private float maxHealth = 50f;
-    [SerializeField] private FractureGlass fractureGlass;
+    [SerializeField] private FractureMesh fractureGlass;
     private float currentHealth;
     private BoxCollider col;
     private void Awake()
