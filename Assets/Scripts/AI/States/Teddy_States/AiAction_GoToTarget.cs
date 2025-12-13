@@ -5,9 +5,9 @@ namespace Assets.Scripts.AI.States.Teddy_States
     [CreateAssetMenu(menuName = "Ai/Actions/GoToTarget")]
     public class AiAction_GoToTarget : AiAction
     {
-
         public AiAudio audio;
-        public bool lockTarget;
+
+        public float minDistance = 1f;
         public override void OnEnter(EnemyAi controller)
         {
             if(audio != null) 
@@ -24,8 +24,16 @@ namespace Assets.Scripts.AI.States.Teddy_States
 
             if (controller.CurrentTarget) 
             {
-                controller.Agent.SetDestination(controller.CurrentTarget.transform.position);
-                controller.SetTargetLock(true);
+                float dist = Vector3.Distance(controller.transform.position, controller.CurrentTarget.transform.position);
+                if (dist > minDistance) 
+                {
+                    controller.Agent.SetDestination(controller.CurrentTarget.transform.position);
+                }
+                else 
+                {
+                    controller.Agent.ResetPath();
+                }
+                
             }
             
             if(audio)

@@ -30,6 +30,7 @@ public class EnemyAi : MonoBehaviour, IActivatable
     public Vector3 attackVelocity;
     public float attackCooldownTimer;
     public float attackAirTime;
+    public float summonCooldownTimer;
 
     public bool isLatched;
     public bool isMounted;
@@ -75,7 +76,15 @@ public class EnemyAi : MonoBehaviour, IActivatable
     }
     public virtual bool CanAttack() 
     {
-        return attackCooldownTimer <= 0f || !isAttacking;
+        return attackCooldownTimer <= 0f && !isAttacking;
+    }
+    public virtual GameObject Spawn(GameObject prefab, Vector3 pos, Quaternion rot) 
+    {
+        return Instantiate(prefab, pos, rot);
+    }
+    public void SetInvulnerable(bool value) 
+    {
+        Damageable.SetInveulnerable(value);
     }
     public virtual void Update()
     {        
@@ -88,6 +97,10 @@ public class EnemyAi : MonoBehaviour, IActivatable
     }
     protected virtual void CommonUpdate() 
     {
+        if(summonCooldownTimer > 0f) 
+        {
+            summonCooldownTimer -= Time.deltaTime;
+        }
         if(attackCooldownTimer > 0f) 
         {
             attackCooldownTimer -= Time.deltaTime;

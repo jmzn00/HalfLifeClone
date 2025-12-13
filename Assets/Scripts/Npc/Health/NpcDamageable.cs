@@ -27,9 +27,20 @@ public class NpcDamageable : MonoBehaviour, IDamageabale
     {
         Health = maxHealth;
         Dead = false;
+    
     }    
+    private bool invulnerable = false;
+    public void SetInveulnerable(bool v) 
+    {
+        invulnerable = v;
+    }
     public HitOutcome ApplyHit(in HitInfo hitInfo) 
     {
+        if (invulnerable) return new HitOutcome 
+        {
+            damageApplied = 0,
+        };
+
         if (enemyAi && permaAgroOnAttack) 
         {
             enemyAi.SetTargetLock(true);

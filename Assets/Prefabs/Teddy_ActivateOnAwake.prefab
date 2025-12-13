@@ -734,7 +734,7 @@ MonoBehaviour:
   isLatched: 0
   isMounted: 0
   hasMountedTarget: 0
-  defualtState: {fileID: 11400000, guid: abdfb6d87a7565a4db1e39032341c9ba, type: 2}
+  defualtState: {fileID: 11400000, guid: c50e95e8d969c684b9010d8b29acf5ff, type: 2}
   ClipTimer: 0
   NextDelay: 0
   leapHasHit: 0

@@ -159,7 +159,6 @@ public class AiAction_LeapAttack : AiAction
                     c.Agent.Warp(c.transform.position);
                 }
             }
-            Debug.Log("LeapFinished");
             return;
         }
     }

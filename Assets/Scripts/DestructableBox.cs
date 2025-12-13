@@ -15,7 +15,6 @@ public class DestructableBox : MonoBehaviour,  IDamageabale
     private float currentHealth;
     [SerializeField] private List<LootEntry> lootTable = new();
     [SerializeField] private Transform lootSpawnPoint;
-    private FractureMesh fractureMesh;
 
     [SerializeField] private GameObject intactObject;
     [SerializeField] private Transform[] cells;
@@ -26,8 +25,6 @@ public class DestructableBox : MonoBehaviour,  IDamageabale
 
     private void Awake()
     {
-        fractureMesh = GetComponent<FractureMesh>();
-
         foreach (var cell in cells)
         {
             if (!cell) continue;

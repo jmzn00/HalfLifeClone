@@ -293,10 +293,12 @@ public class WeaponController : MonoBehaviour
                 weaponInstance = weaponInstance,
                 weaponView = weaponView,
                 muzzleVfxInstance = vfxParticle,
+                ammoInClip = data.magazineSize,
+                ammoInReserve = data.magazineSize * 4
             };
 
             weaponRuntimes.Add(currentWeaponRuntime);
-            AddAmmo(data.ammoType, data.magazineSize * 3); // just for testing
+            //AddAmmo(data.ammoType, data.magazineSize * 3); // just for testing
         }
     }
     private void EquipWeapon(WeaponData data)

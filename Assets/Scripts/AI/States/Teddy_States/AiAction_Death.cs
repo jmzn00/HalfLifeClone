@@ -10,14 +10,17 @@ public class AiAction_Death : AiAction
     {
         StartDeath(controller);
 
-        var request = new AudioRequest
-            (
-            deathClip,
-            5,
-            controller.transform.position,
-            1f
-            );
-        GameServices.AudioManager.SendRequest( request );
+        if(deathClip != null) 
+        {
+            var request = new AudioRequest
+                (
+                deathClip,
+                5,
+                controller.transform.position,
+                1f
+                );
+            GameServices.AudioManager.SendRequest(request);
+        }        
     }
     public override void Act(EnemyAi c)
     {                

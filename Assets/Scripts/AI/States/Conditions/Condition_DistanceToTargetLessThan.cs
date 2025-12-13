@@ -9,9 +9,9 @@ namespace Assets.Scripts.AI.States.Conditions
         public float distanceThreshold = 2f;
         public override bool CheckCondition(EnemyAi controller)
         {
-            if (controller.CurrentTarget == null)
-                Debug.Log("Target is null");
-            return Vector3.Distance(controller.transform.position, controller.CurrentTarget.transform.position) < distanceThreshold;
+            if (controller.CurrentTarget != null)
+                return Vector3.Distance(controller.transform.position, controller.CurrentTarget.transform.position) < distanceThreshold;
+            return false;
         }
     }
 }

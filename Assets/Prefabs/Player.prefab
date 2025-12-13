@@ -2013,6 +2013,7 @@ GameObject:
   - component: {fileID: 5336757818831795769}
   - component: {fileID: 4332867640876911805}
   - component: {fileID: 341501922558680224}
+  - component: {fileID: 7034821145609888593}
   m_Layer: 7
   m_Name: Visual
   m_TagString: Player
@@ -2115,6 +2116,21 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7034821145609888593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5899914718746300661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73238c4cef40b784bab55a11ea6d9e34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hitbox
+  hitboxType: 1
+  meleeImmune: 0
+  hitImmune: 0
 --- !u!1 &5911575896120460545
 GameObject:
   m_ObjectHideFlags: 0

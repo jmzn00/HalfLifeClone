@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Teddy_GoToTarget
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.AI.States.Teddy_States.AiAction_GoToTarget
   audio: {fileID: 11400000, guid: faef81c6d3f3a0d4e862a6034107f25e, type: 2}
+  lockTarget: 1
+  minDistance: 1

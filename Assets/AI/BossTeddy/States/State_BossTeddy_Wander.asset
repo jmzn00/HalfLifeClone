@@ -15,5 +15,7 @@ MonoBehaviour:
   stateName: Wander
   actions:
   - {fileID: 11400000, guid: d2d4af6c41fd6694f9c4cd14fae7e4c7, type: 2}
-  transitions: []
+  transitions:
+  - {fileID: 11400000, guid: c85d2062c464dca4699b115321b6f161, type: 2}
+  - {fileID: 11400000, guid: 3557066615af13b4b9a70f2b6e84d466, type: 2}
   settings: []
