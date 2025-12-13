@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9077500858535620132}
   - component: {fileID: 4154671704378030969}
+  - component: {fileID: 6100496550343814372}
+  - component: {fileID: 773449774236450492}
   m_Layer: 0
   m_Name: D_Box
   m_TagString: Untagged
@@ -84,10 +86,54 @@ MonoBehaviour:
   - {fileID: 4649781503057128946}
   - {fileID: 7938285391417384238}
   - {fileID: 5999871216875070200}
+  navMeshObstacle: {fileID: 6100496550343814372}
   explosionForce: 4
   explosionRadius: 2.5
   upwardsModifier: 0
   randomSphereRadius: 0.25
+--- !u!208 &6100496550343814372
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39965972338257163}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.85, y: 0.8, z: 1.26}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.88, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!54 &773449774236450492
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39965972338257163}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &124998264555102909
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,7 +146,7 @@ GameObject:
   - component: {fileID: 4152950781353488170}
   - component: {fileID: 2935402127182938088}
   - component: {fileID: 9113467727528183839}
-  - component: {fileID: 8532998150709605223}
+  - component: {fileID: 9048609260613884187}
   m_Layer: 11
   m_Name: Rigthlead_cell.012
   m_TagString: Untagged
@@ -190,7 +236,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -207,8 +253,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &8532998150709605223
-BoxCollider:
+--- !u!64 &9048609260613884187
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -225,9 +271,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0018120949, y: 0.004793366, z: 0.001370475}
-  m_Center: {x: 0.00006802126, y: -0.0011969577, z: 0.000049640897}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2674996728441493346, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &591675645628588915
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,7 +287,7 @@ GameObject:
   - component: {fileID: 6965176638516501488}
   - component: {fileID: 7710640125953312153}
   - component: {fileID: 4321931697999379504}
-  - component: {fileID: 8631224456564331195}
+  - component: {fileID: 6455206595318368064}
   m_Layer: 11
   m_Name: Rigthlead_cell.010
   m_TagString: Untagged
@@ -330,7 +377,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -347,8 +394,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &8631224456564331195
-BoxCollider:
+--- !u!64 &6455206595318368064
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -365,9 +412,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0019118955, y: 0.012792968, z: 0.0014308662}
-  m_Center: {x: 0.00004333756, y: -0.00021304845, z: 0.000037356152}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6296828682347309967, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &940535985490938001
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,7 +428,7 @@ GameObject:
   - component: {fileID: 2939536687145811408}
   - component: {fileID: 432113166468354666}
   - component: {fileID: 4584326730801073930}
-  - component: {fileID: 6340873694955811125}
+  - component: {fileID: 3321756968529168796}
   m_Layer: 11
   m_Name: Box_cell.012
   m_TagString: Untagged
@@ -470,7 +518,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -487,8 +535,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &6340873694955811125
-BoxCollider:
+--- !u!64 &3321756968529168796
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -505,9 +553,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.008606846, y: 0.015121045, z: 0.012288355}
-  m_Center: {x: 0.00017033798, y: -0.00021675063, z: -0.0001564701}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1229644411641109556, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &1351621783166672372
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,7 +569,7 @@ GameObject:
   - component: {fileID: 7570002080779884274}
   - component: {fileID: 1778830452531131729}
   - component: {fileID: 7852423896394044140}
-  - component: {fileID: 3068259036719407700}
+  - component: {fileID: 8068450594024653129}
   m_Layer: 11
   m_Name: LEFT LEAD_cell.003
   m_TagString: Untagged
@@ -610,7 +659,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -627,8 +676,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &3068259036719407700
-BoxCollider:
+--- !u!64 &8068450594024653129
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -645,9 +694,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0058070864, y: 0.017121507, z: 0.0039649513}
-  m_Center: {x: 0.00044668064, y: -0.0016980844, z: -0.00029678943}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -531338004671835821, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &1373190269489498317
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,7 +710,7 @@ GameObject:
   - component: {fileID: 1247261145039252785}
   - component: {fileID: 2377090951716215197}
   - component: {fileID: 2942294784130276031}
-  - component: {fileID: 5491937567034866764}
+  - component: {fileID: 2365061109789087728}
   m_Layer: 11
   m_Name: Box_cell.016
   m_TagString: Untagged
@@ -750,7 +800,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -767,8 +817,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &5491937567034866764
-BoxCollider:
+--- !u!64 &2365061109789087728
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -785,9 +835,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.010423705, y: 0.017467093, z: 0.009571769}
-  m_Center: {x: 0.0026922233, y: 0.0016528573, z: 0.0010490685}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3545066357874552989, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &1792799857251432535
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,7 +851,7 @@ GameObject:
   - component: {fileID: 42878825050751558}
   - component: {fileID: 341541115644960169}
   - component: {fileID: 7813307489374577371}
-  - component: {fileID: 1874842633288556829}
+  - component: {fileID: 1188854266081858525}
   m_Layer: 11
   m_Name: Box_cell.014
   m_TagString: Untagged
@@ -890,7 +941,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -907,8 +958,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &1874842633288556829
-BoxCollider:
+--- !u!64 &1188854266081858525
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -925,9 +976,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.016894044, y: 0.012037148, z: 0.010440226}
-  m_Center: {x: -0.001945121, y: 0.0016331903, z: -0.00004152767}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3530402291211022001, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &2874719268730186417
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,7 +992,7 @@ GameObject:
   - component: {fileID: 8804758890285798088}
   - component: {fileID: 7032875346943867698}
   - component: {fileID: 4196522803327115928}
-  - component: {fileID: 1480215815892439286}
+  - component: {fileID: 2538810905320246646}
   m_Layer: 11
   m_Name: LEFT LEAD_cell.008
   m_TagString: Untagged
@@ -1030,7 +1082,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1047,8 +1099,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &1480215815892439286
-BoxCollider:
+--- !u!64 &2538810905320246646
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1065,9 +1117,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0015290014, y: 0.0062464722, z: 0.0011246698}
-  m_Center: {x: 0.00021357689, y: -0.00042563683, z: -0.00014852444}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1250628678541976986, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &3030934714563394984
 GameObject:
   m_ObjectHideFlags: 0
@@ -1080,7 +1133,7 @@ GameObject:
   - component: {fileID: 6723181990879933256}
   - component: {fileID: 5712247174014306652}
   - component: {fileID: 5913343753051090784}
-  - component: {fileID: 2170798839460510580}
+  - component: {fileID: 831658309218091060}
   m_Layer: 11
   m_Name: Rigthlead_cell.007
   m_TagString: Untagged
@@ -1170,7 +1223,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1187,8 +1240,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &2170798839460510580
-BoxCollider:
+--- !u!64 &831658309218091060
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1205,9 +1258,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0024510084, y: 0.0067864573, z: 0.0019145568}
-  m_Center: {x: 0.00019376569, y: 0.0012317158, z: 0.00018143951}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8645926967679018789, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &3757126861857223063
 GameObject:
   m_ObjectHideFlags: 0
@@ -1220,7 +1274,7 @@ GameObject:
   - component: {fileID: 9139024396286991954}
   - component: {fileID: 5633619089549772210}
   - component: {fileID: 6367955597798494129}
-  - component: {fileID: 6328132650131844859}
+  - component: {fileID: 5741775679571028713}
   m_Layer: 11
   m_Name: Box_cell.011
   m_TagString: Untagged
@@ -1310,7 +1364,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1327,8 +1381,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &6328132650131844859
-BoxCollider:
+--- !u!64 &5741775679571028713
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1345,9 +1399,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0060293204, y: 0.014751665, z: 0.008750463}
-  m_Center: {x: 0.0013601457, y: 0.00072042894, z: -0.0012024092}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6008450293989461769, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &3837866602572471872
 GameObject:
   m_ObjectHideFlags: 0
@@ -1360,7 +1415,7 @@ GameObject:
   - component: {fileID: 3339045776331386423}
   - component: {fileID: 8086815287137101596}
   - component: {fileID: 6299748734219561347}
-  - component: {fileID: 9131285733488599524}
+  - component: {fileID: 3737469693837972946}
   m_Layer: 11
   m_Name: Box_cell.013
   m_TagString: Untagged
@@ -1450,7 +1505,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1467,8 +1522,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &9131285733488599524
-BoxCollider:
+--- !u!64 &3737469693837972946
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1485,9 +1540,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.011188353, y: 0.016762907, z: 0.012281006}
-  m_Center: {x: 0.0014021943, y: -0.001255018, z: -0.0015494726}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1737734744445089618, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &3935717948425019088
 GameObject:
   m_ObjectHideFlags: 0
@@ -1500,7 +1556,7 @@ GameObject:
   - component: {fileID: 582225207340008035}
   - component: {fileID: 7249075566493562176}
   - component: {fileID: 5993596829188383910}
-  - component: {fileID: 5645269284192254784}
+  - component: {fileID: 8298082984445546879}
   m_Layer: 11
   m_Name: LEFT LEAD_cell.011
   m_TagString: Untagged
@@ -1590,7 +1646,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1607,8 +1663,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &5645269284192254784
-BoxCollider:
+--- !u!64 &8298082984445546879
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1625,9 +1681,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.008377496, y: 0.01713412, z: 0.0056298426}
-  m_Center: {x: 0.00036904012, y: 0.0006103912, z: -0.00023376237}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4442450324549693233, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &4218480084582821842
 GameObject:
   m_ObjectHideFlags: 0
@@ -1694,7 +1751,7 @@ GameObject:
   - component: {fileID: 3213883626492800198}
   - component: {fileID: 8179200706541363224}
   - component: {fileID: 6314321749051936786}
-  - component: {fileID: 1450178986166564632}
+  - component: {fileID: 1417048876622453506}
   m_Layer: 11
   m_Name: Rigthlead_cell.011
   m_TagString: Untagged
@@ -1784,7 +1841,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1801,8 +1858,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &1450178986166564632
-BoxCollider:
+--- !u!64 &1417048876622453506
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1819,9 +1876,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0054404596, y: 0.012654533, z: 0.0040243347}
-  m_Center: {x: -0.00040360124, y: -0.0013406473, z: -0.0003372239}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6744848132783421316, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &4760197770308482996
 GameObject:
   m_ObjectHideFlags: 0
@@ -1834,7 +1892,7 @@ GameObject:
   - component: {fileID: 4185013045745622146}
   - component: {fileID: 4443115152424228476}
   - component: {fileID: 7100028875711317774}
-  - component: {fileID: 6008157932122296820}
+  - component: {fileID: 4071369855618152651}
   m_Layer: 11
   m_Name: LEFT LEAD_cell.010
   m_TagString: Untagged
@@ -1924,7 +1982,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1941,8 +1999,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &6008157932122296820
-BoxCollider:
+--- !u!64 &4071369855618152651
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1959,9 +2017,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0077850716, y: 0.004622104, z: 0.0052760313}
-  m_Center: {x: 0.0006049328, y: -0.00045220912, z: -0.0003806733}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1545289396487813847, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &4890715979585111167
 GameObject:
   m_ObjectHideFlags: 0
@@ -1974,7 +2033,7 @@ GameObject:
   - component: {fileID: 128827571576397334}
   - component: {fileID: 4252858343847572363}
   - component: {fileID: 4387487891367995209}
-  - component: {fileID: 989268578444671069}
+  - component: {fileID: 244220535872244926}
   m_Layer: 11
   m_Name: Box_cell.010
   m_TagString: Untagged
@@ -2064,7 +2123,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -2081,8 +2140,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &989268578444671069
-BoxCollider:
+--- !u!64 &244220535872244926
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2099,9 +2158,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0126144085, y: 0.02003478, z: 0.017911213}
-  m_Center: {x: -0.0014345472, y: 0.0008616223, z: 0.0018320223}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1265668053795077276, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &5079182954884977429
 GameObject:
   m_ObjectHideFlags: 0
@@ -2114,7 +2174,7 @@ GameObject:
   - component: {fileID: 1445852640711012398}
   - component: {fileID: 174644244570478997}
   - component: {fileID: 9046512471731123971}
-  - component: {fileID: 7841491308689190981}
+  - component: {fileID: 4515728426233173781}
   m_Layer: 11
   m_Name: LEFT LEAD_cell.007
   m_TagString: Untagged
@@ -2204,7 +2264,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -2221,8 +2281,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &7841491308689190981
-BoxCollider:
+--- !u!64 &4515728426233173781
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2239,9 +2299,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0056476155, y: 0.011462239, z: 0.0039196257}
-  m_Center: {x: -0.00052508427, y: 0.0019282716, z: 0.00032916816}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 95506759705365309, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &5104149158204789305
 GameObject:
   m_ObjectHideFlags: 0
@@ -2255,7 +2316,6 @@ GameObject:
   - component: {fileID: 7731575927937565509}
   - component: {fileID: 2464329737796264630}
   - component: {fileID: 5232157756078055189}
-  - component: {fileID: 673811440650035244}
   m_Layer: 0
   m_Name: Box
   m_TagString: Untagged
@@ -2371,33 +2431,6 @@ MonoBehaviour:
   hitboxType: 1
   meleeImmune: 0
   hitImmune: 0
---- !u!54 &673811440650035244
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5104149158204789305}
-  serializedVersion: 5
-  m_Mass: 25
-  m_LinearDamping: 1
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &5218424880684914465
 GameObject:
   m_ObjectHideFlags: 0
@@ -2410,7 +2443,7 @@ GameObject:
   - component: {fileID: 8649416672327161422}
   - component: {fileID: 2538898813794181415}
   - component: {fileID: 3094956048818564615}
-  - component: {fileID: 5770719208082131596}
+  - component: {fileID: 7450705669644126547}
   m_Layer: 11
   m_Name: Rigthlead.001
   m_TagString: Untagged
@@ -2500,7 +2533,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -2517,8 +2550,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &5770719208082131596
-BoxCollider:
+--- !u!64 &7450705669644126547
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2535,9 +2568,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.009897173, y: 0.03134078, z: 0.00021307114}
-  m_Center: {x: -0.004855271, y: -1.1685042e-12, z: 0.000047742134}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4647093264844956279, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &5653481945164861864
 GameObject:
   m_ObjectHideFlags: 0
@@ -2550,7 +2584,7 @@ GameObject:
   - component: {fileID: 1407070537047295593}
   - component: {fileID: 915438487949571487}
   - component: {fileID: 1125643795487112415}
-  - component: {fileID: 991200843411054946}
+  - component: {fileID: 4567558153730603550}
   m_Layer: 11
   m_Name: Box_cell.017
   m_TagString: Untagged
@@ -2640,7 +2674,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -2657,8 +2691,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &991200843411054946
-BoxCollider:
+--- !u!64 &4567558153730603550
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2675,9 +2709,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.004504991, y: 0.014819688, z: 0.006113088}
-  m_Center: {x: 0.0014780491, y: 0.0007400209, z: 0.001104626}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3855842302419344494, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &5908186677836719436
 GameObject:
   m_ObjectHideFlags: 0
@@ -2690,7 +2725,7 @@ GameObject:
   - component: {fileID: 3205632831405620871}
   - component: {fileID: 1404829060519191074}
   - component: {fileID: 5211120336866458864}
-  - component: {fileID: 5878222179399293122}
+  - component: {fileID: 6158091560771465633}
   m_Layer: 11
   m_Name: LEFT LEAD_cell.009
   m_TagString: Untagged
@@ -2780,7 +2815,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -2797,8 +2832,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &5878222179399293122
-BoxCollider:
+--- !u!64 &6158091560771465633
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2815,9 +2850,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0032356896, y: 0.014130318, z: 0.0022913439}
-  m_Center: {x: 0.00014994435, y: -0.0017661091, z: -0.000071318704}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4248295445038024753, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &6696473561113540335
 GameObject:
   m_ObjectHideFlags: 0
@@ -2830,7 +2866,7 @@ GameObject:
   - component: {fileID: 5833555764667834658}
   - component: {fileID: 616233158206203265}
   - component: {fileID: 5645958304660958009}
-  - component: {fileID: 4794397233577542723}
+  - component: {fileID: 4544128266535663245}
   m_Layer: 11
   m_Name: Box_cell.001
   m_TagString: Untagged
@@ -2920,7 +2956,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -2937,8 +2973,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &4794397233577542723
-BoxCollider:
+--- !u!64 &4544128266535663245
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2955,9 +2991,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.011586481, y: 0.014005519, z: 0.016829006}
-  m_Center: {x: -0.0006520667, y: -0.00019970999, z: 0.0020880876}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1809747844913666997, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &7030555353215559884
 GameObject:
   m_ObjectHideFlags: 0
@@ -2970,7 +3007,7 @@ GameObject:
   - component: {fileID: 2806100443613703284}
   - component: {fileID: 4391057868467920552}
   - component: {fileID: 8025697201582419659}
-  - component: {fileID: 3950501409538188838}
+  - component: {fileID: 4170312876617482523}
   m_Layer: 11
   m_Name: Box_cell.015
   m_TagString: Untagged
@@ -3060,7 +3097,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -3077,8 +3114,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &3950501409538188838
-BoxCollider:
+--- !u!64 &4170312876617482523
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3095,9 +3132,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.009864203, y: 0.019490568, z: 0.009943786}
-  m_Center: {x: 0.0008669243, y: -0.005749436, z: 0.0016380976}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8114948894214587042, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &7258567823223708612
 GameObject:
   m_ObjectHideFlags: 0
@@ -3110,7 +3148,7 @@ GameObject:
   - component: {fileID: 1959224722006504266}
   - component: {fileID: 7285402425948511835}
   - component: {fileID: 1896532569008977353}
-  - component: {fileID: 8431852354820097804}
+  - component: {fileID: 4145695499327571044}
   m_Layer: 11
   m_Name: Rigthlead_cell.008
   m_TagString: Untagged
@@ -3200,7 +3238,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -3217,8 +3255,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &8431852354820097804
-BoxCollider:
+--- !u!64 &4145695499327571044
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3235,9 +3273,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0042512463, y: 0.012590118, z: 0.003040122}
-  m_Center: {x: 0.00016921738, y: -0.0013105042, z: 0.00008747153}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 842702323269436677, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &7357664294451390069
 GameObject:
   m_ObjectHideFlags: 0
@@ -3250,7 +3289,7 @@ GameObject:
   - component: {fileID: 1253837848499188132}
   - component: {fileID: 7630063744008628856}
   - component: {fileID: 4317886380574405286}
-  - component: {fileID: 3366465996813499716}
+  - component: {fileID: 1417442978646849309}
   m_Layer: 11
   m_Name: Rigthlead_cell.013
   m_TagString: Untagged
@@ -3340,7 +3379,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -3357,8 +3396,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &3366465996813499716
-BoxCollider:
+--- !u!64 &1417442978646849309
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3375,9 +3414,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.008192395, y: 0.017869778, z: 0.0059047774}
-  m_Center: {x: -0.00074754097, y: 0.0019179734, z: -0.0005309451}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4822707846327910942, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &7677237956841958932
 GameObject:
   m_ObjectHideFlags: 0
@@ -3390,7 +3430,7 @@ GameObject:
   - component: {fileID: 8356377849282254167}
   - component: {fileID: 3396518904318233357}
   - component: {fileID: 1272972663883375902}
-  - component: {fileID: 7563878688715528679}
+  - component: {fileID: 6785100001646681233}
   m_Layer: 11
   m_Name: Rigthlead_cell.009
   m_TagString: Untagged
@@ -3480,7 +3520,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -3497,8 +3537,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &7563878688715528679
-BoxCollider:
+--- !u!64 &6785100001646681233
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3515,9 +3555,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.006789309, y: 0.0038850887, z: 0.0049053854}
-  m_Center: {x: 0.0000764829, y: -0.00074585713, z: 0.000052902335}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5035235732128446329, guid: b81116e5bae7d0748a72be86dd0f901a, type: 3}
 --- !u!1 &8559351783250286839
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 [System.Serializable]
 public class LootEntry 
 {
@@ -19,6 +20,7 @@ public class DestructableBox : MonoBehaviour,  IDamageabale
     [SerializeField] private GameObject intactObject;
     [SerializeField] private Transform[] cells;
     private List<Rigidbody> _rb = new();
+    [SerializeField] private NavMeshObstacle navMeshObstacle;
 
     bool hasDied;
 
@@ -38,6 +40,8 @@ public class DestructableBox : MonoBehaviour,  IDamageabale
             rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
 
             _rb.Add(rb);
+
+            cell.gameObject.SetActive(false);
         }        
     }
     private void OnEnable()
@@ -116,12 +120,15 @@ public class DestructableBox : MonoBehaviour,  IDamageabale
     {
         if(intactObject)
             intactObject.SetActive(false);
+        if(navMeshObstacle)
+            navMeshObstacle.enabled = false;
         if (_rb.Count <= 0) return;
 
         Vector3 origin = pos + Random.insideUnitSphere * randomSphereRadius;
 
         foreach (var entry in _rb) 
         {
+            entry.gameObject.SetActive(true);
             entry.isKinematic = false;
             entry.AddExplosionForce
                 (

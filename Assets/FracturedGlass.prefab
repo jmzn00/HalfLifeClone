@@ -4720,7 +4720,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4017218871708313533}
-  - component: {fileID: 6430953828359826122}
   - component: {fileID: 2134331259294986361}
   - component: {fileID: 8963722167545084333}
   - component: {fileID: 2628096285798004427}
@@ -4813,18 +4812,6 @@ Transform:
   - {fileID: 2416121766671635988}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: -90}
---- !u!114 &6430953828359826122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7432344568015255722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbcc9611cf40cc44eae2c4d794f00be5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!114 &2134331259294986361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4838,7 +4825,79 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageableWindow
   maxHealth: 50
-  fractureGlass: {fileID: 6430953828359826122}
+  intactObject: {fileID: 0}
+  cells:
+  - {fileID: 8920514980924676889}
+  - {fileID: 2084604165681043211}
+  - {fileID: 4349902914146796850}
+  - {fileID: 7121380445525883187}
+  - {fileID: 6008787411769280614}
+  - {fileID: 4382409788672271305}
+  - {fileID: 6971195295948802166}
+  - {fileID: 8493465220285226839}
+  - {fileID: 5635923286288940155}
+  - {fileID: 6352649798470743491}
+  - {fileID: 8855753321450101825}
+  - {fileID: 6051260940353124535}
+  - {fileID: 2886068228774893752}
+  - {fileID: 2813551034403326129}
+  - {fileID: 1232805798609919376}
+  - {fileID: 3455434354901509058}
+  - {fileID: 7820257146909171573}
+  - {fileID: 3082311595931033810}
+  - {fileID: 9183876784332814204}
+  - {fileID: 1132855227139811987}
+  - {fileID: 5871123428075111575}
+  - {fileID: 8748042157650084426}
+  - {fileID: 4037473378335597146}
+  - {fileID: 239438695486836731}
+  - {fileID: 6501921033311419352}
+  - {fileID: 5319682897972545216}
+  - {fileID: 7975953281391134689}
+  - {fileID: 5366314698312140226}
+  - {fileID: 7183692657566302705}
+  - {fileID: 229121778974387214}
+  - {fileID: 1045828485503563726}
+  - {fileID: 3484648650528638072}
+  - {fileID: 178258813259842797}
+  - {fileID: 5322132652091536121}
+  - {fileID: 2173485084944689387}
+  - {fileID: 1646781109007930389}
+  - {fileID: 9030759170954038959}
+  - {fileID: 7629821514617846201}
+  - {fileID: 7743999939447123158}
+  - {fileID: 5629538014856158162}
+  - {fileID: 4566613315525662846}
+  - {fileID: 3864543276707727295}
+  - {fileID: 3943781336293711692}
+  - {fileID: 7956695671911185532}
+  - {fileID: 346632695761603139}
+  - {fileID: 6231008247633068681}
+  - {fileID: 5754267517819451070}
+  - {fileID: 5864512918141406352}
+  - {fileID: 2374863577679254365}
+  - {fileID: 50160989602831764}
+  - {fileID: 1933363274981437471}
+  - {fileID: 6306073970249543357}
+  - {fileID: 2674703538089018662}
+  - {fileID: 4860588230576694512}
+  - {fileID: 598248721147466262}
+  - {fileID: 7405426912915349233}
+  - {fileID: 3913504061534963863}
+  - {fileID: 7062078105049942598}
+  - {fileID: 4599211106738034974}
+  - {fileID: 483610862097609193}
+  - {fileID: 7800033044192192732}
+  - {fileID: 7012280665874515428}
+  - {fileID: 8553104653639034783}
+  - {fileID: 3341707904123156780}
+  - {fileID: 3641985432078742071}
+  - {fileID: 250579587360984063}
+  navMeshObstacle: {fileID: 0}
+  explosionForce: 8
+  explosionRadius: 2
+  upwardsModifier: 0.5
+  randomSphereRadius: 0.25
   damageTextSpawnPoint: {fileID: 2416121766671635988}
 --- !u!65 &8963722167545084333
 BoxCollider:
