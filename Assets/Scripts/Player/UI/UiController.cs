@@ -19,7 +19,13 @@ public class UiController : MonoBehaviour
 
     [Header("Message Ui")]
     [SerializeField] private TMP_Text messageText;
-    [SerializeField] private float messageDuration;    
+    [SerializeField] private float messageDuration;
+
+    [Header("GameOver Ui")]
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject gameWonPanel;
+    [SerializeField] private Button restartGameButton;
+    [SerializeField] private Button quitGameButton;
 
     private readonly Dictionary<WeaponData, WeaponSlotUi> slots = new();
 
@@ -28,6 +34,16 @@ public class UiController : MonoBehaviour
         WeaponController.OnAmmoChanged += UpdateAmmoDisplay;
         WeaponController.OnWeaponChanged += RebuildWeaponUi;
         PlayerHealth.OnHealthChanged += UpdateHealth;
+        GameServices.GameManager.OnGameEnded += GameEnded;
+
+        restartGameButton.onClick.AddListener(() => 
+        {
+            GameServices.GameManager.LoadScene(1);
+        });
+        quitGameButton.onClick.AddListener(() =>
+        {
+            GameServices.GameManager.LoadScene(0);
+        });
     }
     private void OnDestroy()
     {
@@ -114,5 +130,16 @@ public class UiController : MonoBehaviour
         yield return new WaitForSeconds(messageDuration);
         messageText.text = "";
 
+    }
+    private void GameEnded(bool end, bool won) 
+    {
+        if (won)
+        {
+            gameWonPanel.SetActive(true);
+        }
+        else 
+        {
+            gameOverPanel.SetActive(end);
+        }            
     }
 }

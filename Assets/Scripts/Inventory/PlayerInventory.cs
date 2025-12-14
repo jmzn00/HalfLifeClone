@@ -1,9 +1,6 @@
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using UnityEditor.Search;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
 public class PlayerInventory : MonoBehaviour
 {
     private List<ItemInstance> items = new();

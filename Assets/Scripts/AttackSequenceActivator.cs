@@ -34,7 +34,6 @@ public class AttackSequenceActivator : ActivatorBase, IActivatable
             if(enemies[i] != null && !enemies[i].Damageable.Dead)
                 allDead = false;
         }
-        Debug.Log("All Dead" + allDead);
         if (allDead) 
         {
             TriggerActivation();

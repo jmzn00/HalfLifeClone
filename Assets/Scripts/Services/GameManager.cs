@@ -1,7 +1,8 @@
-using UnityEditor;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[DefaultExecutionOrder(-99)]
 public class GameManager : MonoBehaviour
 {   
     private void Awake()
@@ -14,9 +15,21 @@ public class GameManager : MonoBehaviour
         if(GameServices.GameManager == this)
             GameServices.GameManager = null;
     }
-
-    public void RestartGame() 
+    private void Start()
     {
-        SceneManager.LoadScene(0);
+        GameEnded(false, false);
+    }
+
+    public event Action<bool, bool> OnGameEnded; // ended? won?
+    public void GameEnded(bool ended, bool won) 
+    {
+        OnGameEnded?.Invoke(ended, won);
+
+        if (ended)
+            GameServices.Input.TogglePlayerInput(false);
+    }
+    public void LoadScene(int index) 
+    {
+        SceneManager.LoadScene(index);
     }
 }

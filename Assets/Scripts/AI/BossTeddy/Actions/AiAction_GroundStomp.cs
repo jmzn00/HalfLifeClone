@@ -1,9 +1,4 @@
-﻿using Mono.Cecil;
-using NUnit.Framework.Constraints;
-using System.Collections;
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.Rendering;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.AI.BossTeddy.Actions
 {

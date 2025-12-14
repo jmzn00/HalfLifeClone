@@ -15,9 +15,10 @@ MonoBehaviour:
   summonables:
   - prefab: {fileID: 2738772784281232471, guid: 8a15429adbbc3084584dd236aa84f274, type: 3}
     amount: 5
-  summonCooldown: 20
+  summonCooldown: 35
   windupTime: 1
   spawnRadius: 10
+  invulnerableDuringSummon: 1
   groundMask:
     serializedVersion: 2
     m_Bits: 8

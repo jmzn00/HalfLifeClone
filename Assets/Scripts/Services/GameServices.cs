@@ -21,5 +21,6 @@ public static class GameServices
     public static AudioManager AudioManager { get; internal set; }
     public static GameManager GameManager { get; internal set; }
     public static SpawnManager SpawnManager { get; internal set; }
+    public static AiManager AiManager { get; internal set; }
 
 }

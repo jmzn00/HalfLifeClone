@@ -52,6 +52,8 @@ public class NpcDamageable : MonoBehaviour, IDamageabale
         OnHealthChanged?.Invoke(Health);
 
         bool lethal = Health <= 0;
+        if (lethal)
+            Dead = true;
 
         HitOutcome result = new HitOutcome 
         {

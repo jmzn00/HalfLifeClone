@@ -27,6 +27,7 @@ namespace Assets.Scripts.AI.States.Teddy_States
             }
             
             c.transform.SetParent(c.CurrentTarget.LinkedAi.MountLocation);
+            c.mountedAi = c.CurrentTarget.LinkedAi;
             c.transform.localPosition = Vector3.zero;
             c.transform.localRotation = Quaternion.identity;
         }

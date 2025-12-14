@@ -15,4 +15,6 @@ MonoBehaviour:
   stateName: Mount
   actions:
   - {fileID: 11400000, guid: 32e39150e20a1434986d5369fadb66ff, type: 2}
-  transitions: []
+  transitions:
+  - {fileID: 11400000, guid: 84a15c3413071d145916f4ac073b63f6, type: 2}
+  settings: []
