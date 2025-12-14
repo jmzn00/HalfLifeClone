@@ -1,9 +1,10 @@
 using UnityEngine;
 
-public class GameEndActivatable : IActivatable
+public class GameEndActivatable : MonoBehaviour, IActivatable
 {
     public void Activate() 
     {
+        Debug.Log("EndGame");
         GameServices.GameManager.GameEnded(true, true);
     }
     public void Deactivate() 

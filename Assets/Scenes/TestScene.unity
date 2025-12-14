@@ -39737,6 +39737,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: ActivatorTrigger
       objectReference: {fileID: 0}
+    - target: {fileID: 7143757851557362146, guid: a146ea0124070ae41b21933cb1030df2, type: 3}
+      propertyPath: activatableObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7143757851557362146, guid: a146ea0124070ae41b21933cb1030df2, type: 3}
+      propertyPath: activatableObjects.Array.data[0].activate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7143757851557362146, guid: a146ea0124070ae41b21933cb1030df2, type: 3}
+      propertyPath: activatableObjects.Array.data[0].activatableObject
+      value: 
+      objectReference: {fileID: 908063028}
     - target: {fileID: 8556280248442053288, guid: a146ea0124070ae41b21933cb1030df2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.87
