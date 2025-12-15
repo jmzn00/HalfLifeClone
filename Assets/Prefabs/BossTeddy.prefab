@@ -686,6 +686,7 @@ MonoBehaviour:
   NextDelay: 0
   leapHasHit: 0
   activateOnAwake: 0
+  mountedAi: {fileID: 0}
   minions: []
   stateText: {fileID: 8124691113480547899}
   linePrefab: {fileID: 0}
@@ -742,7 +743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b84b4a82d3d574f8f96a3b78e3765e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AiAnimationContoller
-  animator: {fileID: 1944671057439419682}
+  animator: {fileID: 0}
 --- !u!114 &5937372122943167013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1061,7 +1062,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5453933720524778547}
-  - component: {fileID: 1944671057439419682}
+  - component: {fileID: 5907633613877418625}
   m_Layer: 0
   m_Name: Model + Bones
   m_TagString: Untagged
@@ -1086,7 +1087,7 @@ Transform:
   - {fileID: 5881889030317339567}
   m_Father: {fileID: 5894428000130560118}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1944671057439419682
+--- !u!95 &5907633613877418625
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -1096,7 +1097,7 @@ Animator:
   m_GameObject: {fileID: 5424930998748597099}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c3f0cc7fb8072054cad7b82a12a2a2f3, type: 2}
+  m_Controller: {fileID: 9100000, guid: f6a98ae70956106439f72bb868547705, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
