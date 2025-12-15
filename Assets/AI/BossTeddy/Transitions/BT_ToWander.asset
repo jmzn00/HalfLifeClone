@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd8227533cb02540a640b617f2b3280, type: 3}
+  m_Name: BT_ToWander
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.AI.States.Teddy_States.ConditionsToState
+  conditions:
+  - {fileID: 11400000, guid: 45d6499e80c36aa49bc798939e765231, type: 2}
+  targetState: {fileID: 11400000, guid: 989a626102b92b54db0b625b304cf831, type: 2}

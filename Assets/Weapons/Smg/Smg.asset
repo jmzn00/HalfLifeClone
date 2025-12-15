@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Smg
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   mesh: {fileID: 7776234153915593079, guid: d59d40ce0de3afd0a99eafc75d9aa785, type: 3}
+  worldModel: {fileID: 5512162204467463596, guid: 1c453de3555c01047a723558647eea98, type: 3}
   weaponEffects: {fileID: 11400000, guid: d61e46af9dbbc4046a17d68fcf6f3e20, type: 2}
   weaponType: 0
   isUnlocked: 0

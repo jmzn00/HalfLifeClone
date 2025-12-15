@@ -1,6 +1,3 @@
-using System.Dynamic;
-using UnityEditor.Compilation;
-using UnityEditor.Media;
 using UnityEngine;
 
 public abstract class AiAction : ScriptableObject 

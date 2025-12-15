@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.AI;
 
 [CreateAssetMenu(menuName = "Ai/Actions/Leap Attack")]
@@ -9,20 +10,25 @@ public class AiAction_LeapAttack : AiAction
     public float apexHeight = 2f;
     public float maxHorizontalSpeed = 10f;
     public float cooldown = 2f;
+    public bool lockTarget = false;
+    
+    [Header("Damage")]
+    public float attackDamage = 10f;
+    public float attackDistance = 1f;
+
+    [Header("Target Settings")]
+    [SerializeField] private Vector3 targetOffset = new Vector3(0f, 1.75f, 0f);
+    [SerializeField] private Vector3 enemyOffset = new Vector3(0f, 1f, 0f);
 
     [Header("Misc")]
-    public LayerMask groundLayer;    
+    public LayerMask groundLayer;
 
-    public override void Act(EnemyAi controller)
+    public override void OnEnter(EnemyAi controller)
     {
-        if (controller.isAttacking) 
-        {
-            UpdateLeap(controller);
-            return;
-        }
+        base.OnEnter(controller);
 
+        controller.SetTargetLock(lockTarget);
         DetectableTarget target = controller.CurrentTarget;
-        if (target == null) return;
 
         Vector3 startPos = controller.transform.position;
         Vector3 targetPos = target.transform.position + target.transform.forward;
@@ -32,26 +38,16 @@ public class AiAction_LeapAttack : AiAction
         toTargetXZ.y = 0f;
         float horizDistance = toTargetXZ.magnitude;
 
-        if (!controller.isAttacking)
-        {
-            // Move toward player until in leap range
-            if (horizDistance > attackRange)
-            {
-                controller.SetAnimTrigger("Walk");
-                if (controller.Agent != null)
-                    controller.Agent.SetDestination(target.transform.position);
-                return;
-            }
+        StartLeap(controller, startPos, targetPos, toTargetXZ, horizDistance);
+    }
+    public override void OnExit(EnemyAi c)
+    {
+        base.OnExit(c);
+    }
 
-            if (controller.attackCooldownTimer > 0f)
-                return;
-
-            StartLeap(controller, startPos, targetPos, toTargetXZ, horizDistance);
-        }
-        else
-        {
-            UpdateLeap(controller);
-        }
+    public override void Act(EnemyAi controller)
+    {
+        UpdateLeap(controller);
     }
 
     private void StartLeap(EnemyAi c, Vector3 startPos, Vector3 targetPos, Vector3 toTargetXZ, float horizDistance)
@@ -82,11 +78,13 @@ public class AiAction_LeapAttack : AiAction
 
         if (dirXZ.sqrMagnitude > 0.0001f)
             c.transform.forward = dirXZ;
+
+        c.leapHasHit = false;
     }
 
     private void UpdateLeap(EnemyAi c)
     {
-        c.SetAnimTrigger("Latch");
+        c.SetAnimTrigger("Attack");
         // Track time in air
         c.attackAirTime += Time.deltaTime;
 
@@ -101,6 +99,18 @@ public class AiAction_LeapAttack : AiAction
         Vector3 flatVel = new Vector3(c.attackVelocity.x, 0f, c.attackVelocity.z);
         if (flatVel.sqrMagnitude > 0.001f)
             c.transform.forward = flatVel.normalized;
+
+        Vector3 enemyPos = c.transform.position + enemyOffset;
+        Vector3 targetPos = c.CurrentTarget.transform.position + targetOffset;
+        float distanceToTarget = Vector3.Distance(enemyPos, targetPos);
+        if(!c.leapHasHit && distanceToTarget <= attackDistance)
+        {
+            c.leapHasHit = true;
+            GameServices.Player.Health.ApplyHit(new HitInfo
+            {
+                baseDamage = attackDamage
+            });
+        }
 
         // -------- LANDING LOGIC --------
 
@@ -138,12 +148,18 @@ public class AiAction_LeapAttack : AiAction
 
             if(c.Agent != null) 
             {
+                c.Agent.enabled = true;
+
                 if(NavMesh.SamplePosition(c.transform.position, out NavMeshHit navHit, 1.0f, NavMesh.AllAreas)) 
                 {
-                    c.transform.position = navHit.position;
-                    c.Agent.enabled = true;
+                    c.Agent.Warp(navHit.position);
+                }
+                else
+                {
+                    c.Agent.Warp(c.transform.position);
                 }
             }
+            return;
         }
     }
 

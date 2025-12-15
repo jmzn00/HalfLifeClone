@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a52392fcd5f65248aee4fc1309c6f78, type: 3}
+  m_Script: {fileID: 11500000, guid: dab266c790811ec4f9c382167b85ea93, type: 3}
   m_Name: TargetIsMountable
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.AI.States.Conditions.Condition_CurrentTargetType
-  type: 2
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.AI.States.Conditions.Condition_TargetIsType
+  targetType: 2

@@ -25,6 +25,7 @@ public class WeaponData : ScriptableObject
 {
     [Header("Description / Visuals")]    
     public GameObject mesh;
+    public GameObject worldModel;
     public WeaponEffects weaponEffects;
     public WeaponType weaponType;
     public bool isUnlocked = false;

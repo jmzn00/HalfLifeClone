@@ -6,13 +6,15 @@ namespace Assets.Scripts.AI.States.Teddy_States
     [CreateAssetMenu(menuName = "Ai/Actions/Mount")]
     public class AiAction_Mount : AiAction
     {
-        public override void Act(EnemyAi controller)
+        public override void OnEnter(EnemyAi controller)
         {
-            if (!controller.isMounted) 
-            {
-                StartMount(controller);
-            }
-        }      
+            controller.SetAnimTrigger("MountedIdle");
+            StartMount(controller);
+        }
+        public override void Act(EnemyAi controller) 
+        {
+        
+        }        
         private void StartMount(EnemyAi c) 
         {
             c.isMounted = true;
@@ -25,6 +27,7 @@ namespace Assets.Scripts.AI.States.Teddy_States
             }
             
             c.transform.SetParent(c.CurrentTarget.LinkedAi.MountLocation);
+            c.mountedAi = c.CurrentTarget.LinkedAi;
             c.transform.localPosition = Vector3.zero;
             c.transform.localRotation = Quaternion.identity;
         }

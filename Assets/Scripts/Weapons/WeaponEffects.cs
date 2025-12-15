@@ -12,4 +12,5 @@ public class WeaponEffects : ScriptableObject
     public AudioClip reloadSfx;
     public AudioClip emptySfx;
     public AudioClip equipSfx;
+    public AudioClip impactSfx;
 }

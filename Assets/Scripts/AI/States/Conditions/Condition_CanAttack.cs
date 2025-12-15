@@ -3,12 +3,16 @@ using UnityEngine;
 
 namespace Assets.Scripts.AI.States.Conditions
 {
-    [CreateAssetMenu(menuName = "Ai/Conditions/CanAttack")]
+    [CreateAssetMenu(menuName = "Ai/Conditions/New/CanAttack")]
     public class Condition_CanAttack : AiTransitionCondition
     {
         public override bool CheckCondition(EnemyAi controller)
         {
-            return controller.CanAttack();
+            if (controller.isAttacking || controller.attackCooldownTimer > 0f) 
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

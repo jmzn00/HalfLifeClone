@@ -1,3 +1,4 @@
+using Assets.Scripts.AI;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,12 +9,19 @@ public class AiAction_WanderAroundHome : AiAction
     public float moveTolerance = 0.2f;
     public float minWait = 1f;
     public float maxWait = 3f;
+
+    public AiAudio audio;
     public override void OnEnter(EnemyAi controller)
     {
         NavMeshAgent agent = controller.Agent;
         if (agent.hasPath && !agent.pathPending && agent.remainingDistance > moveTolerance)
         {
             agent.ResetPath();
+        }
+        if (audio != null)
+        {
+            controller.ClipTimer = 0f;
+            controller.NextDelay = Random.Range(audio.delayRange.x, audio.delayRange.y);
         }
     }
     public override void Act(EnemyAi controller)
@@ -31,5 +39,7 @@ public class AiAction_WanderAroundHome : AiAction
             }
         }
         controller.SetAnimTrigger("Walk");
+
+        audio.UpdateAudio(controller);
     }
 }

@@ -15,30 +15,45 @@ public class NpcDamageable : MonoBehaviour, IDamageabale
     [SerializeField] private float armMultiplier = 0.8f;
 
     public Action<float> OnHealthChanged;
+    private Pool pool;
 
-    private Pool pool;    
+    [SerializeField] private bool permaAgroOnAttack = false;
+    [SerializeField] private EnemyAi enemyAi;
     private void Awake()
     {
-        pool = GameServices.Pool;
-        
+        pool = GameServices.Pool;        
     }
     private void OnEnable()
     {
         Health = maxHealth;
         Dead = false;
-    }
-    private void OnDisable()
+    
+    }    
+    private bool invulnerable = false;
+    public void SetInveulnerable(bool v) 
     {
-        
+        invulnerable = v;
     }
     public HitOutcome ApplyHit(in HitInfo hitInfo) 
     {
+        if (invulnerable) return new HitOutcome 
+        {
+            damageApplied = 0,
+        };
+
+        if (enemyAi && permaAgroOnAttack) 
+        {
+            enemyAi.SetTargetLock(true);
+            enemyAi.SetTarget(GameServices.Player.DetectableTarget);
+        }
         float damage = CalculateDamage(hitInfo);
         Health -= damage;
         Health = Mathf.Clamp(Health, 0, maxHealth);
         OnHealthChanged?.Invoke(Health);
 
         bool lethal = Health <= 0;
+        if (lethal)
+            Dead = true;
 
         HitOutcome result = new HitOutcome 
         {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Ai/Conditions/IsAttacking")]
+[CreateAssetMenu(menuName = "Ai/Conditions/New/IsAttacking")]
 public class Condition_IsAttacking : AiTransitionCondition
 {
     public override bool CheckCondition(EnemyAi controller)

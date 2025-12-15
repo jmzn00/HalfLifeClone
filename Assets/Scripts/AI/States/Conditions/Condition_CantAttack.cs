@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.AI.States.Conditions
 {
-    [CreateAssetMenu(menuName = "Ai/Conditions/CantAttack")]
+    [CreateAssetMenu(menuName = "Ai/Conditions/New/CantAttack")]
     public class Condition_CantAttack : AiTransitionCondition
     {
         public override bool CheckCondition(EnemyAi controller)

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6604b41d5effefe43a5d1bac6e85953e, type: 3}
+  m_Name: BossTeddy_Summon
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.AI.BossTeddy.Actions.AiAction_Summon
+  summonables:
+  - prefab: {fileID: 2738772784281232471, guid: 8a15429adbbc3084584dd236aa84f274, type: 3}
+    amount: 5
+  summonCooldown: 35
+  windupTime: 1
+  spawnRadius: 10
+  invulnerableDuringSummon: 1
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 8

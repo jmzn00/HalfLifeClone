@@ -1,8 +1,10 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UiController : MonoBehaviour
 {
@@ -12,17 +14,46 @@ public class UiController : MonoBehaviour
     [SerializeField] private WeaponColumnUi[] columns;
     [SerializeField] private WeaponSlotUi weaponSlotPrefab;
 
+    [Header("HealthUi")]
+    [SerializeField] private Slider healthSlider;
+
+    [Header("Message Ui")]
+    [SerializeField] private TMP_Text messageText;
+    [SerializeField] private float messageDuration;
+
+    [Header("GameOver Ui")]
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject gameWonPanel;
+    [SerializeField] private Button restartGameButton;
+    [SerializeField] private Button quitGameButton;
+
     private readonly Dictionary<WeaponData, WeaponSlotUi> slots = new();
 
     private void Awake()
     {
         WeaponController.OnAmmoChanged += UpdateAmmoDisplay;
         WeaponController.OnWeaponChanged += RebuildWeaponUi;
+        PlayerHealth.OnHealthChanged += UpdateHealth;
+        GameServices.GameManager.OnGameEnded += GameEnded;
+
+        restartGameButton.onClick.AddListener(() => 
+        {
+            GameServices.GameManager.LoadScene(1);
+        });
+        quitGameButton.onClick.AddListener(() =>
+        {
+            GameServices.GameManager.LoadScene(0);
+        });
     }
     private void OnDestroy()
     {
         WeaponController.OnAmmoChanged -= UpdateAmmoDisplay;
         WeaponController.OnWeaponChanged -= RebuildWeaponUi;
+        PlayerHealth.OnHealthChanged -= UpdateHealth;
+    }
+    private void UpdateHealth(float value) 
+    {
+        healthSlider.value = value;
     }
     private void RebuildWeaponUi(List<WeaponData> wl, WeaponData c) 
     {
@@ -88,5 +119,27 @@ public class UiController : MonoBehaviour
             ammoText.gameObject.SetActive(true);
             ammoText.text = $"{wr.ammoInClip} / {wr.ammoInReserve}";
         }        
+    }
+    public void SendUiMessage(string msg) 
+    {
+        StartCoroutine(IMessage(msg));
+    }
+    IEnumerator IMessage(string msg) 
+    {
+        messageText.text = msg;
+        yield return new WaitForSeconds(messageDuration);
+        messageText.text = "";
+
+    }
+    private void GameEnded(bool end, bool won) 
+    {
+        if (won)
+        {
+            gameWonPanel.SetActive(true);
+        }
+        else 
+        {
+            gameOverPanel.SetActive(end);
+        }            
     }
 }

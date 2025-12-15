@@ -1,4 +1,6 @@
+using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,7 +8,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(AiAnimationContoller))]
 [RequireComponent(typeof(NpcDamageable))]
 //[RequireComponent(typeof(Rigidbody))]
-public class EnemyAi : MonoBehaviour
+public class EnemyAi : MonoBehaviour, IActivatable
 {
     [Header("Prefs")]
     [SerializeField] private Transform eyeLocation;
@@ -30,6 +32,7 @@ public class EnemyAi : MonoBehaviour
     public Vector3 attackVelocity;
     public float attackCooldownTimer;
     public float attackAirTime;
+    public float summonCooldownTimer;
 
     public bool isLatched;
     public bool isMounted;
@@ -40,14 +43,86 @@ public class EnemyAi : MonoBehaviour
     private DetectableTarget detectableTarget;
 
     public event Action<bool> OnAiMountedChanged;
+
+    private bool lockTarget = false;
+    [SerializeField] private AiState defualtState;
+
+    public bool Activated { get; private set; }
+
+    [HideInInspector] public float ClipTimer;
+    [HideInInspector] public float NextDelay;
+    [HideInInspector] public bool leapHasHit;
+
+
+    [SerializeField] private bool activateOnAwake = false;
+
+    public void Activate() 
+    {
+        Activated = true;
+    }
+    public void Deactivate() 
+    {
+        Activated = false;
+    }
+    public void Toggle() 
+    {
+        
+    }    
+    public virtual void SetTargetLock(bool value) 
+    {
+        lockTarget = value;
+    }
+    public virtual void SetTarget(DetectableTarget target) 
+    {
+        CurrentTarget = target;
+    }
     public virtual bool CanAttack() 
     {
         return attackCooldownTimer <= 0f && !isAttacking;
     }
+    public virtual GameObject Spawn(GameObject prefab, Vector3 pos, Quaternion rot) 
+    {
+        GameObject go = Instantiate(prefab, pos, rot);
+        EnemyAi minion = go.GetComponent<EnemyAi>();
+        if(minion)
+            AddMinion(minion);
+        return go;
+    }
+    public EnemyAi mountedAi = null;
+    public void SetInvulnerable(bool value) 
+    {
+        Damageable.SetInveulnerable(value);
+    }
+    public List<EnemyAi> minions = new();
+    public virtual void AddMinion(EnemyAi ai) 
+    {
+        if(ai != null)
+            minions.Add(ai);
+    }
+    public virtual void Update()
+    {        
+        if(currentState != null && Activated) 
+        {
+            currentState.UpdateState(this);
+        }
+        
+        CommonUpdate();
+    }
     protected virtual void CommonUpdate() 
     {
-        if(attackCooldownTimer > 0f)
+        if(summonCooldownTimer > 0f) 
+        {
+            summonCooldownTimer -= Time.deltaTime;
+        }
+        if(attackCooldownTimer > 0f) 
+        {
             attackCooldownTimer -= Time.deltaTime;
+            isAttacking = true;
+        }
+        else 
+        {
+            isAttacking = false;
+        }
     }
     public virtual void Awake()
     {
@@ -57,6 +132,21 @@ public class EnemyAi : MonoBehaviour
         AnimContoller = GetComponent<AiAnimationContoller>();
         Damageable = GetComponent<NpcDamageable>();
         detectableTarget = GetComponent<DetectableTarget>(); 
+
+        ChangeState(defualtState);
+
+        if (activateOnAwake)
+            Activate();
+
+        GameServices.AiManager.Register(this);
+    }
+    private void OnEnable()
+    {
+        GameServices.AiManager?.Register(this);
+    }
+    private void OnDisable()
+    {
+        GameServices.AiManager?.Unregister(this);
     }
     public virtual void SetAnimTrigger(string t) 
     {
@@ -64,10 +154,16 @@ public class EnemyAi : MonoBehaviour
     }
     public virtual void ReportCanSee(DetectableTarget target) 
     {
+        if (lockTarget)
+            return;
+
         CurrentTarget = target;
     }
     public virtual void ReportLostSight(DetectableTarget target) 
     {
+        if (lockTarget && CurrentTarget)
+            return;
+
         if(CurrentTarget == target)
             CurrentTarget = null;
     }

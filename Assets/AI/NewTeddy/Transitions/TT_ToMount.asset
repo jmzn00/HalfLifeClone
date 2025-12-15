@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd8227533cb02540a640b617f2b3280, type: 3}
+  m_Name: TT_ToMount
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.AI.States.Teddy_States.ConditionsToState
+  conditions:
+  - {fileID: 11400000, guid: 827e16c6e4a561e47809820a126bc5d0, type: 2}
+  - {fileID: 11400000, guid: 61d85a1b2aa59dc49bef47bf5383eee0, type: 2}
+  targetState: {fileID: 11400000, guid: b0d6075e8013bbc4c8eddc9f7556a8de, type: 2}

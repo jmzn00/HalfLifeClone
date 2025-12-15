@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2b31567257bd3a4b9d92f245dc5aced, type: 3}
+  m_Name: State_Duck_Idle
+  m_EditorClassIdentifier: Assembly-CSharp::AiState
+  stateName: Idle
+  actions:
+  - {fileID: 11400000, guid: e2b2b810adc4d9f44ae8c505dafc794e, type: 2}
+  transitions:
+  - {fileID: 11400000, guid: 1230ea377f29306439867f710dda4ba5, type: 2}
+  - {fileID: 11400000, guid: b974c5d6ac51e174da4e55c45355c235, type: 2}
+  settings:
+  - {fileID: 11400000, guid: eed4d1d8e61b9044db744127ea4a5e07, type: 2}

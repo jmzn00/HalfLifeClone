@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6afaaf55a657b1f42806489482c93613, type: 3}
   m_Name: CrowbarEffects
   m_EditorClassIdentifier: Assembly-CSharp::WeaponEffects
-  vfxPrefab: {fileID: 0}
-  fireSfx: {fileID: 0}
+  fireVfxPrefab: {fileID: 0}
+  impactVfxPrefab: {fileID: 0}
+  trailRenderer: {fileID: 0}
+  fireSfx: {fileID: 8300000, guid: b2b585d4348f01c408366beed21ae3da, type: 3}
   reloadSfx: {fileID: 0}
   emptySfx: {fileID: 0}
-  equipSfx: {fileID: 0}
+  equipSfx: {fileID: 8300000, guid: 531798cf78ae7394bb43c110b8d6ab3c, type: 3}
+  impactSfx: {fileID: 8300000, guid: 93b86b4b9e7a2ed4f96a7c7ab45c76e2, type: 3}

@@ -130,12 +130,28 @@ public class WeaponController : MonoBehaviour
                     Attack();
                     attackPending = false;
                 }
-            }  
-            // reset the timer after an attack 
-            timer = 0f;
+            }
+            else 
+            {
+                playerAudioManager.PlayClip(currentWeapon.weaponEffects.emptySfx);
+            }
+                // reset the timer after an attack 
+                timer = 0f;
         }
         timer += Time.deltaTime;
     }    
+    public bool TryAddWeapon(WeaponData data) 
+    {
+        if (unlockedWeapons.Contains(data)) 
+        {
+            return false;
+        }
+        unlockedWeapons.Add(data);        
+        RebuildUnlockedWeapons();
+        BuildWeaponRuntime(data);
+        EquipWeaponAtIndex(unlockedWeapons.IndexOf(data));
+        return true;
+    }
     public void AddWeapon(WeaponData data) 
     {
         if (unlockedWeapons.Contains(data)) return;
@@ -171,7 +187,7 @@ public class WeaponController : MonoBehaviour
 
         AudioClip reloadClip = currentWeaponRuntime.weaponData.weaponEffects.reloadSfx;
         if (reloadClip != null)
-            playerAudioManager.PlayClip(SoundType.Weapon, reloadClip);
+            playerAudioManager.PlayClip(reloadClip);
     }    
     public void ReloadFinished() 
     {
@@ -188,12 +204,22 @@ public class WeaponController : MonoBehaviour
         {            
             if (weaponRuntimes[i].weaponData.ammoType == type) 
             {
-                Debug.Log("Added Ammo: " + amount + " To " + weaponRuntimes[i].weaponData.weaponName);
                 weaponRuntimes[i].ammoInReserve += amount;
                 OnAmmoChanged?.Invoke(currentWeaponRuntime);
                 break;
             }
         }
+    }
+    private void EquipWeaponAtIndex(int index) 
+    {
+        if (isReloading || unlockedWeapons.Count == 0) return;
+
+        WeaponData weapon = unlockedWeapons[index];
+        if (weapon == null) return;
+
+        currentWeapon = weapon;
+        OnWeaponChanged?.Invoke(unlockedWeapons, currentWeapon);
+        ApplyWeapon(currentWeapon);
     }
     private void WeaponScroll(int value) 
     {
@@ -238,8 +264,8 @@ public class WeaponController : MonoBehaviour
 
             // will hold referenceces to positions on the weapon mesh, e.g. muzzle point 
             WeaponView weaponView = weaponInstance.GetComponent<WeaponView>();
-            Debug.LogError("weaponView is null on: " + data.weaponName);
-
+            if(weaponView == null)
+                Debug.LogError("No WeaponView component found on weapon mesh: " + data.weaponName);
 
             // spawn the Vfx
             ParticleSystem vfxParticle = null;
@@ -267,10 +293,12 @@ public class WeaponController : MonoBehaviour
                 weaponInstance = weaponInstance,
                 weaponView = weaponView,
                 muzzleVfxInstance = vfxParticle,
+                ammoInClip = data.magazineSize,
+                ammoInReserve = data.magazineSize * 4
             };
 
             weaponRuntimes.Add(currentWeaponRuntime);
-            AddAmmo(data.ammoType, data.magazineSize * 3); // just for testing
+            //AddAmmo(data.ammoType, data.magazineSize * 3); // just for testing
         }
     }
     private void EquipWeapon(WeaponData data)
@@ -286,6 +314,7 @@ public class WeaponController : MonoBehaviour
             bool active = weaponRuntimes[i].weaponData == data;
             weaponRuntimes[i].weaponInstance.SetActive(active);
         }
+        playerAudioManager.PlayClip(currentWeapon.weaponEffects.equipSfx);
         // set the animation controller to trigger Draw
         handAnimController.TriggerDraw();
         // ammo UI
@@ -314,7 +343,7 @@ public class WeaponController : MonoBehaviour
 
         AudioClip attackClip = currentWeapon.weaponEffects.fireSfx;
         if (attackClip != null)
-            playerAudioManager.PlayClip(SoundType.Weapon, attackClip);
+            playerAudioManager.PlayClip(attackClip);
     }
 
     // this is for weapon inaccuracy / spread
@@ -358,7 +387,7 @@ public class WeaponController : MonoBehaviour
        Vector3 trailEnd = origin + dir * 100f;
         //Debug.DrawRay(origin, dir * 100f, Color.red, 10f);
         if (Physics.Raycast(origin, dir, out RaycastHit hit))
-        {
+        {            
             // check if we hit a hitbox ie. enemy
             Hitbox hitbox = hit.collider.GetComponent<Hitbox>();
             if (hitbox)
@@ -393,7 +422,7 @@ public class WeaponController : MonoBehaviour
         Vector3 origin = playerCam.transform.position;
         Vector3 dir = playerCam.transform.forward;
         
-        if(Physics.SphereCast(origin, 0.25f, dir, out RaycastHit hit)) 
+        if(Physics.SphereCast(origin, 0.25f, dir, out RaycastHit hit, 6f)) 
         {
             Hitbox hitbox = hit.collider.GetComponent<Hitbox>();
             if (hitbox) 
@@ -406,6 +435,7 @@ public class WeaponController : MonoBehaviour
                     baseDamage = currentWeaponRuntime.weaponData.baseDamage,
                     hitbox = hitbox.hitboxType
                 });
+                playerAudioManager.PlayClip(currentWeapon.weaponEffects.impactSfx);
             }
         }
     }
