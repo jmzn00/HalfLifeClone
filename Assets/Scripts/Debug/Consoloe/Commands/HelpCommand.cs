@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 
@@ -18,5 +19,9 @@ public class HelpCommand : IConsoleCommand
         {
             console.Log($"{cmd.Name} - {cmd.Description} | Usage: {cmd.Usage}");
         }
+    }
+    public IEnumerable<string> GetSuggestions(string[] args)
+    {
+        return null;
     }
 }

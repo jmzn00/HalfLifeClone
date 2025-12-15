@@ -1,3 +1,4 @@
+﻿using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class DebugConsole : MonoBehaviour, IGameConsole
     [Header("UI")]
     [SerializeField] private GameObject consolePanel;
     [SerializeField] private TMP_Text logText;
+    [SerializeField] private TMP_Text suggestionText;
     [SerializeField] private TMP_InputField inputField;
 
     [Header("Refs")]
@@ -22,23 +24,26 @@ public class DebugConsole : MonoBehaviour, IGameConsole
         _registry.Register(new PlayerWeaponCommand(weaponDatabase));
         _registry.Register(new PlayerAmmoCommand());
 
-        ToggleConsole(false);            
+        ToggleConsole(false);
 
         GameServices.Input.Actions.Debug.ToggleConsole.performed += ctx =>
         {
             _consoleOpen = !_consoleOpen;
             ToggleConsole(_consoleOpen);
         };
+        GameServices.Input.Actions.Debug.AutoComplete.performed += ctx => HandleAutocomplete();
         inputField.onSubmit.AddListener(OnSubmit);
     }
     private void OnDestroy()
     {
         inputField.onSubmit.RemoveListener(OnSubmit);
+        
         GameServices.Input.Actions.Debug.ToggleConsole.performed -= ctx =>
         {
             _consoleOpen = !_consoleOpen;
             ToggleConsole(_consoleOpen);
         };
+        GameServices.Input.Actions.Debug.AutoComplete.performed -= ctx => HandleAutocomplete();
     }
     public void Log(string message, ConsoleLogType type = ConsoleLogType.Info)
     {
@@ -71,6 +76,104 @@ public class DebugConsole : MonoBehaviour, IGameConsole
             inputField.ActivateInputField();
         }
         GameServices.Input.TogglePlayerInput(_consoleOpen);
+    }
+    private void HandleAutocomplete() 
+    {
+        string text = inputField.text;
+        if (string.IsNullOrWhiteSpace(text))
+            return;
+        string[] parts = text.Split(' ', System.StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length == 0)
+            return;
+
+        string cmdToken = parts[0];
+
+        if(parts.Length == 1) 
+        {
+            var matches = _registry.FindByPrefix(cmdToken).ToList();
+
+            if(matches.Count == 0) 
+            {                
+                return;
+            }
+
+            if(matches.Count == 1) 
+            {
+                inputField.text = matches[0].Name + " ";
+                inputField.caretPosition = inputField.text.Length;
+                inputField.selectionAnchorPosition = inputField.caretPosition;
+                inputField.selectionFocusPosition = inputField.caretPosition;
+                inputField.ActivateInputField();
+            }
+            else 
+            {
+                Log("Commands: " + string.Join(", ", matches.Select(m => m.Name)));
+            }
+            return;
+        }
+
+        var cmd = _registry.GetExact(cmdToken);
+        if(cmd == null) 
+        {
+            Log($"Unknown command '{cmdToken}'", ConsoleLogType.Error);
+            return;
+        }
+        string[] args = parts.Skip(1).ToArray();
+
+        var rawSuggestions = cmd.GetSuggestions(args).ToList();
+        if (rawSuggestions.Count == 0)
+            return;
+
+        string lastArg = args[^1];
+        var matchesForLast = rawSuggestions.
+            Where(s => s.StartsWith
+            (lastArg, System.StringComparison.OrdinalIgnoreCase)).
+            ToList();
+        
+        if (matchesForLast.Count == 0)
+        {
+            Log("Options:");
+            foreach (var s in rawSuggestions)
+            {
+                string full = BindFullSuggestion(cmdToken, args, s);
+                Log(full);
+            }
+            return;
+        }
+
+        if (matchesForLast.Count == 1)
+        {
+            string completed = matchesForLast[0];
+            string newInput = BindFullSuggestion(cmdToken, args, completed);
+
+            inputField.text = newInput + " ";
+            inputField.caretPosition = inputField.text.Length;
+            inputField.selectionAnchorPosition = inputField.caretPosition;
+            inputField.selectionFocusPosition = inputField.caretPosition;
+            inputField.ActivateInputField();
+            return;
+        }
+
+        
+        Log("Options:");
+        foreach (var s in matchesForLast)
+        {
+            string full = BindFullSuggestion(cmdToken, args, s);
+            Log(full);
+        }
+
+    }
+    private string BindFullSuggestion(string cmdName, string[] args, string lastReplacement) 
+    {
+        if (args.Length <= 1)
+            return $"{cmdName} {lastReplacement}";
+
+        var beforeLast = args.Take(args.Length - 1);
+        return cmdName + " " + string.Join(" ", beforeLast) + " " + lastReplacement;
+    } 
+    private void LogInputField(string s) 
+    {
+        suggestionText.text = s;
     }
     /*
     private void ToggleConsole(bool open) 
@@ -120,7 +223,7 @@ public class DebugConsole : MonoBehaviour, IGameConsole
                 HandleAmmoCommand(args);
                 break;
             case "teleport":
-                HandleWeaponCommand(args);
+    
                 break;
         }
     }

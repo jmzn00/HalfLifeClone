@@ -1,20 +1,19 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour, IDamageabale
 {
-    private void OnEnable()
+    [SerializeField] private float recentlyAttackedCooldown = 2f;
+    private float recentlyAttackedTimer = 0f;
+    public bool RecentlyAttacked => recentlyAttackedTimer >= 0f;
+
+    private void Update()
     {
-        if(GameServices.PlayerHealth != this)
-            GameServices.PlayerHealth = this;
-    }
-    private void OnDisable()
-    {
-        if(GameServices.PlayerHealth == this)
-            GameServices.PlayerHealth = null;
+        recentlyAttackedTimer -= Time.deltaTime;        
     }
     public HitOutcome ApplyHit(in HitInfo hitInfo)
     {
-        Debug.Log("Player was attacked for" + hitInfo.baseDamage);
+        recentlyAttackedTimer = recentlyAttackedCooldown;
 
         return new HitOutcome
         {

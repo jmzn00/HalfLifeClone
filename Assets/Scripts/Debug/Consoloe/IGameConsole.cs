@@ -1,4 +1,5 @@
-using UnityEngine;
+using System.Collections.Generic;
+
 
 public interface IGameConsole
 {
@@ -17,4 +18,6 @@ public interface IConsoleCommand
     string Usage { get; }
 
     void Execute(IGameConsole console, string[] args);
+
+    IEnumerable<string> GetSuggestions(string[] args);
 }

@@ -1,7 +1,7 @@
 using Mono.Cecil;
+using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
-using UnityEngine;
 
 public class PlayerWeaponCommand : IConsoleCommand
 {
@@ -14,6 +14,24 @@ public class PlayerWeaponCommand : IConsoleCommand
     public string Name => "player.weapon";
     public string Description => "add or remove weapons from the player";
     public string Usage => "player.weapon <add/remove> <weaponName/all>";
+
+    public IEnumerable<string> GetSuggestions(string[] args) 
+    {
+        if(args.Length == 1) 
+        {
+            return new string[] { "add", "remove" }
+                .Where(a => a.StartsWith(args[0], System.StringComparison.OrdinalIgnoreCase));
+        }
+        else if(args.Length == 2) 
+        {
+            var weaponNames = _weaponDatabase.AllWeapons
+                .Select(w => w.weaponName)
+                .Append("all");
+            return weaponNames
+                .Where(w => w.StartsWith(args[1], System.StringComparison.OrdinalIgnoreCase));
+        }
+        return null;
+    }
 
     public void Execute(IGameConsole console, string[] args) 
     {
@@ -30,9 +48,9 @@ public class PlayerWeaponCommand : IConsoleCommand
         {
             foreach(var w in _weaponDatabase.AllWeapons) 
             {
-                GameServices.WeaponController.AddWeapon(w);
+                GameServices.Player.Weapons.AddWeapon(w);
                 console.Log($"Weapon '{w.weaponName}' added.");
-            }
+            }            
             return;
         }
         WeaponData wData = _weaponDatabase.AllWeapons.FirstOrDefault(w => w.weaponName.ToLower() == weaponName);
@@ -44,7 +62,7 @@ public class PlayerWeaponCommand : IConsoleCommand
         switch (action) 
         {
             case "add":
-                GameServices.WeaponController.AddWeapon(wData);
+                GameServices.Player.Weapons.AddWeapon(wData);
                 console.Log($"Weapon '{wData.weaponName}' added.");
                 break;
             case "remove":

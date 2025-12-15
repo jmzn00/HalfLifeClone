@@ -16,7 +16,7 @@ public class NpcDamageable : MonoBehaviour, IDamageabale
 
     public Action<float> OnHealthChanged;
 
-    private Pool pool;
+    private Pool pool;    
     private void Awake()
     {
         pool = GameServices.Pool;
@@ -38,8 +38,7 @@ public class NpcDamageable : MonoBehaviour, IDamageabale
         Health = Mathf.Clamp(Health, 0, maxHealth);
         OnHealthChanged?.Invoke(Health);
 
-        bool lethal = damage <= 0;
-
+        bool lethal = Health <= 0;
 
         HitOutcome result = new HitOutcome 
         {

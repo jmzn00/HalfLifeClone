@@ -1083,7 +1083,8 @@ GameObject:
   - component: {fileID: 2685878268931827469}
   - component: {fileID: 5868077905110370161}
   - component: {fileID: 826640204388611622}
-  - component: {fileID: 6864587289886774004}
+  - component: {fileID: 4337247154728582954}
+  - component: {fileID: 5383136260950939363}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1269,7 +1270,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4cd4875779ee5478a26d1e8db37aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DetectableTarget
---- !u!114 &6864587289886774004
+  type: 0
+--- !u!114 &4337247154728582954
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1278,9 +1280,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 4232463359077943307}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc4cd4875779ee5478a26d1e8db37aed, type: 3}
+  m_Script: {fileID: 11500000, guid: 38ef5bc8a9eab4141b39007d6fb6a4cf, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DetectableTarget
+  m_EditorClassIdentifier: '::'
+--- !u!114 &5383136260950939363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4232463359077943307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 755d542b280b01a4998d9a3aa7094c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  recentlyAttackedCooldown: 2
 --- !u!1 &4359005234325091239
 GameObject:
   m_ObjectHideFlags: 0
@@ -1914,7 +1929,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 50, y: -50}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6782611691381278
 MonoBehaviour:

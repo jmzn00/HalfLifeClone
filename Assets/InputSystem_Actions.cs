@@ -1200,18 +1200,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             ""id"": ""bd590686-ae82-4a06-a0f3-e5b64fd4db06"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""ToggleConsole"",
                     ""type"": ""Button"",
-                    ""id"": ""dfe0dcdb-34c3-4584-8b52-7f2a804f0dd4"",
+                    ""id"": ""2a5118f5-c8c6-42d0-837b-8e5203604402"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ToggleConsole"",
+                    ""name"": ""AutoComplete"",
                     ""type"": ""Button"",
-                    ""id"": ""2a5118f5-c8c6-42d0-837b-8e5203604402"",
+                    ""id"": ""ac4ccddf-5a8c-4a7c-8dde-a61a1c9599cf"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1221,23 +1221,34 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""ae73f664-0612-47e0-9ba4-d030fc3dd8bb"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""New action"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""8e23fb4e-61ff-4309-83e2-8da4302b1b9c"",
                     ""path"": ""<Keyboard>/f1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ToggleConsole"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ac9c5817-7a43-498c-90fb-dcef7141af70"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AutoComplete"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f6cdc054-e52a-4760-9a76-df46990a12a0"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AutoComplete"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1334,8 +1345,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         // Debug
         m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
-        m_Debug_Newaction = m_Debug.FindAction("New action", throwIfNotFound: true);
         m_Debug_ToggleConsole = m_Debug.FindAction("ToggleConsole", throwIfNotFound: true);
+        m_Debug_AutoComplete = m_Debug.FindAction("AutoComplete", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1819,8 +1830,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     // Debug
     private readonly InputActionMap m_Debug;
     private List<IDebugActions> m_DebugActionsCallbackInterfaces = new List<IDebugActions>();
-    private readonly InputAction m_Debug_Newaction;
     private readonly InputAction m_Debug_ToggleConsole;
+    private readonly InputAction m_Debug_AutoComplete;
     /// <summary>
     /// Provides access to input actions defined in input action map "Debug".
     /// </summary>
@@ -1833,13 +1844,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public DebugActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "Debug/Newaction".
-        /// </summary>
-        public InputAction @Newaction => m_Wrapper.m_Debug_Newaction;
-        /// <summary>
         /// Provides access to the underlying input action "Debug/ToggleConsole".
         /// </summary>
         public InputAction @ToggleConsole => m_Wrapper.m_Debug_ToggleConsole;
+        /// <summary>
+        /// Provides access to the underlying input action "Debug/AutoComplete".
+        /// </summary>
+        public InputAction @AutoComplete => m_Wrapper.m_Debug_AutoComplete;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1866,12 +1877,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_DebugActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_DebugActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
             @ToggleConsole.started += instance.OnToggleConsole;
             @ToggleConsole.performed += instance.OnToggleConsole;
             @ToggleConsole.canceled += instance.OnToggleConsole;
+            @AutoComplete.started += instance.OnAutoComplete;
+            @AutoComplete.performed += instance.OnAutoComplete;
+            @AutoComplete.canceled += instance.OnAutoComplete;
         }
 
         /// <summary>
@@ -1883,12 +1894,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="DebugActions" />
         private void UnregisterCallbacks(IDebugActions instance)
         {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
             @ToggleConsole.started -= instance.OnToggleConsole;
             @ToggleConsole.performed -= instance.OnToggleConsole;
             @ToggleConsole.canceled -= instance.OnToggleConsole;
+            @AutoComplete.started -= instance.OnAutoComplete;
+            @AutoComplete.performed -= instance.OnAutoComplete;
+            @AutoComplete.canceled -= instance.OnAutoComplete;
         }
 
         /// <summary>
@@ -2158,18 +2169,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     public interface IDebugActions
     {
         /// <summary>
-        /// Method invoked when associated input action "New action" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnNewaction(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "ToggleConsole" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnToggleConsole(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "AutoComplete" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAutoComplete(InputAction.CallbackContext context);
     }
 }

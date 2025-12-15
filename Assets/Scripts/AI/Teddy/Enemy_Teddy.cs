@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class Enemy_Teddy : EnemyAi
 {
-    private AiState currentState;
-
     [Header("States")]
     [SerializeField] private AiState idleState;
     [SerializeField] private AiState attackState;
-
-    private NpcDamageable damageable;
 
     [SerializeField] private TMP_Text stateText;
 
@@ -20,17 +16,7 @@ public class Enemy_Teddy : EnemyAi
     public override void Awake()
     {
         base.Awake();
-        damageable = GetComponent<NpcDamageable>();
-
         ChangeState(idleState);        
-    }
-    public override void SetAnimTrigger(string t)
-    {
-        base.SetAnimTrigger(t);
-    }
-    private bool CanAttack() 
-    {
-        return !isAttacking && attackCooldownTimer <= 0f;
     }
     private void Update()
     {
@@ -42,29 +28,25 @@ public class Enemy_Teddy : EnemyAi
     }
     public override void ReportCanSee(DetectableTarget target)
     {
-        if (CanAttack()) 
+        if (Damageable.Dead)
+            return;
+        if (target.Type == DetectableType.AiMountable || target.Type == DetectableType.AiEnemy) 
         {
-            base.ReportCanSee(target);
-            ChangeState(attackState);
-        }        
+            if (target.LinkedAi.hasMountedTarget)
+                return;
+        }
+        base.ReportCanSee(target);          
     }
     public override void ReportLostSight(DetectableTarget target)
-    {      
-        if (!isAttacking) 
-        {
-            base.ReportLostSight(target);
-            ChangeState(idleState);
-        }     
+    {
+        if (Damageable.Dead) 
+            return;
+        base.ReportLostSight(target);             
     }
     public override void ChangeState(AiState state)
     {
-        if(state == null) 
-        {
-            Debug.LogWarning("State Not Implemented");
-            return;
-        }
-        stateText.text = state.stateName;
-        currentState = state;
+        base.ChangeState(state);
+        stateText.text = currentState.stateName;
     }
     public override void ToggleColliders(bool value)
     {

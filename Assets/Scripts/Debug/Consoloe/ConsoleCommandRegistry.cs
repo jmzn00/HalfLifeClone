@@ -16,6 +16,18 @@ public class ConsoleCommandRegistry
 
     public IEnumerable<IConsoleCommand> GetAllCommands() => _commands.Values;
 
+    public IEnumerable<IConsoleCommand> FindByPrefix(string prefix) 
+    {
+        if (string.IsNullOrWhiteSpace(prefix))
+            return Enumerable.Empty<IConsoleCommand>();
+
+        return _commands.Values.Where(c => c.Name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase));
+    }
+    public IConsoleCommand GetExact(string name) 
+    {
+        _commands.TryGetValue(name, out var cmd);
+        return cmd;
+    }
     public bool TryExecute(string input, IGameConsole console) 
     {
         if (string.IsNullOrWhiteSpace(input)) 

@@ -18,6 +18,8 @@ public class VisionSensor : MonoBehaviour
 
     private void Update()
     {
+        if (linkedAi.Damageable.Dead) return;
+
         var visibleThisFrame = new HashSet<DetectableTarget>();
         DetectableTarget closestTarget = null;
         float closestDistanceSqr = float.MaxValue;
@@ -53,7 +55,7 @@ public class VisionSensor : MonoBehaviour
                 continue;
             }
             RaycastHit hitInfo;
-            if(Physics.Raycast(linkedAi.EyeLocation.position, vectorToTarget.normalized, out hitInfo, linkedAi.VisionConeRange)) 
+            if(Physics.Raycast(linkedAi.EyeLocation.position, vectorToTarget.normalized, out hitInfo, linkedAi.VisionConeRange, DetectionMask, QueryTriggerInteraction.Ignore)) 
             {
                 bool canSee = hitInfo.collider.transform.root.gameObject == potentialTarget.gameObject;
 

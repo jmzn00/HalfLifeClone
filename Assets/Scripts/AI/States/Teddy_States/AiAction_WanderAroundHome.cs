@@ -8,12 +8,19 @@ public class AiAction_WanderAroundHome : AiAction
     public float moveTolerance = 0.2f;
     public float minWait = 1f;
     public float maxWait = 3f;
-    public override void Act(EnemyAi controller)
+    public override void OnEnter(EnemyAi controller)
     {
         NavMeshAgent agent = controller.Agent;
-        if (agent.pathPending) return;
+        if (agent.hasPath && !agent.pathPending && agent.remainingDistance > moveTolerance)
+        {
+            agent.ResetPath();
+        }
+    }
+    public override void Act(EnemyAi controller)
+    {
+        NavMeshAgent agent = controller.Agent;        
 
-        if(agent.remainingDistance <= moveTolerance) 
+        if (agent.remainingDistance <= moveTolerance) 
         {
             Vector2 rand = Random.insideUnitCircle * patrolRadius;
             Vector3 candidate = controller.transform.position + new Vector3(rand.x, 0f, rand.y);

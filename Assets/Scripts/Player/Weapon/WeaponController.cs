@@ -76,7 +76,6 @@ public class WeaponController : MonoBehaviour
         GameServices.Input.Actions.Player.Reload.performed += ctx => Reload();
 
         Pool = GameServices.Pool;
-        GameServices.WeaponController = this;
     }
     private void OnDestroy()
     {
@@ -189,6 +188,7 @@ public class WeaponController : MonoBehaviour
         {            
             if (weaponRuntimes[i].weaponData.ammoType == type) 
             {
+                Debug.Log("Added Ammo: " + amount + " To " + weaponRuntimes[i].weaponData.weaponName);
                 weaponRuntimes[i].ammoInReserve += amount;
                 OnAmmoChanged?.Invoke(currentWeaponRuntime);
                 break;
@@ -238,6 +238,7 @@ public class WeaponController : MonoBehaviour
 
             // will hold referenceces to positions on the weapon mesh, e.g. muzzle point 
             WeaponView weaponView = weaponInstance.GetComponent<WeaponView>();
+            Debug.LogError("weaponView is null on: " + data.weaponName);
 
 
             // spawn the Vfx
@@ -372,6 +373,7 @@ public class WeaponController : MonoBehaviour
                     baseDamage = currentWeaponRuntime.weaponData.baseDamage,
                     hitbox = hitbox.hitboxType
                 });
+                GameServices.HitScript.Shoot(hit.point);
             }
             trailEnd = hit.point;
         }

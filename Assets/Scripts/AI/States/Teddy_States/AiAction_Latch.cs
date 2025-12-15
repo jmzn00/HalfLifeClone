@@ -7,6 +7,7 @@ public class AiAction_Latch : AiAction
     public float latchDuration = 3f;
     public Vector3 latchLocalPosition = new Vector3(0f, -1f,1f);
     public Quaternion latchLocalRotation = new Quaternion(0f, 180f, 0f, 1f);
+    public float cooldownAfterLatch = 2f;
 
     [Header("Grounding")]
     public LayerMask groundMask;
@@ -15,75 +16,87 @@ public class AiAction_Latch : AiAction
     [Header("Attack Settings")]
     public float damageAmount = 10f;
     public int attackAmount = 3;
-    public float timeBetweenAttacks = 1f;
 
+    private float timeBetweenAttacks;
     private int attacksPerformed = 0;
     private float attackTimer = 0f;
-    public override void Act(EnemyAi controller)
-    {
-        DetectableTarget target = controller.CurrentTarget;
-        if (target == null)
-            return;
 
-        if (controller.transform.parent == null)
+    
+
+    private float latchTimer = 0f;
+
+    public override void Act(EnemyAi controller)
+    {        
+        if (controller.transform.parent == null && !controller.isLatched)
         {
             StartLatch(controller);
         }
         else
+        {
             UpdateLatch(controller);
+        }
     }
-    public void StartLatch(EnemyAi c) 
+
+    private void StartLatch(EnemyAi c)
     {
+        c.isLatched = true;
+        c.isAttacking = true;
+
         c.transform.SetParent(Camera.main.transform);
         c.transform.localPosition = latchLocalPosition;
         c.transform.localRotation = latchLocalRotation;
         c.ToggleColliders(false);
-        c.isAttacking = true;
-        c.isLatched = true;
-        c.attackCooldownTimer = latchDuration;
+        
+        
 
+        timeBetweenAttacks = latchDuration / attackAmount;
+        latchTimer = latchDuration;
         attacksPerformed = 0;
         attackTimer = 0f;
 
-        if(c.Agent != null)
+        c.SetAnimTrigger("Latch");
+
+        if (c.Agent != null)
             c.Agent.enabled = false;
     }
-    public void UpdateLatch(EnemyAi c) 
+
+    private void UpdateLatch(EnemyAi c)
     {
-        if (c.attackCooldownTimer > 0f) 
+        attackTimer += Time.deltaTime;
+        if (attackTimer >= timeBetweenAttacks && attacksPerformed < attackAmount)
         {
-            while (attackTimer >= timeBetweenAttacks && attacksPerformed < attackAmount) 
+            GameServices.Player.Health.ApplyHit(new HitInfo 
             {
-                GameServices.PlayerHealth.ApplyHit(new HitInfo()
-                {
-                    baseDamage = damageAmount,
-                });
-                attackTimer = 0f;
-            }
-            attackTimer += Time.deltaTime;
-            return;
+                baseDamage = damageAmount
+            });
+            attacksPerformed++;
+            attackTimer = 0f;
         }
-        c.SetAnimTrigger("Latch");
-        EndLatch(c);
+      
+        latchTimer -= Time.deltaTime;
+        if (latchTimer <= 0f)
+        {
+            EndLatch(c);
+        }
     }
-    private void EndLatch(EnemyAi c) 
+
+    private void EndLatch(EnemyAi c)
     {
         c.transform.SetParent(null);
         c.ToggleColliders(true);
 
-        if(c.Agent != null) 
+        if (c.Agent != null)
         {
             c.Agent.enabled = true;
 
             if (NavMesh.SamplePosition(c.transform.position, out NavMeshHit navHit, 1.0f, NavMesh.AllAreas))
-            {
                 c.Agent.Warp(navHit.position);
-            }
             else
-            {
                 c.Agent.Warp(c.transform.position);
-            }
         }
+
+        c.attackCooldownTimer = cooldownAfterLatch;
+
         c.isAttacking = false;
         c.isLatched = false;
     }
