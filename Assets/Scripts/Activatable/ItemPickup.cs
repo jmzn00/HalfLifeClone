@@ -10,6 +10,7 @@ public class ItemPickup : MonoBehaviour
     [Header("Item Bobbing")]
     [SerializeField] private float bobSpeed = 2f;
     [SerializeField] private float bobHeight = 1f;
+    [SerializeField] private float spinSpeed = 1f;
 
     private GameObject meshInstance;
     private Vector3 startPos;
@@ -23,6 +24,8 @@ public class ItemPickup : MonoBehaviour
         meshInstance.transform.localPosition = Vector3.zero;
         meshInstance.transform.localRotation = Quaternion.identity;
         meshInstance.transform.localScale = new Vector3(2, 2, 2);
+
+        startPos = meshInstance.transform.localPosition;
     }
 
     private void Update()
@@ -31,6 +34,8 @@ public class ItemPickup : MonoBehaviour
 
         float yOffset = Mathf.Sin(Time.time * bobSpeed) * bobHeight;
         meshInstance.transform.localPosition = startPos + new Vector3(0, yOffset, 0);
+
+        meshInstance.transform.Rotate(Vector3.up, spinSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)

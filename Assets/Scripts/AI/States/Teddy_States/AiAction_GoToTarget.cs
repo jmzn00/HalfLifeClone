@@ -5,18 +5,12 @@ namespace Assets.Scripts.AI.States.Teddy_States
     [CreateAssetMenu(menuName = "Ai/Actions/GoToTarget")]
     public class AiAction_GoToTarget : AiAction
     {
-        public AiAudio audio;
 
         public float minDistance = 1f;
         public override void OnEnter(EnemyAi controller)
-        {
-            if(audio != null) 
-            {
-                controller.ClipTimer = 0f;
-                controller.NextDelay = Random.Range(audio.delayRange.x, audio.delayRange.y);
-            }            
-            //controller.ClipTimer = 0f;
-            //controller.NextDelay = Random.Range(delayRange.x, delayRange.y);
+        {   
+            if(AiAudio)
+                AiAudio.OnEnter(controller);
         }
         public override void Act(EnemyAi controller)
         {
@@ -34,10 +28,9 @@ namespace Assets.Scripts.AI.States.Teddy_States
                     controller.Agent.ResetPath();
                 }
                 
-            }
-            
-            if(audio)
-                audio.UpdateAudio(controller);            
+            }            
+            if(AiAudio)
+                AiAudio.UpdateAudio(controller);            
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Assets.Scripts.AI.States.Teddy_States
     {
         public override void OnEnter(EnemyAi controller)
         {
-            controller.SetAnimTrigger("MountedIdle");
+            controller.SetAnimTrigger("Mount");
             StartMount(controller);
         }
         public override void Act(EnemyAi controller) 

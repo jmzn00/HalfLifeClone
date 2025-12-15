@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0fac5296773c64eaf8ca69f03cdd41, type: 3}
   m_Name: Teddy_Wander
   m_EditorClassIdentifier: Assembly-CSharp::AiAction_WanderAroundHome
+  AiAudio: {fileID: 11400000, guid: 983bcbaeeee3a9c4faf7797b4d4e2a37, type: 2}
   patrolRadius: 5
   moveTolerance: 0.2
   minWait: 1
   maxWait: 3
-  audio: {fileID: 11400000, guid: faef81c6d3f3a0d4e862a6034107f25e, type: 2}

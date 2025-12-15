@@ -101,5 +101,6 @@ MonoBehaviour:
   meshSpawnPoint: {fileID: 7933198124636544414}
   destroyOnPickup: 1
   itemDef: {fileID: 11400000, guid: 00d4e8a2d2711ec4aab88a5932ca8289, type: 2}
-  bobSpeed: 2
-  bobHeight: 1
+  bobSpeed: 0.5
+  bobHeight: 0.5
+  spinSpeed: 100

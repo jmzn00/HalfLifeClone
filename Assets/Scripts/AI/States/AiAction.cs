@@ -1,10 +1,20 @@
+using Assets.Scripts.AI;
 using UnityEngine;
 
 public abstract class AiAction : ScriptableObject 
 {
+    public AiAudio AiAudio;
     public abstract void Act(EnemyAi controller);   
-    public virtual void OnEnter(EnemyAi controller) { }
-    public virtual void OnExit(EnemyAi controller) { }
+    public virtual void OnEnter(EnemyAi controller) 
+    {
+        if (AiAudio)
+            AiAudio.OnEnter(controller);
+    }
+    public virtual void OnExit(EnemyAi controller) 
+    {
+        if (AiAudio)
+            AiAudio.OnExit(controller);
+    }
 }
 public abstract class AiTransition : ScriptableObject
 {

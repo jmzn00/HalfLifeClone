@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0fac5296773c64eaf8ca69f03cdd41, type: 3}
   m_Name: BossTeddy_Wander
   m_EditorClassIdentifier: Assembly-CSharp::AiAction_WanderAroundHome
+  AiAudio: {fileID: 11400000, guid: 4b6720e25445eef46be1583ecf529ebc, type: 2}
   patrolRadius: 10
   moveTolerance: 0.2
   minWait: 2
   maxWait: 5
-  audio: {fileID: 11400000, guid: ddab49841fe9de344880c991b5e4151f, type: 2}

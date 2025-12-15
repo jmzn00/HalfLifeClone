@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2955cfac71930a14fa9254ab4f4028e5, type: 3}
   m_Name: BossTeddy_StompAttack
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.AI.BossTeddy.Actions.AiAction_GroundStomp
+  AiAudio: {fileID: 11400000, guid: a58e1ffef2123b346b45a7beef9fdee6, type: 2}
   stompRadius: 5
   stompDamage: 15
   hitMask:
@@ -21,3 +22,4 @@ MonoBehaviour:
   windupTime: 0.5
   cooldownTime: 1
   drawGizmoz: 1
+  stompClip: {fileID: 0}

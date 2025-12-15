@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b36d808f2278e54ab4552de42809acc, type: 3}
+  m_Name: Teddy_WalkSound
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.AI.AiAudio_PlayContinuousDelayed
+  audioPriority: 3
+  audioClips:
+  - {fileID: 8300000, guid: c3e1cb05a46a55349aba2e008ba221ba, type: 3}
+  - {fileID: 8300000, guid: 3c622c8371f594c4987d1bd60260a3aa, type: 3}
+  - {fileID: 8300000, guid: e1915540a9746e947ac348d2934530a3, type: 3}
+  - {fileID: 8300000, guid: ca8688f823ea17e40bbb66cb49c0d0f1, type: 3}
+  - {fileID: 8300000, guid: fbc1ec6a02b531042849b23e8e5a04fc, type: 3}
+  - {fileID: 8300000, guid: d4e5bb0f6a5b5e44ba9770beecee8488, type: 3}
+  - {fileID: 8300000, guid: d9d9803c10a922f47b067bf299666553, type: 3}
+  - {fileID: 8300000, guid: 9da22d708d10870418dc3d90630fa8bc, type: 3}
+  delayRange: {x: 2, y: 4}
