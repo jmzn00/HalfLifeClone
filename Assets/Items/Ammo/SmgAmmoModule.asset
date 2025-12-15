@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d2efb2df8cc3e54dadca34f6d54532e, type: 3}
   m_Name: SmgAmmoModule
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Item.AmmoModule
-  type: 1
+  type: 2
   amount: 60
