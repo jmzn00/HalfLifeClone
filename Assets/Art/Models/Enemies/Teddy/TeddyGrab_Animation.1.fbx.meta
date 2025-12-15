@@ -63,8 +63,8 @@ ModelImporter:
       name: Teddy.Walk
       takeName: TeddyBones|RootAction
       internalID: 5367541012646747803
-      firstFrame: 222
-      lastFrame: 261
+      firstFrame: 266
+      lastFrame: 316
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -92,8 +92,8 @@ ModelImporter:
       name: Teddy.Jump
       takeName: TeddyBones|RootAction
       internalID: 2208939189296242795
-      firstFrame: 286
-      lastFrame: 374
+      firstFrame: 335
+      lastFrame: 418
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -121,8 +121,8 @@ ModelImporter:
       name: Teddy.Attack
       takeName: TeddyBones|RootAction
       internalID: 3460454892161284321
-      firstFrame: 423
-      lastFrame: 478
+      firstFrame: 449
+      lastFrame: 514
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -150,8 +150,8 @@ ModelImporter:
       name: Teddy.Killed
       takeName: TeddyBones|RootAction
       internalID: 2192704860171814778
-      firstFrame: 481
-      lastFrame: 524
+      firstFrame: 543
+      lastFrame: 571
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -179,8 +179,8 @@ ModelImporter:
       name: Teddy.IdleOnDuck
       takeName: TeddyBones|RootAction
       internalID: 4512601439923273340
-      firstFrame: 577
-      lastFrame: 658
+      firstFrame: 626
+      lastFrame: 702
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -208,8 +208,8 @@ ModelImporter:
       name: Teddy.WalkOnDuck
       takeName: TeddyBones|RootAction
       internalID: -8913031136258854914
-      firstFrame: 692
-      lastFrame: 740
+      firstFrame: 744
+      lastFrame: 794
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -237,8 +237,8 @@ ModelImporter:
       name: Teddy.AttackOnDuck
       takeName: TeddyBones|RootAction
       internalID: 5101013811252414765
-      firstFrame: 746
-      lastFrame: 773
+      firstFrame: 801
+      lastFrame: 824
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
