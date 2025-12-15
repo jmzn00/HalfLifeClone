@@ -18,7 +18,7 @@ namespace Assets.Scripts.AI
         }
         public override void OnExit(EnemyAi controller)
         {
-            throw new System.NotImplementedException();
+            
         }
         public override void UpdateAudio(EnemyAi controller)
         {
