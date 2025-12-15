@@ -75,7 +75,7 @@ public class DebugConsole : MonoBehaviour, IGameConsole
             inputField.Select();
             inputField.ActivateInputField();
         }
-        GameServices.Input.TogglePlayerInput(_consoleOpen);
+        GameServices.Input.TogglePlayerInput(!_consoleOpen);
     }
     private void HandleAutocomplete() 
     {

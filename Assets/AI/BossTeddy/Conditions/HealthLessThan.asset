@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cabbd561721a5ab4dbe3037f8e5722a6, type: 3}
   m_Name: HealthLessThan
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.AI.States.Conditions.Condition_HealthLessThan
-  amount: 500
+  amount: 1000

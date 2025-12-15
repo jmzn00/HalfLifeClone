@@ -14,11 +14,11 @@ public class DetectableTarget : MonoBehaviour
     public EnemyAi LinkedAi => linkedAi;    
     private void OnEnable()
     {
-        GameServices.DetectableTargetManager.RegisterDetectable(this);
+        GameServices.DetectableTargetManager?.RegisterDetectable(this);
     }
     private void OnDisable()
     {
-        GameServices.DetectableTargetManager.UnregisterDetectable(this);
+        GameServices.DetectableTargetManager?.UnregisterDetectable(this);
     }
     private void Awake()
     {

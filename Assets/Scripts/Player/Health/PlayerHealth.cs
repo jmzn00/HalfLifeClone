@@ -31,8 +31,8 @@ public class PlayerHealth : MonoBehaviour, IDamageabale
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
         OnHealthChanged?.Invoke(currentHealth);
 
-        if(currentHealth <= 0f)
-            GameServices.GameManager.RestartGame();
+        if (currentHealth <= 0f)
+            GameServices.GameManager.GameEnded(true, false);
     }
 
     private void Update()

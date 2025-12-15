@@ -1,4 +1,6 @@
+using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -80,11 +82,22 @@ public class EnemyAi : MonoBehaviour, IActivatable
     }
     public virtual GameObject Spawn(GameObject prefab, Vector3 pos, Quaternion rot) 
     {
-        return Instantiate(prefab, pos, rot);
+        GameObject go = Instantiate(prefab, pos, rot);
+        EnemyAi minion = go.GetComponent<EnemyAi>();
+        if(minion)
+            AddMinion(minion);
+        return go;
     }
+    public EnemyAi mountedAi = null;
     public void SetInvulnerable(bool value) 
     {
         Damageable.SetInveulnerable(value);
+    }
+    public List<EnemyAi> minions = new();
+    public virtual void AddMinion(EnemyAi ai) 
+    {
+        if(ai != null)
+            minions.Add(ai);
     }
     public virtual void Update()
     {        
@@ -124,6 +137,16 @@ public class EnemyAi : MonoBehaviour, IActivatable
 
         if (activateOnAwake)
             Activate();
+
+        GameServices.AiManager.Register(this);
+    }
+    private void OnEnable()
+    {
+        GameServices.AiManager?.Register(this);
+    }
+    private void OnDisable()
+    {
+        GameServices.AiManager?.Unregister(this);
     }
     public virtual void SetAnimTrigger(string t) 
     {

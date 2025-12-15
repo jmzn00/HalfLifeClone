@@ -66,15 +66,55 @@ public class MovementController : MonoBehaviour
 
     [SerializeField] private float StickDegPerSec = 240f;
 
-    private Camera _camera; 
+    private Camera _camera;
+
+    [Header("Crouch")]
+    [SerializeField] private bool holdToCrouch = true;
+    [SerializeField] private float crouchHeightMultiplier = 0.55f;
+    [SerializeField] private float crouchSpeedMultipler = 0.75f;
+    [SerializeField] private float crouchTransitionSpeed = 14f;
+    [SerializeField] private float standCamHeight = 1.75f;
+    [SerializeField] private float crouchCamHeight = 1.1f;
+    [SerializeField] private float camHeightSmooth = 18f;
+
+
+    [SerializeField] private CapsuleCollider capsule;
+    private float _standCapsuleHeight;
+    private Vector3 _standCapsuleCenter;
+    private bool _crouchHeld;
+    private bool _isCrouching;
+
+    private float _currentCamHeight;
+    private float _targetCamHeight;
+
+    [Header("Hand Crouch")]
+    [SerializeField] private float standHandLocalY = 1.5f;
+    [SerializeField] private float crouchHandLocalY = 1.05f;
+    [SerializeField] private float handHeightSmooth = 18f;
+
+    private float _currentHandY;
+    private float _targetHandY;
 
     private void Awake()
     {
         SubscribeInputs();
         _camera = Camera.main;
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        _standCapsuleHeight = capsule.height;
+        _standCapsuleCenter = capsule.center;
+
+        _currentCamHeight = standCamHeight;
+        _targetCamHeight = standCamHeight;
+
+        _currentHandY = standHandLocalY;
+        _targetHandY = standHandLocalY;
+
+        // Force default instantly
+        var p = handTransform.localPosition;
+        p.y = standHandLocalY;
+        handTransform.localPosition = p;
+
+        GameServices.Input.TogglePlayerInput(true);
     }
 
     private void Start()
@@ -89,7 +129,7 @@ public class MovementController : MonoBehaviour
         _rb.interpolation = RigidbodyInterpolation.Interpolate;
 
         _rb.useGravity = false;
-
+         handStartPos = handTransform.localPosition;
         //GameServices.Cam.SetFpsCamera(this);
     }
 
@@ -106,6 +146,10 @@ public class MovementController : MonoBehaviour
 
         GameServices.Input.Actions.Player.Jump.performed += ctx => jumpPending = true;
         GameServices.Input.Actions.Player.Jump.canceled += ctx => jumpPending = false;
+
+        GameServices.Input.Actions.Player.Crouch.performed += ctx => _crouchHeld = true;
+        GameServices.Input.Actions.Player.Crouch.canceled += ctx => _crouchHeld = false;
+
     }
 
     private void GetMovementInput()
@@ -142,31 +186,77 @@ public class MovementController : MonoBehaviour
         }
     }
     #endregion
-
+    private Vector3 handStartPos;
     private void Update()
     {
         GetLookInput();
 
         HandleCamera();
+        HandleCrouch(Time.deltaTime);
+        HandleHands(Time.deltaTime);
 
         handTransform.localRotation = Quaternion.Euler(_pitch, _yaw, 0);    
 
         GetMovementInput();
     }
-    
-    private void HandleCamera() 
+    private void HandleCrouch(float dt) 
+    {
+        bool wantsCrouch = holdToCrouch && _crouchHeld;
+
+        if (!wantsCrouch && _isCrouching && !CanStandUp())
+            wantsCrouch = true;
+
+        _isCrouching = wantsCrouch;
+
+        float targetHeight = _isCrouching
+            ? _standCapsuleHeight * crouchHeightMultiplier
+            : _standCapsuleHeight;
+
+        capsule.height = Mathf.Lerp(
+            capsule.height,
+            targetHeight,
+            dt * crouchTransitionSpeed
+        );
+
+        // keep feet planted
+        float heightDelta = capsule.height - _standCapsuleHeight;
+        capsule.center = _standCapsuleCenter + Vector3.up * (heightDelta * 0.5f);
+
+        // tell camera where it should be
+        _targetCamHeight = _isCrouching ? crouchCamHeight : standCamHeight;
+        _targetHandY = _isCrouching ? crouchHandLocalY : standHandLocalY;
+
+    }
+    private void HandleHands(float dt)
+    {
+        _currentHandY = Mathf.Lerp(_currentHandY, _targetHandY, dt * handHeightSmooth);
+
+        var p = handTransform.localPosition;
+        p.y = _currentHandY;
+        handTransform.localPosition = p;
+    }
+    private bool CanStandUp() 
+    {
+        return true;
+    }
+    private void HandleCamera()
     {
         float x = _pitch;
         float y = _yaw;
-        float targetZ = _moveInput.x * -camTiltAmount;
 
+        float targetZ = _moveInput.x * -camTiltAmount;
         _currentTiltZ = Mathf.Lerp(_currentTiltZ, targetZ, Time.deltaTime * tiltSmoothSpeed);
 
-        _camera.transform.localRotation = Quaternion.Euler(x, y, _currentTiltZ);
-        _camera.transform.position = transform.position + new Vector3(0, 1.75f, 0f);
+        // Smooth ONLY the offset (not the follow)
+        _currentCamHeight = Mathf.Lerp(_currentCamHeight, _targetCamHeight, Time.deltaTime * camHeightSmooth);
 
-        
+        _camera.transform.localRotation = Quaternion.Euler(x, y, _currentTiltZ);
+
+        // Hard follow = no jitter
+        _camera.transform.position = transform.position + new Vector3(0f, _currentCamHeight, 0f);
     }
+
+    Vector3 camPos;
 
     private void FixedUpdate()
     {
@@ -203,7 +293,7 @@ public class MovementController : MonoBehaviour
         {
             ApplyGravity();
             AirAccelerate();
-        }
+        }        
         _rb.linearVelocity = _velocity;
         //_rb.MoveRotation(Quaternion.Euler(0f, _yaw, 0f));
 

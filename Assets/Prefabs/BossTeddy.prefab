@@ -686,7 +686,10 @@ MonoBehaviour:
   NextDelay: 0
   leapHasHit: 0
   activateOnAwake: 0
+  minions: []
   stateText: {fileID: 8124691113480547899}
+  linePrefab: {fileID: 0}
+  hideLinesWhenNoMinions: 1
   colliders:
   - {fileID: 3369199676671617525}
   - {fileID: 6459898445468818425}
@@ -1914,7 +1917,7 @@ Transform:
   m_GameObject: {fileID: 8239559123467271353}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.5, z: 0}
+  m_LocalPosition: {x: 0, y: 6.25, z: 1.3406982}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

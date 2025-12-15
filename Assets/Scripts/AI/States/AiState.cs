@@ -16,17 +16,21 @@ public class AiState : ScriptableObject
 
     public virtual void OnEnter(EnemyAi controller) 
     {
-        foreach (var a in actions)
-            a?.OnEnter(controller);
-        foreach (var s in settings)
-            s?.OnEnter(controller);
+        if(actions != null)
+            foreach (var a in actions)
+                a?.OnEnter(controller);
+        if (settings != null && settings.Length > 0)
+            foreach (var s in settings)
+                s?.OnEnter(controller);
     }
     public virtual void OnExit(EnemyAi controller) 
     {
-        foreach(var a in actions)        
-            a?.OnExit(controller);
-        foreach(var s in settings)
-            s?.OnExit(controller);
+        if (actions != null)
+            foreach (var a in actions)        
+                a?.OnExit(controller);
+        if (settings != null && settings.Length > 0)
+            foreach (var s in settings)
+                s?.OnExit(controller);
         
     }
     public void UpdateState(EnemyAi controller) 
