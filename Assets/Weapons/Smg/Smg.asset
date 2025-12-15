@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   mesh: {fileID: 7776234153915593079, guid: d59d40ce0de3afd0a99eafc75d9aa785, type: 3}
   worldModel: {fileID: 5512162204467463596, guid: 1c453de3555c01047a723558647eea98, type: 3}
-  weaponEffects: {fileID: 11400000, guid: d61e46af9dbbc4046a17d68fcf6f3e20, type: 2}
+  weaponEffects: {fileID: 11400000, guid: 86579fa53a4bcc042bab902a89238f00, type: 2}
   weaponType: 0
   isUnlocked: 0
   weaponName: Smg
-  weaponIcon: {fileID: 21300000, guid: f97a1771aba6c6dddbb29b21c312b81b, type: 3}
+  weaponIcon: {fileID: 21300000, guid: 697522564b2e8b34499eba673d8d112b, type: 3}
   weaponColumn: 3
   rowInColumn: 0
   handAnimationSet: {fileID: 11400000, guid: dc30209f2d3052b4caf03e5230619009, type: 2}

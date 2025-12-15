@@ -28,6 +28,9 @@ public class AudioManager : MonoBehaviour
 
 
     [SerializeField] private AudioSource audioSourcePrefab;
+    [SerializeField] private AudioClip baseMusicClip;
+    [SerializeField] private AudioClip battleMusicClip;
+    [SerializeField] private AudioSource musicSource;
     [SerializeField] private int initialPoolSize = 8;
 
     private readonly List<AudioSource> _aiSources = new();
@@ -58,6 +61,47 @@ public class AudioManager : MonoBehaviour
                 _activeAiSounds.RemoveAt(i);
             }
         }
+        if (transitionMusicDown) 
+        {
+            musicSource.volume = Mathf.Max(0f, musicSource.volume - musicTransitionSpeed * Time.deltaTime);
+
+            if (musicSource.volume <= 0f) 
+            {
+                transitionMusicDown = false;
+                transitionMusicUp = true;
+                musicSource.clip = pendingClip;
+            }
+        }
+        if (transitionMusicUp) 
+        {
+            musicSource.volume = Mathf.Min(1f, musicSource.volume + musicTransitionSpeed * Time.deltaTime);
+            if (musicSource.volume >= 1f) 
+            {
+                transitionMusicUp = false;
+            }
+        }
+    }
+    [SerializeField] private float musicTransitionSpeed = 1f;
+    bool transitionMusicDown = false;
+    bool transitionMusicUp = false;
+    AudioClip pendingClip = null;
+    public void PlayMusicClip(AudioClip clip) 
+    {
+        pendingClip = clip;
+
+        if (!musicSource.isPlaying)
+        {
+            musicSource.volume = 0f;
+            musicSource.clip = pendingClip;
+            musicSource.Play();
+            pendingClip = null;
+            transitionMusicDown = false;
+            transitionMusicUp = true;
+            return;
+        }
+
+        transitionMusicDown = true;
+        transitionMusicUp = false;
     }
     public void SendRequest(AudioRequest r) 
     {

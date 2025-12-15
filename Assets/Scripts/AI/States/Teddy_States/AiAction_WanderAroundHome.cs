@@ -18,6 +18,8 @@ public class AiAction_WanderAroundHome : AiAction
         }
         if(AiAudio)
             AiAudio.OnEnter(controller);
+
+        controller.SetAnimTrigger("Walk");
     }
     public override void Act(EnemyAi controller)
     {
@@ -32,8 +34,7 @@ public class AiAction_WanderAroundHome : AiAction
             {
                 agent.SetDestination(hit.position);
             }
-        }
-        controller.SetAnimTrigger("Walk");
+        }        
 
         if(AiAudio)
             AiAudio.UpdateAudio(controller);

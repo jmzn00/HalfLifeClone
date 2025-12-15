@@ -7,14 +7,10 @@ public class ActivatableDoor : MonoBehaviour, IActivatable
     [SerializeField] private Animator doorAnimator;
     [SerializeField] private NavMeshObstacle NavMeshObstacle;
     [SerializeField] private bool activateOnAwake = false;
+    [SerializeField] private AudioClip openClip;
+    [SerializeField] private AudioSource audioSource;
 
     private bool isOpen = false;
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.V))
-            Deactivate();
-    }
 
     private void Awake()
     {
@@ -28,6 +24,7 @@ public class ActivatableDoor : MonoBehaviour, IActivatable
         if (!isOpen) 
         {            
             doorAnimator.SetTrigger("Open");
+            audioSource.PlayOneShot(openClip);
             NavMeshObstacle.enabled = false;
             isOpen = true;
         }                           
@@ -37,6 +34,7 @@ public class ActivatableDoor : MonoBehaviour, IActivatable
         if (isOpen) 
         {
             doorAnimator.SetTrigger("Close");
+            audioSource.PlayOneShot(openClip);
             NavMeshObstacle.enabled = true;
             isOpen = false;
         }        

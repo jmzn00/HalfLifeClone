@@ -29,7 +29,7 @@ namespace Assets.Scripts.AI.BossTeddy.Actions
             _attackStartTime = Time.time;
             _damageDone = false;
 
-            controller.SetAnimTrigger("Attack");
+            controller.SetAnimTrigger("Attack");            
         }
         public override void OnExit(EnemyAi controller)
         {
