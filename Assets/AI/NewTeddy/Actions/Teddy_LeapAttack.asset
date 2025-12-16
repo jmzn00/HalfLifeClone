@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbecc88e5549174f848dbf870af4f07, type: 3}
   m_Name: Teddy_LeapAttack
   m_EditorClassIdentifier: Assembly-CSharp::AiAction_LeapAttack
+  AiAudio: {fileID: 11400000, guid: 71e0574d23cd39644b0e641873fbcf85, type: 2}
   attackRange: 5
   apexHeight: 2
   maxHorizontalSpeed: 15

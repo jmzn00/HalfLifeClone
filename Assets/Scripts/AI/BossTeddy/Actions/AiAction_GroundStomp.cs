@@ -15,15 +15,11 @@ namespace Assets.Scripts.AI.BossTeddy.Actions
         public float windupTime = 0.6f;
         public float cooldownTime = 1.5f;
 
-        [Header("Debug")]
-        public bool drawGizmoz = true;
-
         private float _attackStartTime;
         private bool _damageDone;
 
         public override void OnEnter(EnemyAi controller)
-        {
-            base.OnEnter(controller);            
+        {         
             controller.isAttacking = true;
 
             _attackStartTime = Time.time;
@@ -52,6 +48,10 @@ namespace Assets.Scripts.AI.BossTeddy.Actions
         }
         private void DoStompDamage(EnemyAi controller) 
         {
+
+            if (AiAudio)
+                AiAudio.OnEnter(controller);
+
             Vector3 center = controller.transform.position;
 
             Collider[] hits = Physics.OverlapSphere(
@@ -71,14 +71,5 @@ namespace Assets.Scripts.AI.BossTeddy.Actions
                     });
             }
         }
-
-#if UNITY_EDITOR
-        public void DrawGizmos(EnemyAi controller)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(controller.transform.position, stompRadius);
-        }
-#endif
-
     }
 }

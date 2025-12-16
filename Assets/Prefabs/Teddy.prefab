@@ -678,6 +678,7 @@ MonoBehaviour:
   attackVelocity: {x: 0, y: 0, z: 0}
   attackCooldownTimer: 0
   attackAirTime: 0
+  summonCooldownTimer: 0
   isLatched: 0
   isMounted: 0
   hasMountedTarget: 0
@@ -686,6 +687,8 @@ MonoBehaviour:
   NextDelay: 0
   leapHasHit: 0
   activateOnAwake: 0
+  mountedAi: {fileID: 0}
+  minions: []
   stateText: {fileID: 4120146340830475053}
   hitbox: {fileID: 1486026090281491064}
 --- !u!114 &4619458254107161022
@@ -3026,7 +3029,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5754359734499136423
 RectTransform:
   m_ObjectHideFlags: 0

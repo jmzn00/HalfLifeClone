@@ -24,7 +24,8 @@ public class ActivatableDoor : MonoBehaviour, IActivatable
         if (!isOpen) 
         {            
             doorAnimator.SetTrigger("Open");
-            audioSource.PlayOneShot(openClip);
+            if(audioSource && openClip)
+                audioSource.PlayOneShot(openClip);
             NavMeshObstacle.enabled = false;
             isOpen = true;
         }                           
@@ -34,7 +35,8 @@ public class ActivatableDoor : MonoBehaviour, IActivatable
         if (isOpen) 
         {
             doorAnimator.SetTrigger("Close");
-            audioSource.PlayOneShot(openClip);
+            if (audioSource && openClip)
+                audioSource.PlayOneShot(openClip);
             NavMeshObstacle.enabled = true;
             isOpen = false;
         }        

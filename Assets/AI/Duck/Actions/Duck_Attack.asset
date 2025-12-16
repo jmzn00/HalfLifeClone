@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1a9eb5b6d9d8c74299d54f7a155636b, type: 3}
   m_Name: Duck_Attack
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.AI.Duck.Actions.AiAction_Duck_Attack
+  AiAudio: {fileID: 11400000, guid: 2cb62ddf5e2ae7c4c861d0afdcc04db6, type: 2}
   attackDamage: 15
   attackCooldown: 2

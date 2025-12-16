@@ -29,7 +29,6 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] private AudioSource audioSourcePrefab;
     [SerializeField] private AudioClip baseMusicClip;
-    [SerializeField] private AudioClip battleMusicClip;
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private int initialPoolSize = 8;
 
@@ -46,6 +45,8 @@ public class AudioManager : MonoBehaviour
             src.playOnAwake = false;
             _aiSources.Add(src);
         }
+        if(baseMusicClip)
+            PlayMusicClip(baseMusicClip);
     }
     private void OnDestroy()
     {
@@ -69,7 +70,9 @@ public class AudioManager : MonoBehaviour
             {
                 transitionMusicDown = false;
                 transitionMusicUp = true;
+                musicSource.Stop();
                 musicSource.clip = pendingClip;
+                musicSource.Play();
             }
         }
         if (transitionMusicUp) 
@@ -91,7 +94,7 @@ public class AudioManager : MonoBehaviour
 
         if (!musicSource.isPlaying)
         {
-            musicSource.volume = 0f;
+            musicSource.volume = 1f;
             musicSource.clip = pendingClip;
             musicSource.Play();
             pendingClip = null;

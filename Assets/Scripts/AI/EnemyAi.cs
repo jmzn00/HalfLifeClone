@@ -56,6 +56,8 @@ public class EnemyAi : MonoBehaviour, IActivatable
 
     [SerializeField] private bool activateOnAwake = false;
 
+    [SerializeField] private EnemyAi mountableAi;
+
     public void Activate() 
     {
         Activated = true;
@@ -139,6 +141,9 @@ public class EnemyAi : MonoBehaviour, IActivatable
             Activate();
 
         GameServices.AiManager.Register(this);
+
+        if (mountableAi)
+            mountedAi = mountableAi;
     }
     private void OnEnable()
     {

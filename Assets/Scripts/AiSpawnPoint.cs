@@ -1,4 +1,8 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
+
+
 
 public class AiSpawnPoint : MonoBehaviour, IActivatable
 {
@@ -6,8 +10,13 @@ public class AiSpawnPoint : MonoBehaviour, IActivatable
     [SerializeField] private int amountToSpawn = 3;
 
     [SerializeField] private AttackSequenceActivator attackSequence;
+
+    [SerializeField] private List<Summonable> summonables;
+
+    public bool spawned { get; private set; } = false;
     public void Activate() 
     {
+        /*
         for (int i = 0; i < amountToSpawn; i++) 
         {
             GameObject go = Instantiate(aiPrefab, transform.position, transform.rotation);
@@ -20,6 +29,24 @@ public class AiSpawnPoint : MonoBehaviour, IActivatable
             }
             
         }
+        */
+        foreach (var item in summonables) 
+        {
+            if (item.amount <= 0) continue;
+            if (item.prefab == null) continue;
+
+            for (int i = 0; i < item.amount; i++) 
+            {
+                GameObject go = Instantiate(item.prefab, transform.position, transform.rotation);
+                if (attackSequence) 
+                {
+                    EnemyAi ai = go.GetComponent<EnemyAi>();
+                    if(ai != null)
+                        attackSequence.AddEnemy(ai);
+                }
+            }
+        }
+        spawned = true;
     }
     public void Deactivate() 
     {

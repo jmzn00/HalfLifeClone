@@ -1,22 +1,24 @@
 ﻿using System.Collections;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Assets.Scripts.AI.States.Teddy_States
 {
     [CreateAssetMenu(menuName = "Ai/Actions/Mount")]
     public class AiAction_Mount : AiAction
     {
-        public override void OnEnter(EnemyAi controller)
+        public override void OnEnter(EnemyAi c)
         {
-            controller.SetAnimTrigger("Mount");
-            StartMount(controller);
+            c.AnimContoller.SetTrigger("Mount");
+            StartMount(c);
         }
         public override void Act(EnemyAi controller) 
         {
         
         }        
         private void StartMount(EnemyAi c) 
-        {
+        {            
             c.isMounted = true;
             c.CurrentTarget.LinkedAi.ToggleMounted(true);
 

@@ -8,6 +8,7 @@ namespace Assets.Scripts.AI.States.Conditions
     {
         public override bool CheckCondition(EnemyAi controller)
         {
+            Debug.Log("Has Mounted Ai" + controller.mountedAi != null);            
             return controller.mountedAi != null && controller.mountedAi.Damageable.Dead;
         }
     }
